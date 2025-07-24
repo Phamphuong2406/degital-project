@@ -14,6 +14,7 @@ namespace DigitalProject.Common.AutoMapper
         public MappingProfile() {
             CreateMap<User, UserDTO>().ReverseMap() ;//map User=> UserDTO
             CreateMap<UserRequestData, User>();
+            CreateMap<ContactRequest, GetRequestDTO>();
             CreateMap<ProjectDTO, Project>().ReverseMap();
             CreateMap<Project, GetProject>().ReverseMap();
             CreateMap<User, ClaimCreationData>();

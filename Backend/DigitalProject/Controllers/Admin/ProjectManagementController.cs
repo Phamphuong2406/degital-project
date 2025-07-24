@@ -21,6 +21,7 @@ namespace DigitalProject.Controllers.Admin
         {
             try
             {
+                
                 return Ok(_projectService.GetListProject());
             }
             catch (Exception ex)

@@ -103,12 +103,12 @@ namespace DigitalProject.Repositories.Implements
                         .Where(x => x.DisplayOnHeader == true)
                         .OrderBy(x => x.DisplayOrderOnHeader);
 
-            var totalRecords = query.Count();
+           
 
             var pagedData = query.Skip((pageNumber - 1) * pageSize)
                                  .Take(pageSize)
                                  .ToList();
-
+            var totalRecords = pagedData.Count();
             var data = _mapper.Map<List<ProjectOnHomeAndHeader>>(pagedData);
 
             return new PagingModel<ProjectOnHomeAndHeader>

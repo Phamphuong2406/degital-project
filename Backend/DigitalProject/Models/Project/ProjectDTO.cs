@@ -24,11 +24,9 @@ namespace DigitalProject.Models.Project
     }
     public class ProjectDTO
     {
-        [Required(ErrorMessage = "Bạn chưa điền tên dự án")]
-        [StringLength(50, ErrorMessage = "Tên dự án không vượt quá 50 ký tự")]
-        public string? ProjectName { get; set; }
-        public string? ProjectType { get; set; }
-        public IFormFile AvatarUrl { get; set; }
+        public string ProjectName { get; set; }
+        public string ProjectType { get; set; }
+        public IFormFile Avatar { get; set; }
         public string? ShortDescription { get; set; }
         public string? DetailedDescription { get; set; }
         public string? Architect { get; set; }
@@ -40,8 +38,7 @@ namespace DigitalProject.Models.Project
         public int? DisplayOrderOnHome { get; set; }
         public bool DisplayOnHeader { get; set; }
         public int? DisplayOrderOnHeader { get; set; }
-        public DateTime ExpirationTimeOnHeader { get; set; }
-        public int IdPoster { get; set; }
+        public DateTime? ExpirationTimeOnHeader { get; set; }
     }
     public class ProjectOnHomeAndHeader()
     {

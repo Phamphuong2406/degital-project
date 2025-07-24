@@ -12,9 +12,10 @@ namespace DigitalProject.Services.Implements
     {
         private readonly IProjectRepository _projectRepo;
         private readonly IMapper _mapper;
-        public ProjectService(IProjectRepository projectRepo)
+        public ProjectService(IProjectRepository projectRepo, IMapper mapper)
         {
             _projectRepo = projectRepo;
+            _mapper = mapper;
         }
         public List<Project> GetListProject()
         {
@@ -60,7 +61,7 @@ namespace DigitalProject.Services.Implements
                 var project = _mapper.Map<Project>(model);
                 project.IdPoster = currentUserId;
                 project.PostedTime = DateTime.Now;
-                project.AvatarUrl = UploadHandler.Upload(model.AvatarUrl);
+                project.AvatarUrl = UploadHandler.Upload(model.Avatar);
                 _projectRepo.CreateProject(project);
             }
             catch (Exception)
@@ -76,7 +77,7 @@ namespace DigitalProject.Services.Implements
                 var project = _projectRepo.FindById(projectId);
                 project.ProjectName = model.ProjectName;
                 project.ProjectType = model.ProjectType;
-                project.AvatarUrl = UploadHandler.Upload(model.AvatarUrl);
+                project.AvatarUrl = UploadHandler.Upload(model.Avatar);
                 project.ShortDescription = model.ShortDescription;
                 project.DetailedDescription = model.DetailedDescription;
                 project.Architect = model.Architect;
