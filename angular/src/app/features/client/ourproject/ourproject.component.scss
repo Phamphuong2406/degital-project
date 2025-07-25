@@ -1,0 +1,24 @@
+*{
+  margin: 0px;
+}
+
+.banner-about{
+  max-width: 1170px;
+  max-height:435px;
+  display: flex;
+  margin: 30px auto;
+  background-color: white;
+}
+.banner-text-about{
+  width: 400px;
+  height: 435px;
+  background-color: rgb(170, 164, 164);
+  font-size: 15px;
+}
+
+.banner-text-about h1{
+}
+.banner-about img{
+  width: 670px;
+  height: 435px;
+}

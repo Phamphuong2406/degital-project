@@ -1,0 +1,20 @@
+<div class="login-form">
+  <h1><b>Đăng nhập</b></h1>
+  <div class="form-group">
+    <!-- <input type="text" name="uname" class="form-control" [(ngModel)]="username" /> -->
+    <input placeholder="username" type="text" name="uname" class="form-control"
+    [(ngModel)]="username" />
+  </div>
+  <div class="form-group">
+    <input placeholder="password" type="password" name="pword" class="form-control"
+    [(ngModel)]="password" />
+  </div>
+  <input type="checkbox" name id>
+  <span>Отправляя заявку Вы соглашаетесь
+    с политикой
+    конфиденциальности</span>
+  <div class="btn-container">
+    <div class="error">{{ errorMsg }}</div>
+    <button class="btn btn-dark" (click)="login()">Login</button>
+  </div>
+</div>
