@@ -21,10 +21,12 @@ namespace DigitalProject.Common.AutoMapper
             CreateMap<Gallery, GetGalleryDTO>().ReverseMap(); 
             CreateMap<CreateRequestDTO, ContactRequest>();
             CreateMap<SettingDTO, Setting>().ReverseMap();
+            CreateMap<Setting, SettingOnHome>();
             CreateMap<Project, ProjectDetail>();
             CreateMap<Project, ShowOnOurProject>();
             CreateMap<Project, ProjectOnHomeAndHeader>();
             CreateMap<Gallery, ShowPhotoGallery>();
+          
         }
 
     }

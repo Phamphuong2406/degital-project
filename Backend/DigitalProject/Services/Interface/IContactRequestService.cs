@@ -11,7 +11,7 @@ namespace DigitalProject.Services.Interface
         ContactRequest? GetByContactRequestId(int requestId);
         PagingModel<GetRequestDTO> GetListContactRequestByKeyword(string? key, DateTime? requestDate, string? status, int pageNumber, int pageSize);
 
-        void AddContactRequest(CreateRequestDTO model, int currentUserId, string idAddress);
+        void AddContactRequest(CreateRequestDTO model, string idAddress);
         void UpdateContactRequest(UpdateRequestDTO model, int requestId);
         void UpdateResponseStatus(UpdateResponseStatusDTO model, int requestId, int respondentId);
         void DeleteContactRequest(int requestId);

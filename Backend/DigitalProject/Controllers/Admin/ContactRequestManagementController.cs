@@ -48,10 +48,9 @@ namespace DigitalProject.Controllers.Admin
         {
             try
             {
-                var claimsIdentity = this.User.Identity as ClaimsIdentity;
-                int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
+                
                 string idAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
-                _requestService.AddContactRequest(model, currentUserId,idAddress );
+                _requestService.AddContactRequest(model,idAddress );
                 return Ok("Thêm mới yêu cầu thành công ");
             }
             catch (Exception ex)

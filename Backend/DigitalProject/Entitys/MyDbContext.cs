@@ -178,6 +178,8 @@ namespace DigitalProject.Entitys
                 .HasMaxLength(255);
                 entity.Property(u => u.SettingType)
                 .HasMaxLength(100);
+                entity.Property(u => u.Discription)
+                .HasMaxLength (255);
             } );
         }
     }

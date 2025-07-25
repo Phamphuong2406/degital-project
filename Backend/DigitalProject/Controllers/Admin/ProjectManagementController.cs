@@ -44,14 +44,14 @@ namespace DigitalProject.Controllers.Admin
             }
         }
         [HttpPost]
-        [Authorize]
         public IActionResult CreateNewProject([FromForm] ProjectDTO model)
         {
             try
             {
-                var claimsIdentity = this.User.Identity as ClaimsIdentity;
-                int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
-                _projectService.AddProject(model, currentUserId);
+                /* var claimsIdentity = this.User.Identity as ClaimsIdentity;
+                 int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
+                 _projectService.AddProject(model, currentUserId);*/
+                _projectService.AddProject(model);
                 return Ok("Thêm mới dự án thành công ");
             }
             catch (Exception ex)
@@ -60,11 +60,11 @@ namespace DigitalProject.Controllers.Admin
             }
 
         }
-        [HttpPut]
-        public IActionResult UpdateProject([FromForm] ProjectDTO dto, int id) {
+        [HttpPut("{projectId}")]
+        public IActionResult UpdateProject([FromForm] ProjectDTO dto, int projectId) {
             try
             {
-                _projectService.EditProject(dto, id);
+                _projectService.EditProject(dto, projectId);
                 return Ok("Cập nhật dự án thành công");
             }
             catch (Exception ex)

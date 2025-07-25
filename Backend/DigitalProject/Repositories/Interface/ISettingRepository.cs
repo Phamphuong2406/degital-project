@@ -2,6 +2,7 @@
 using DigitalProject.Common.Paging;
 using DigitalProject.Entitys;
 using DigitalProject.Models.Setting;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitalProject.Repositories.Interface
 {
@@ -14,5 +15,7 @@ namespace DigitalProject.Repositories.Interface
         void EditSetting(Setting model);
         void DeleteSetting(Setting model);
         PagingModel<SettingDTO> GetListSettingByKeyword(string? key, int pageNumber, int pageSize);
+        List<SettingOnHome> GetListDisplayedOnFooter();
+        List<SettingOnHome> GetListDisplayedOnContactInfor();
     }
 }

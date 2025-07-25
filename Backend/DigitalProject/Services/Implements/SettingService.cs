@@ -79,6 +79,9 @@ namespace DigitalProject.Services.Implements
                 Setting.Key = dto.Key;
                 Setting.Value = dto.Value;
                 Setting.SettingType = dto.SettingType;
+                Setting.Discription = dto.Discription;
+                Setting.DisplayOnHome = dto.DisplayOnHome;
+                Setting.DisplayOrderOnHome = dto.DisplayOrderOnHome;
                 _SettingRepo.EditSetting(Setting);
             }
             catch (Exception)
@@ -98,9 +101,30 @@ namespace DigitalProject.Services.Implements
             {
                 throw;
             }
-
         }
-       
+       public List<SettingOnHome> GetListDisplayedOnFooter()
+        {
+            try
+            {
+                return _SettingRepo.GetListDisplayedOnFooter();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public List<SettingOnHome> GetListDisplayedOnContactInfor()
+        {
+            try
+            {
+                return _SettingRepo.GetListDisplayedOnContactInfor();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
        
     }
 }

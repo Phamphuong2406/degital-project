@@ -52,14 +52,13 @@ namespace DigitalProject.Services.Implements
                 throw;
             }
         }
-        public void AddProject(ProjectDTO model, int currentUserId)
+        public void AddProject(ProjectDTO model)
         {
             try
             {
                 var result = _projectRepo.FindByName(model.ProjectName);
                
                 var project = _mapper.Map<Project>(model);
-                project.IdPoster = currentUserId;
                 project.PostedTime = DateTime.Now;
                 project.AvatarUrl = UploadHandler.Upload(model.Avatar);
                 _projectRepo.CreateProject(project);

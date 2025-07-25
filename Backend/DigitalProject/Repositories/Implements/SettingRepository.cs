@@ -2,8 +2,10 @@
 using DigitalProject.Common.Paging;
 using DigitalProject.Entitys;
 using DigitalProject.Models.Gallery;
+using DigitalProject.Models.Project;
 using DigitalProject.Models.Setting;
 using DigitalProject.Repositories.Interface;
+using System.Collections.Generic;
 
 namespace DigitalProject.Repositories.Implements
 {
@@ -26,10 +28,9 @@ namespace DigitalProject.Repositories.Implements
             _context.SaveChanges();
         }
       
-        public Setting FindById(int id)
+        public Setting? FindById(int id)
         {
             return _context.settings.FirstOrDefault(x => x.Id == id);
-
         }
         public void EditSetting(Setting model)
         {
@@ -69,6 +70,16 @@ namespace DigitalProject.Repositories.Implements
                 TotalRecords = totalRecords
             };
 
+        }
+        public List<SettingOnHome> GetListDisplayedOnFooter()
+        {
+            var query = _context.settings.Where(x => x.SettingType == "Contact" && x.DisplayOnHome == true).OrderBy(x => x.DisplayOrderOnHome).ToList();
+           return _mapper.Map<List<SettingOnHome>>(query);
+        }
+        public List<SettingOnHome> GetListDisplayedOnContactInfor()
+        {
+            var query = _context.settings.Where(x => x.SettingType == "Contact" && x.DisplayOnHome == true).OrderBy(x => x.DisplayOrderOnHome).Take(3).ToList();
+            return _mapper.Map<List<SettingOnHome>>(query);
         }
     }
 }

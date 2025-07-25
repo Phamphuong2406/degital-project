@@ -57,7 +57,7 @@ namespace DigitalProject.Services.Implements
             }
         }
 
-        public void AddContactRequest(CreateRequestDTO model, int currentUserId, string idAddress)
+        public void AddContactRequest(CreateRequestDTO model,string idAddress)
         {
             try
             {

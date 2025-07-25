@@ -106,20 +106,7 @@ namespace DigitalProject.Controllers.Admin
             }
 
         }
-        [HttpGet]
-        [Route("ShowPhotoGallery")]
-        public IActionResult ShowPhotoGallery(int pageNumber = 1, int pageSize = 10) {
-            try
-            {
-                return Ok(_galleryService.GetListShowPhotoGallery(pageNumber,pageSize));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-
-        }
-
+       
 
     }
 }

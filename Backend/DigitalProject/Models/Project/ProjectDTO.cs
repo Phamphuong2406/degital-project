@@ -39,6 +39,7 @@ namespace DigitalProject.Models.Project
         public bool DisplayOnHeader { get; set; }
         public int? DisplayOrderOnHeader { get; set; }
         public DateTime? ExpirationTimeOnHeader { get; set; }
+        public int IdPoster { get; set; }
     }
     public class ProjectOnHomeAndHeader()
     {

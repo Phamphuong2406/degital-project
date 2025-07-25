@@ -1,20 +1,22 @@
-﻿using DigitalProject.Services.Interface;
+﻿using DigitalProject.Entitys;
+using DigitalProject.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.NetworkInformation;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DigitalProject.Controllers.Client
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShowProjectController : ControllerBase
+    public class ProjectController : ControllerBase
     {
         private readonly IProjectService _projectService;
-        public ShowProjectController(IProjectService projectService) { _projectService = projectService; }
+        public ProjectController(IProjectService projectService) { _projectService = projectService; }
 
         [HttpGet]
-        [Route("ShowOnHeader")]
-        public IActionResult ShowOnHeader(int pageNumber= 1, int pageSize= 1)
+        [Route("ProjectsDisplayedOnHeader")]
+        public IActionResult ProjectsDisplayedOnHeader(int pageNumber= 1, int pageSize= 1)
         {
             try
             {
@@ -27,8 +29,8 @@ namespace DigitalProject.Controllers.Client
         }
 
         [HttpGet]
-        [Route("ShowOnHomePage")]
-        public IActionResult ShowOnHomePage()
+        [Route("ProjectsDisplayedOnHomePage")]
+        public IActionResult ProjectsDisplayedOnHomePage()
         {
             try
             {
@@ -40,8 +42,8 @@ namespace DigitalProject.Controllers.Client
             }
         }
         [HttpGet]
-        [Route("ShowOnOurProject")]
-        public IActionResult ShowOnOurProject(int pageNumber=1, int pageSize=3)
+        [Route("ProjectsDisplayedOnOurProject")]
+        public IActionResult ProjectsDisplayedOnOurProject(int pageNumber=1, int pageSize=3)
         {
             try
             {
@@ -54,8 +56,8 @@ namespace DigitalProject.Controllers.Client
         }
 
         [HttpGet]
-        [Route("ShowProjectDetail/{projectId}")]
-        public IActionResult ShowProjectDetail(int projectId)
+        [Route("ProjectsDisplayedOnProjectDetail/{projectId}")]
+        public IActionResult ProjectsDisplayedOnProjectDetail(int projectId)
         {
             try
             {
