@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, Route, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomepageComponent } from '../client/homepage/homepage.component';
 
 export const routes: Routes = [
 
   {path: 'login',component: LoginComponent },
-  // {path: 'dashboard',component: DashboardComponent },
+  {path: 'dashboard',component: DashboardComponent },
+    {path: 'homepage',component: HomepageComponent },
 
   // {path: 'login',component: LoginComponent},
   // {path: 'company',component: CompanycertificationsComponent},

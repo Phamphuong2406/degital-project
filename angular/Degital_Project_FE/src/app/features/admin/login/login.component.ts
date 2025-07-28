@@ -37,7 +37,7 @@ login(){
     let res = this.auth.login(this.username, this.password);
     if (res === 200)
     {
-      this.router.navigate(['home'])
+      this.router.navigate(['homepage'])
     }
     if (res === 403)
     {
