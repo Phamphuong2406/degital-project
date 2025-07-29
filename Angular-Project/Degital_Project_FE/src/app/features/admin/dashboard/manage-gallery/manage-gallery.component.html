@@ -20,27 +20,25 @@
 <table class="table" id="myTable">
     <thead>
         <tr>
-            <th scope="col">Tên người dùng</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col">galleryId</th>
+            <th scope="col">galleryName</th>
+            <th scope="col">imageUrl</th>
+            <th scope="col">createAt</th>
+            <th scope="col">address</th>
+            <th scope="col">posterId</th>
+            <th scope="col">displayorder</th>
+          
         </tr>
     </thead>
     <tbody>
-            <tr class="@rowClass">
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <tr class="@rowClass" *ngFor="let i of galleryList ">
+              <td>{{i.galleryId}}</td>
+              <td>{{i.galleryName}}</td>
+              <td>{{i.imageUrl}}</td>
+              <td>{{i.createAt}}</td>
+              <td>{{i.address}}</td>
+              <td>{{i.posterId}}</td>
+              <td>{{i.displayorder}}</td>
+              
             </tr>
 </table>

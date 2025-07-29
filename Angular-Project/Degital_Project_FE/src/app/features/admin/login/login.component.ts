@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { Route } from '@angular/router';
 import { Router } from '@angular/router';
 import { routes } from '../../../app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -13,36 +14,25 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
-username = "";
-password = "";
-errorMsg ="";
-constructor(private auth: AuthService, private router: Router){
+export class LoginComponent {
 
-}
-ngOnInit(): void {
+  loginObj: any = {
+    "email": "",
+    "password": ""
 
-}
+  };
+  http = inject(HttpClient);
+  router = inject(Router);
+  login() {
+    this.http.post("https://localhost:7132/api/Account/AccountLogin", this.loginObj).subscribe((res: any) => {
+      if (res.result) {
+        alert("Login sucess");
+        localStorage.setItem('tokenfromBE', res.token);
+        this.router.navigate(['admin/project'])
+      } else {
+        alert(res.message)
+      }
+    })
 
-login(){
-  if (this.username.trim().length === 0)
-  {
-    this.errorMsg = "Username is required";
-  }else if (this.password.trim().length === 0)
-  {
-    this.errorMsg = "Password is required";
   }
-  else{
-    this.errorMsg = "";
-    let res = this.auth.login(this.username, this.password);
-    if (res === 200)
-    {
-      this.router.navigate(['dashboard']);
-    }
-    if (res === 403)
-    {
-      this.errorMsg = "Invalid Credential";
-    }
-  }
-}
 }
