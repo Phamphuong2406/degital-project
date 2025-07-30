@@ -11,7 +11,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { App } from './app';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { customInterceptor } from './interceptor/custom.interceptor';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import { customInterceptor } from './interceptor/custom.interceptor';
     FeaturesModule
 ],
  declarations: [],
-  providers: [{provide: HTTP_INTERCEPTORS, useFactory: customInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useFactory: AuthInterceptor, multi: true}],
   bootstrap: []
 })
 export class AppModule{}

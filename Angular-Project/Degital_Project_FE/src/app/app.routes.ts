@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';import { LoginComponent } from './features/admin/login/login.component';
-import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
+
 import { CompanycertificationsComponent } from './features/client/companycertifications/companycertifications.component';
 import { OurprojectComponent } from './features/client/ourproject/ourproject.component';
 import { ContactinformationComponent } from './features/client/contactinformation/contactinformation.component';

@@ -1,14 +1,15 @@
 import { Component,OnInit } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: false,
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  selector: 'app-sidebar',
+  standalone: true,
+  imports: [],
+  templateUrl: './sidebar-admin.component.html',
+  styleUrl: './sidebar-admin.component.scss'
 })
-export class DashboardComponent implements OnInit {
+export class SidebarAdminComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
@@ -22,4 +23,3 @@ export class DashboardComponent implements OnInit {
     this.auth.logout();
   }
 }
-
