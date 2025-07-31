@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class OurprojectComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService) { }
-
   ngOnInit(): void {
 
   }

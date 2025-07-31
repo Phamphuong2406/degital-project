@@ -1,3 +1,8 @@
+@mixin colorVsStyle {
+    font-weight: 200;
+    color: gray;
+}
+
 div.gallery {
   border: 1px solid #ccc;
   width: 210px;
@@ -13,15 +18,36 @@ div.gallery:hover {
   width: 75%;
   text-align: left;
   margin:0px auto;
+  h2{
+    @include colorVsStyle;
+    b{
+      font-weight: 500;
+      color: black;
+    }
+  }
 }
+
+  .button-sline {
+    display: flex;
+    margin-top: 0px;
+    margin-left: 430px;
+
+    button {
+      width: 53px;
+      height: 53px;
+      border: solid 0px;
+      margin-left: 20px;
+    }
+
+  }
 .image-list{
   width: 80%;
   margin: 20px auto;
 }
 
 div.gallery img {
-  width: 200px;
-  height: auto;
+    width: 100%;
+    height: 100%;
 }
 
 div.desc {

@@ -3,12 +3,19 @@ import { Component, inject, OnInit } from '@angular/core';
 import { projectService } from '../../../core/services/project.service';
 import { ProjectModel } from '../../../core/models/project.models';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+<<<<<<< HEAD
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-manage-project',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule,RouterLink],
+=======
+@Component({
+  selector: 'app-manage-project',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+>>>>>>> c092096b1022f2309288263f72d5a5229e341a27
   templateUrl: './manage-project.component.html',
   styleUrl: './manage-project.component.scss'
 })
@@ -76,4 +83,3 @@ const form = this.subjectForm.value;
   }
 
 }
-

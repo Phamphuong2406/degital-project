@@ -13,13 +13,6 @@ export const routes: Routes = [
   {path: 'ourproject',component: OurprojectComponent },
   {path: 'company',component: CompanycertificationsComponent},
   {path: 'contact', component: ContactinformationComponent},
-
-  // {path: 'login',component: LoginComponent},
-  // {path: 'company',component: CompanycertificationsComponent},
-  // {path: 'ourproject',component: OurprojectComponent},
-  // {path: 'dashboard', component: DashboardComponent},
-  // {path: 'contact', component: ContactinformationComponent},
-  // {path: '**', component: HomepageComponent }
 ];
 
  @NgModule({
