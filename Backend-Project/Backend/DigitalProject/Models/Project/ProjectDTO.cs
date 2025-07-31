@@ -33,7 +33,6 @@ namespace DigitalProject.Models.Project
         public string? StructuralEngineer { get; set; }
         public DateTime ConstructionStartTime { get; set; }
         public DateTime ConstructionEndTime { get; set; }
-        public DateTime PostedTime { get; set; }
         public bool DisplayOnhome { get; set; }
         public int? DisplayOrderOnHome { get; set; }
         public bool DisplayOnHeader { get; set; }

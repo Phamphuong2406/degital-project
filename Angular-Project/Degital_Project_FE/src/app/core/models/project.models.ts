@@ -18,20 +18,20 @@ export interface ProjectModel {
   idPoster: number;
 }
 
-export interface ProjectCreateOrUpdateModel{
+export interface ProjectCreateOrUpdateModel {
   projectName: string;
   projectType: string;
-  avataUrl: File;
+  avatar: File;
   shortDescription: string;
   detailedDescription: string;
   architect: string;
   structuralEngineer: string;
   constructionStartTime: Date;
   constructionEndTime: Date;
-  postedTime: Date;
   displayOnhome: boolean;
   displayOrderOnHome: number;
   displayOnHeader: boolean;
   displayOrderOnHeader: number;
-  expirationTimeOnHeader: Date
+  expirationTimeOnHeader: Date;
+  idPoster: number;
 }
