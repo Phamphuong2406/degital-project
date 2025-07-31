@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class projectService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getListProject(
     key: string,
@@ -38,7 +38,7 @@ export class projectService {
   }
 
   createNewProject(
-    request: ProjectCreateOrUpdateModel
+    request: ProjectCreateOrUpdateModel | FormData
   ): Observable<ProjectModel> {
     return this.http.post<ProjectModel>(
       `https://localhost:7132/api/ProjectManagement`,
