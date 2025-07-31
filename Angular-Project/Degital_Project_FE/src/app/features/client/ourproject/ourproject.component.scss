@@ -1,11 +1,23 @@
 *{
   margin: 0px auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+@mixin colorVsStyle {
+    font-weight: 200;
+    color: gray;
 }
 
 .title-text {
   width:1170px;
   text-align: left;
   margin-top: 30px;
+  h1{
+    @include colorVsStyle;
+    b{
+      color: black;
+      font-weight: 500;
+    }
+  }
 }
 div.polaroid {
   // width: 80%;
@@ -18,8 +30,47 @@ div.polaroid {
 .text-2{
   text-align: left;
   font-size: 13px;
+  padding-left: 30px;
+}
+button{
+  width: 222px;
+  height: 71px;
+  background-color: white;
+  color: black;
+  margin-top: 50px;
+  margin-left: 0px;
+  border: 0px;
 }
 }
+
+.page{
+  display: flex;
+}
+
+.number-page{
+    width: 163px;
+    height: 31px;
+    font-size: 20px;
+    margin-top: 10px;
+    color: #E0E0E0;
+    text-align: center;
+}
+.slide{
+      width: 100%;
+    height: 100%;
+}
+  .button-sline {
+    display: flex;
+    margin-top: 0px;
+    margin-left: 20px;
+
+    button {
+      width: 53px;
+      height: 53px;
+      border: solid 0px;
+      margin-left: 20px;
+    }
+  }
 
 img {
   width: 120%;
@@ -30,8 +81,11 @@ div.container {
     text-align: left;
     padding: 10px 50px;
     float: left;
+    background-color: rgb(247, 246, 246);
     h1{
       margin-bottom: 20px;
+      margin-top: 20px;
+      @include colorVsStyle;
     }
 }
 

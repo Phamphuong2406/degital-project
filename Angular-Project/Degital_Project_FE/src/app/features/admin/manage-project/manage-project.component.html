@@ -1,21 +1,23 @@
-<form  [formGroup] = "subjectForm" method="get" class="mb-4" (submit)="onSubmit()">
+<form  [formGroup]="subjectForm" method="get" class="mb-4" (ngSubmit)="onSubmit()">
     <div class="row g-3 align-items-end">
         <div class="col-md-3">
             <label for="min">Ngày nhỏ nhất:</label>
-            <input type="date" formcontrolName="postingStartDate" class="form-control" />
+            <input type="date" formControlName="postingStartDate" class="form-control" />
         </div>
         <div class="col-md-3">
             <label for="max">Ngày lớn nhất:</label>
-            <input type="date" name="max" id="max" class="form-control" />
+            <input type="date" formControlName="postingEndDate" class="form-control" />
         </div>
         <div class="col-md-3">
             <label for="searchString">Tìm Kiếm theo mô tả:</label>
-            <input type="search" name="searchString" id="searchString" class="form-control" />
+            <input type="text" formControlName="key"  class="form-control" />
         </div>
         <div class="col-md-3">
             <label for="searchString">Tìm Kiếm theo kiến trúc sư:</label>
-            <input type="search" name="searchString" id="searchString" class="form-control" />
+            <input type="text" formControlName="structuralEngineer" class="form-control" />
         </div>
+        <input type="hidden" formControlName="pageNumber"/>
+        <input type="hidden" formControlName="pageSize"/>
         <div class="col-md-3">
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
         </div>

@@ -35,13 +35,14 @@ header {
 }
 
 .link {
-  margin-right: 200px;
+  margin-right: 560px;
 
   .btn-primary {
     margin-left: 20px;
     background-color: white;
     border: 0px;
     color: black;
+    font-size: 12px;
   }
   .btn-primary:hover {
     color: blanchedalmond;
@@ -67,4 +68,7 @@ header {
   width: 70px;
   height: 43px;
   background-color: gray;
+  img{
+        background-color: white;
+  }
 }

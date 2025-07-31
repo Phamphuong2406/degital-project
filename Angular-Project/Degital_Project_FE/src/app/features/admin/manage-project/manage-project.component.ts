@@ -2,38 +2,40 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { projectService } from '../../../core/services/project.service';
 import { ProjectModel } from '../../../core/models/project.models';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 @Component({
   selector: 'app-manage-project',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './manage-project.component.html',
   styleUrl: './manage-project.component.scss'
 })
 export class ManageProjectComponent implements OnInit {
   listProjectModel: ProjectModel[] = [];
   currentPage = 1;
-  pageSize = 3;
+  pageSize = 10;
   key = "";
   structuralEngineer = "";
-  postingStartDate: string = "2025-07-29T00:00:00";
-  postingEndDate: string = "2025-07-31T00:00:00";
+  postingStartDate: string = "";
+  postingEndDate: string = "";
   totalRecords = 0;
   totalPages = 0;
-subjectForm:FormGroup;
-  
-  constructor(private projectService: projectService,  private fb: FormBuilder ) { 
+  subjectForm: FormGroup;
 
- this.getListProject();
-    this.subjectForm = new FormGroup({
+  constructor(private projectService: projectService, private fb: FormBuilder) {
 
+    this.getListProject();
+    this.subjectForm = this.fb.group({
+      postingStartDate: '',
+      postingEndDate: '',
+      structuralEngineer: '',
+      key: '',
+      pageNumber: 1,
+      pageSize: 10
     })
   }
 
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void { }
 
   getListProject() {
     this.projectService
@@ -50,14 +52,25 @@ subjectForm:FormGroup;
   }
 
   onDelete(id: number) {
-    this.projectService.deleteProject(id).subscribe(res =>{
+    this.projectService.deleteProject(id).subscribe(res => {
       this.getListProject();
     })
-    alert('click on button '+ id);
+    alert('click on button ' + id);
   }
-  onSubmit(){
-    console.log(this.subjectForm.value);
+  onSubmit() {
+const form = this.subjectForm.value;
+  this.projectService
+    .getListProject(form.key, form.structuralEngineer, form.postingStartDate, form.postingEndDate, form.pageNumber, form.pageSize)
+    .subscribe({
+      next: (res: any) => {
+        this.listProjectModel = res.data;
+        this.totalRecords = res.totalCount;
+        this.totalPages = Math.ceil(this.totalRecords / form.pageSize);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 
 }
-

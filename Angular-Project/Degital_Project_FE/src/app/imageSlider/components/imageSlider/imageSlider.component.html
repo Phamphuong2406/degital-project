@@ -1,0 +1,22 @@
+<div class="banner-project">
+  <div class="banner-text-project">
+    <h1>PROJECT <br><b>Lorum</b></h1>
+    <div class="button-sline">
+      <button (click)="goToPrevious()"><i class="fa fa-arrow-left"
+          aria-hidden="true"></i>
+      </button>
+      <button (click)="goToNext()"><i class="fa fa-arrow-right"
+          aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="number-page">
+      {{ formatNumber(getCurrentSlideNumber()) }} / {{
+      formatNumber(slides.length) }}
+    </div>
+  </div>
+  <div class="img-banner">
+    <div class="slide"
+      [ngStyle]="{'background-image': getCurrentSlideUrl() }"></div>
+    <button >View Project -></button>
+  </div>
+</div>

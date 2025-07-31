@@ -12,6 +12,9 @@ import { AdminRoutingModule } from './admin/admin.routes';
 import { GalleryComponent } from './client/gallery/gallery.component';
 import { ClientModule } from './client/client.module';
 import { ClientRoutingModule } from './client/client.routes';
+import { ImageSliderComponent } from '../imageSlider/components/imageSlider/imageSlider.component';
+import { ImageSliderGalleryComponent } from '../imageSliderGallery/components/imageSliderGallery/imageSliderGallery.component';
+import { AppModule } from '../app.module';
 
 
 
@@ -22,8 +25,11 @@ import { ClientRoutingModule } from './client/client.routes';
       FooterComponent,
       ContactinformationComponent,
       GalleryComponent,
-      // OurprojectComponent,
+      OurprojectComponent,
       CompanycertificationsComponent,
+      ImageSliderComponent,
+      ImageSliderGalleryComponent,
+
     ],
   imports: [
     CommonModule,
@@ -32,7 +38,7 @@ import { ClientRoutingModule } from './client/client.routes';
     ClientRoutingModule,
     FeaturesRoutingModule,
     FormsModule,
-    ClientModule,
+    ClientModule
   ]
 })
 export class FeaturesModule { }

@@ -26,11 +26,31 @@ div.gallery:hover {
     }
   }
 }
+.image-list{
+  width: 80%;
+  margin: 20px auto;
+}
 
+.page{
+  display: flex;
+}
+
+.number-page{
+    width: 163px;
+    height: 31px;
+    font-size: 20px;
+    margin-top: 10px;
+    color: #E0E0E0;
+    text-align: center;
+}
+.slide{
+      width: 100%;
+    height: 100%;
+}
   .button-sline {
     display: flex;
     margin-top: 0px;
-    margin-left: 430px;
+    margin-left: 20px;
 
     button {
       width: 53px;
@@ -38,12 +58,7 @@ div.gallery:hover {
       border: solid 0px;
       margin-left: 20px;
     }
-
   }
-.image-list{
-  width: 80%;
-  margin: 20px auto;
-}
 
 div.gallery img {
     width: 100%;
