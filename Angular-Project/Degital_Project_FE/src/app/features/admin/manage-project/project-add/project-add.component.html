@@ -1,0 +1,35 @@
+<p>project-add works!</p>
+<form  method="post" [formGroup]="projectAddForm"  enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="form-group mb-3">
+            <label class="form-label">Tiêu đề</label>
+            <input type="text" class="form-control" name="title" required>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Mô tả</label>
+            <input type="text" class="form-control" name="description" required>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Nội dung</label>
+            <textarea name="Content" id="editor"></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Ảnh (tên file ảnh)</label>
+            <input type="file" class="form-control" id="ImageFile" name="ImageFile" accept="image/*" required>
+            <img id="imgpreview" class="pt-2" style="display:none; width:100px; height:100px;" />
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Ngày hết hạn</label>
+            <input type="date" class="form-control" name="ExpireAt" required>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="IsNone" class="form-check-input" />
+            <label class="form-check-label" for="isNoneCheckbox">Hiển thị trên trang chủ</label>
+        </div>
+
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </div>
+</form>

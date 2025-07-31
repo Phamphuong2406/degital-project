@@ -37,7 +37,7 @@ export class projectService {
     }
 
     createNewProject(
-        request: ProjectCreateOrUpdateModel
+        request:any
     ): Observable<ProjectModel> {
         return this.http.post<ProjectModel>(
             (`https://localhost:7132/api/ProjectManagement`),
