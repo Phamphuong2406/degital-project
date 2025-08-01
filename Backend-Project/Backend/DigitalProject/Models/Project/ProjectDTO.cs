@@ -40,6 +40,7 @@ namespace DigitalProject.Models.Project
         public DateTime? ExpirationTimeOnHeader { get; set; }
         public int IdPoster { get; set; }
     }
+    
     public class ProjectOnHomeAndHeader()
     {
         public string? ProjectName { get; set; }

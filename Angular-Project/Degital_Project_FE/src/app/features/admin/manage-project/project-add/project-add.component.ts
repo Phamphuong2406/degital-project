@@ -20,10 +20,11 @@ export class ProjectAddComponent {
   projectAddForm: FormGroup;
   submited: boolean = false;
   srcResult: any = null;
+
   constructor(
     private fb: FormBuilder,
     private projectSv: projectService,
-    private _router: Router
+    private router: Router
   ) {
     this.projectAddForm = this.fb.group({
       projectName: ['', Validators.required],
@@ -45,32 +46,61 @@ export class ProjectAddComponent {
   }
 
   ngOnInit(): void {}
+
   get f() {
     return this.projectAddForm.controls;
   }
+
   onSubmit(): any {
     this.submited = true;
     if (this.projectAddForm.invalid) {
+      console.log(this.projectAddForm.value);
       return false;
     }
-    console.log(this.projectAddForm.value);
-    //add
-    this.projectSv
-      .createNewProject(this.projectAddForm.value)
-      .subscribe((res) => {
-        this._router.navigate(['admin/project']);
-      });
-  }
 
-  uploadFile(event: any) {
-    const file = event.currentTarget.files[0];
     const formData = new FormData();
-    formData.append('avatar', file);
-  }
 
-  selectedFile: any = null;
+    Object.keys(this.projectAddForm.controls).forEach((key) => {
+      const control = this.projectAddForm.get(key);
+      if (!control) return;
+
+      let value = control.value;
+
+      if (typeof value === 'boolean') {
+        value = value ? 'true' : 'false';
+      }
+
+      if (key.includes('Time') && value) {
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+          value = date.toISOString();
+        }
+      }
+
+      formData.append(key, value);
+    });
+
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ':', pair[1]);
+    }
+
+    this.projectSv.createNewProject(formData).subscribe((res) => {
+      alert(res.message);
+      this.router.navigate(['admin/project']);
+    });
+  }
 
   onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0] ?? null;
+    const file = event.target.files[0];
+    if (file) {
+      this.projectAddForm.patchValue({ avatar: file });
+      this.projectAddForm.get('avatar')?.updateValueAndValidity();
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.srcResult = reader.result;
+      };
+    }
   }
 }

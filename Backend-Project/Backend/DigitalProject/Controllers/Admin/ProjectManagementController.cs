@@ -53,11 +53,11 @@ namespace DigitalProject.Controllers.Admin
                  int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
                  _projectService.AddProject(model, currentUserId);*/
                 _projectService.AddProject(model);
-                return Ok("Thêm mới dự án thành công ");
+                return Ok(new { message= "Thêm mới dự án thành công",result= true});
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message , result=false});
             }
 
         }

@@ -34,12 +34,12 @@
     </div>
   </div>
   <div class="mb-3 form-check">
-    <button type="button" mat-raised-button (click)="fileInput.click()">
-      Choose File
+    <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+    <button mat-raised-button color="primary" (click)="fileInput.click()">
+      Chọn ảnh
     </button>
-    <input hidden (change)="onFileSelected($event)" #fileInput type="file" />
-    <span class="file-name">{{ selectedFile?.name }}</span>
   </div>
+
   <div class="mb-3 form-check">
     <label class="form-label">Mô tả ngắn</label>
     <input

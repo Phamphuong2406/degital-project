@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {
   ProjectCreateOrUpdateModel,
   ProjectModel,
+  ReturnProjectData,
 } from '../models/project.models';
 
 @Injectable({
@@ -36,12 +37,26 @@ export class projectService {
       }
     );
   }
+  getProjectById(id: any): Observable<ProjectModel> {
+    return this.http.get<ProjectModel>(
+      `https://localhost:7132/api/ProjectManagement/${id}`
+    );
+  }
 
   createNewProject(
-    request: ProjectCreateOrUpdateModel
-  ): Observable<ProjectModel> {
-    return this.http.post<ProjectModel>(
+    request: ProjectCreateOrUpdateModel | FormData
+  ): Observable<ReturnProjectData> {
+    return this.http.post<ReturnProjectData>(
       `https://localhost:7132/api/ProjectManagement`,
+      request
+    );
+  }
+  updateProject(
+    request: ProjectCreateOrUpdateModel | FormData,
+    projectId: any
+  ): Observable<ReturnProjectData> {
+    return this.http.put<ReturnProjectData>(
+      `https://localhost:7132/api/ProjectManagement/${projectId}`,
       request
     );
   }

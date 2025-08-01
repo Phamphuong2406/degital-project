@@ -35,3 +35,7 @@ export interface ProjectCreateOrUpdateModel {
   expirationTimeOnHeader: Date;
   idPoster: number;
 }
+export interface ReturnProjectData {
+  message: string;
+  result: boolean;
+}

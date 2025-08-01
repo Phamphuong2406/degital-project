@@ -1,20 +1,18 @@
-import { Component,OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './sidebar-admin.component.html',
-  styleUrl: './sidebar-admin.component.scss'
+  styleUrl: './sidebar-admin.component.scss',
 })
 export class SidebarAdminComponent implements OnInit {
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
   goToHome() {
     this.router.navigate(['homepage']);
   }

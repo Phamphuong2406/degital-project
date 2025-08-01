@@ -12,37 +12,43 @@ import { GalleryAddComponent } from './manage-gallery/gallery-add/gallery-add.co
 import { GalleryEditComponent } from './manage-gallery/gallery-edit/gallery-edit.component';
 import { ProjectAddComponent } from './manage-project/project-add/project-add.component';
 import { ProjectEditComponent } from './manage-project/project-edit/project-edit.component';
+import { AdminComponent } from './admin.component';
 
 export const routes: Routes = [
-
   { path: 'login', component: LoginComponent },
   { path: 'homepage', component: HomepageComponent },
-
-  { path: 'login', component: LoginComponent },
-  // {path: 'company',component: CompanycertificationsComponent},
-  { path: 'admin/project', children: [
-    {path:'',component: ManageProjectComponent },
-    {path:'add',component: ProjectAddComponent },
-    {path:'edit', component: ProjectEditComponent}
-  ]},
   {
-    path: 'admin/gallery', children: [
-      { path: '', component: ManageGalleryComponent },
-      { path: 'add', component: GalleryAddComponent },
-      { path: 'edit', component: GalleryEditComponent }
-    ]
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'project',
+        children: [
+          { path: '', component: ManageProjectComponent },
+          { path: 'add', component: ProjectAddComponent },
+          { path: 'edit/:id', component: ProjectEditComponent },
+        ],
+      },
+      {
+        path: 'gallery',
+        children: [
+          { path: '', component: ManageGalleryComponent },
+          { path: 'add', component: GalleryAddComponent },
+          { path: 'edit/:id', component: GalleryEditComponent },
+        ],
+      },
+      { path: 'user', component: ManageUserComponent },
+      { path: 'setting', component: ManageSettingComponent },
+      { path: 'dashboard', component: SidebarAdminComponent },
+      { path: 'contact', component: ManageContactComponent },
+    ],
   },
-  { path: 'admin/user', component: ManageUserComponent },
-  { path: 'admin/setting', component: ManageSettingComponent },
-  { path: 'admin/dashboard', component: SidebarAdminComponent },
-  { path: 'admin/contact', component: ManageContactComponent },
+  // {path: 'company',component: CompanycertificationsComponent},
   // {path: '**', component: HomepageComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule {
-
-}
+export class AdminRoutingModule {}

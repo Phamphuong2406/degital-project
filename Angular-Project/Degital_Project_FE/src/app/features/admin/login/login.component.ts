@@ -3,23 +3,21 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { loginDataRequired } from '../../../core/models/logIn.models';
 
-
 @Component({
   selector: 'app-login',
   standalone: false,
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   loginForm: loginDataRequired = {
     email: '',
-    password: ''
+    password: '',
   };
 
+  constructor(private auth: AuthService, private router: Router) {}
 
-  constructor(private auth: AuthService, private router: Router) { }
-
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   logIn() {
     this.auth.logIn(this.loginForm).subscribe({
@@ -27,7 +25,7 @@ export class LoginComponent implements OnInit {
         if (res.result) {
           alert(res.responseMessage);
           localStorage.setItem('token', res.token);
-          this.router.navigate(['admin/project']);
+          this.router.navigate(['project']);
         } else {
           alert('Đăng nhập thất bại');
         }
@@ -35,10 +33,7 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         console.error('Login error', err);
         alert('Có lỗi xảy ra khi đăng nhập');
-      }
+      },
     });
   }
-
-
 }
-
