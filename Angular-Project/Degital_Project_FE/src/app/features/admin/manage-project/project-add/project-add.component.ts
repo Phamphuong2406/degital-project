@@ -67,4 +67,10 @@ export class ProjectAddComponent {
     const formData = new FormData();
     formData.append('avatar', file);
   }
+
+  selectedFile: any = null;
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0] ?? null;
+  }
 }
