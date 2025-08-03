@@ -15,9 +15,9 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   logIn() {
     this.auth.logIn(this.loginForm).subscribe({
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         if (res.result) {
           alert(res.responseMessage);
           localStorage.setItem('token', res.token);
-          this.router.navigate(['project']);
+          this.router.navigate(['admin/project']);
         } else {
           alert('Đăng nhập thất bại');
         }
