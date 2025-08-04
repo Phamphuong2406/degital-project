@@ -1,12 +1,25 @@
-<form [formGroup]="subjectForm" method="get" class="mb-4" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="subjectForm"
+  method="get"
+  class="mb-4"
+  (ngSubmit)="onSubmit()"
+>
   <div class="row g-3 align-items-end">
     <div class="col-md-2">
       <label for="min">Ngày nhỏ nhất:</label>
-      <input type="date" formControlName="postingStartDate" class="form-control" />
+      <input
+        type="date"
+        formControlName="postingStartDate"
+        class="form-control"
+      />
     </div>
     <div class="col-md-2">
       <label for="max">Ngày lớn nhất:</label>
-      <input type="date" formControlName="postingEndDate" class="form-control" />
+      <input
+        type="date"
+        formControlName="postingEndDate"
+        class="form-control"
+      />
     </div>
     <div class="col-md-3">
       <label for="searchString">Tìm Kiếm theo mô tả:</label>
@@ -14,7 +27,11 @@
     </div>
     <div class="col-md-3">
       <label for="searchString">Tìm Kiếm theo kiến trúc sư:</label>
-      <input type="text" formControlName="structuralEngineer" class="form-control" />
+      <input
+        type="text"
+        formControlName="structuralEngineer"
+        class="form-control"
+      />
     </div>
     <input type="hidden" formControlName="pageNumber" />
     <input type="hidden" formControlName="pageSize" />
@@ -23,7 +40,8 @@
     </div>
   </div>
 </form>
-<a routerLink="admin/project/add" class="btn btn-success">Thêm mới</a>
+<a routerLink="add" class="btn btn-success">Thêm mới</a>
+
 <table class="table" id="myTable">
   <thead>
     <tr>
@@ -46,7 +64,11 @@
       <td>{{ item.projectType }}</td>
       <td>{{ item.shortDescription }}</td>
       <td>
-        <img src="https://localhost:7132/Uploads/{{ item.avatarUrl }}" height="100" width="100" />
+        <img
+          src="https://localhost:7132/Uploads/{{ item.avatarUrl }}"
+          height="100"
+          width="100"
+        />
       </td>
       <td>{{ item.constructionEndTime | date : "dd/MM/yyyy" }}</td>
 
@@ -54,8 +76,17 @@
       <td>{{ item.structuralEngineer }}</td>
       <td>{{ item.idPoster }}</td>
       <td>
-        <a routerLink="admin/project/edit/{{ item.projectId }}" class="btn btn-primary">Edit</a>
-        <a href="javascrip:void(0)" class="btn btn-danger" (click)="onDelete(item.projectId)">Delete</a>
+        <a
+          routerLink="admin/project/edit/{{ item.projectId }}"
+          class="btn btn-primary"
+          >Edit</a
+        >
+        <a
+          href="javascrip:void(0)"
+          class="btn btn-danger"
+          (click)="onDelete(item.projectId)"
+          >Delete</a
+        >
       </td>
     </tr>
   </tbody>

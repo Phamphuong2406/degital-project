@@ -15,22 +15,21 @@ import { ClientRoutingModule } from './client/client.routes';
 import { ImageSliderComponent } from '../imageSlider/components/imageSlider/imageSlider.component';
 import { ImageSliderGalleryComponent } from '../imageSliderGallery/components/imageSliderGallery/imageSliderGallery.component';
 import { AppModule } from '../app.module';
-
-
+import { AdminModule } from './admin/admin.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
-      HomepageComponent,
-      HeaderComponent,
-      FooterComponent,
-      ContactinformationComponent,
-      GalleryComponent,
-      OurprojectComponent,
-      CompanycertificationsComponent,
-      ImageSliderComponent,
-      ImageSliderGalleryComponent,
-
-    ],
+    HomepageComponent,
+    HeaderComponent,
+    FooterComponent,
+    ContactinformationComponent,
+    GalleryComponent,
+    OurprojectComponent,
+    CompanycertificationsComponent,
+    ImageSliderComponent,
+    ImageSliderGalleryComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -38,7 +37,9 @@ import { AppModule } from '../app.module';
     ClientRoutingModule,
     FeaturesRoutingModule,
     FormsModule,
-    ClientModule
-  ]
+    ClientModule,
+    BrowserModule,
+    AdminModule,
+  ],
 })
-export class FeaturesModule { }
+export class FeaturesModule {}

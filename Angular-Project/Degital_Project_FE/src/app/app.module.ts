@@ -20,9 +20,12 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     ReactiveFormsModule,
     AppRoutingModule,
     FeaturesModule,
-],
- declarations: [],
-  providers: [{provide: HTTP_INTERCEPTORS, useFactory: AuthInterceptor, multi: true}],
-  bootstrap: []
+    CommonModule,
+  ],
+  declarations: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useFactory: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [],
 })
-export class AppModule{}
+export class AppModule {}

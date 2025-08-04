@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ProjectService } from '../../../../core/services/project.service';
+import { ProjectService } from '../../../core/services/project.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-add',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  standalone: false,
+  //imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './project-add.component.html',
   styleUrl: './project-add.component.scss',
 })
