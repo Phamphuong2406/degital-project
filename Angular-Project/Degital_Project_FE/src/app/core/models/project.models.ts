@@ -10,7 +10,7 @@ export interface ProjectModel {
   constructionStartTime: Date;
   constructionEndTime: Date;
   postedTime: Date;
-  displayOnhome: boolean;
+  displayOnHome: boolean;
   displayOrderOnHome: number;
   displayOnHeader: boolean;
   displayOrderOnHeader: number;
@@ -28,7 +28,7 @@ export interface ProjectCreateOrUpdateModel {
   structuralEngineer: string;
   constructionStartTime: Date;
   constructionEndTime: Date;
-  displayOnhome: boolean;
+  displayOnHome: boolean;
   displayOrderOnHome: number;
   displayOnHeader: boolean;
   displayOrderOnHeader: number;
@@ -39,3 +39,29 @@ export interface ReturnProjectData {
   message: string;
   result: boolean;
 }
+
+
+export interface ProjectDisplayedOnHeaderItem {
+  projectId: number;
+  projectName: string;
+  avatarUrl: string;
+  shortDescription: string;
+  displayOrderOnHeader: number;
+}
+
+export interface ProjectSummary {
+  projectId: number;
+  projectName: string;
+  avatarUrl: string;
+  shortDescription: string;
+  displayOrderOnHome: number;
+}
+
+export type ProjectsDisplayedOnOurProject = PagedResult<ProjectSummary>;
+export interface PagedResult<T> {
+  data: T[];
+  totalRecords: number;
+  pageNumber: number;
+  pageSize: number;
+}
+
