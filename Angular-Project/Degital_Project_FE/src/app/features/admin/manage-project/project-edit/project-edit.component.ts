@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { projectService } from '../../../../core/services/project.service';
+import { ProjectService } from '../../../../core/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -24,7 +24,7 @@ export class ProjectEditComponent {
 
   constructor(
     private fb: FormBuilder,
-    private projectSv: projectService,
+    private projectSv: ProjectService,
     private router: Router,
     private _router: ActivatedRoute
   ) {
@@ -49,46 +49,55 @@ export class ProjectEditComponent {
 
   ngOnInit(): void {
     this._router.paramMap.subscribe((query) => {
-      const id = query.get('id');
-      if (id !== null) {
-        this.prId = +id;
-      }
+      const idParam = query.get('id');
 
-      this.projectSv.getProjectById(id).subscribe((res) => {
-        let project = res;
-        this.prId = project.projectId;
+      if (idParam !== null) {
+        const id = +idParam; // ép kiểu sang number
+        this.prId = id;
 
-        this.projectEditForm = this.fb.group({
-          projectId: [project.projectId, Validators.required],
-          projectName: [project.projectName, Validators.required],
-          projectType: [project.projectType, Validators.required],
-          avatar: [project.avatarUrl, Validators.required],
-          shortDescription: [project.shortDescription, Validators.required],
-          detailedDescription: [
-            project.detailedDescription,
-            Validators.required,
-          ],
-          architect: [project.architect, Validators.required],
-          structuralEngineer: [project.structuralEngineer, Validators.required],
-          constructionStartTime: [
-            new Date(project.constructionStartTime).toISOString().slice(0, 10),
-            Validators.required,
-          ],
-          constructionEndTime: [
-            new Date(project.constructionEndTime).toISOString().slice(0, 10),
-            Validators.required,
-          ],
-          displayOnhome: [project.displayOrderOnHome, Validators.required],
-          displayOrderOnHome: project.displayOrderOnHome,
-          displayOnHeader: [project.displayOnHeader, Validators.required],
-          displayOrderOnHeader: project.displayOrderOnHeader,
-          expirationTimeOnHeader: [
-            new Date(project.expirationTimeOnHeader).toISOString().slice(0, 10),
-            Validators.required,
-          ],
-          idPoster: project.idPoster,
+        this.projectSv.getProjectById(id).subscribe((res) => {
+          const project = res;
+          this.prId = project.projectId;
+
+          this.projectEditForm = this.fb.group({
+            projectId: [project.projectId, Validators.required],
+            projectName: [project.projectName, Validators.required],
+            projectType: [project.projectType, Validators.required],
+            avatar: [project.avatarUrl, Validators.required],
+            shortDescription: [project.shortDescription, Validators.required],
+            detailedDescription: [
+              project.detailedDescription,
+              Validators.required,
+            ],
+            architect: [project.architect, Validators.required],
+            structuralEngineer: [
+              project.structuralEngineer,
+              Validators.required,
+            ],
+            constructionStartTime: [
+              new Date(project.constructionStartTime)
+                .toISOString()
+                .slice(0, 10),
+              Validators.required,
+            ],
+            constructionEndTime: [
+              new Date(project.constructionEndTime).toISOString().slice(0, 10),
+              Validators.required,
+            ],
+            displayOnhome: [project.displayOrderOnHome, Validators.required],
+            displayOrderOnHome: project.displayOrderOnHome,
+            displayOnHeader: [project.displayOnHeader, Validators.required],
+            displayOrderOnHeader: project.displayOrderOnHeader,
+            expirationTimeOnHeader: [
+              new Date(project.expirationTimeOnHeader)
+                .toISOString()
+                .slice(0, 10),
+              Validators.required,
+            ],
+            idPoster: project.idPoster,
+          });
         });
-      });
+      }
     });
   }
 

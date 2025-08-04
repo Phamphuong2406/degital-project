@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { projectService } from '../../../../core/services/project.service';
+import { ProjectService } from '../../../../core/services/project.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +23,7 @@ export class ProjectAddComponent {
 
   constructor(
     private fb: FormBuilder,
-    private projectSv: projectService,
+    private projectSv: ProjectService,
     private router: Router
   ) {
     this.projectAddForm = this.fb.group({
