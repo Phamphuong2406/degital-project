@@ -60,13 +60,12 @@ namespace DigitalProject.Services.Implements
             try
             {
                 _galleryRepo.FindByName(model.GalleryName);
-                var imageUrl = UploadHandler.Upload(model.ImageUrl);
+                var imageUrl = UploadHandler.Upload(model.Image);
                 var gallery = new Gallery
                 {
                     ImageUrl = imageUrl,
                     GalleryName = model.GalleryName,
                     Address = model.Address,
-                    Displayorder = model.Displayorder,
                     CreateAt = DateTime.Now,
                     PosterId = currentUserId,
                 };
@@ -85,10 +84,9 @@ namespace DigitalProject.Services.Implements
 
                 var gallery = _galleryRepo.FindById(galleryId);
                 UploadHandler.DeleteFile(gallery.ImageUrl);
-                gallery.ImageUrl = UploadHandler.Upload(model.ImageUrl);
+                gallery.ImageUrl = UploadHandler.Upload(model.Image);
                 gallery.GalleryName = model.GalleryName;
                 gallery.Address = model.Address;
-                gallery.Displayorder = model.Displayorder;
                 gallery.CreateAt = DateTime.Now;
 
                 _galleryRepo.EditGallery(gallery);

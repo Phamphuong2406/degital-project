@@ -17,7 +17,7 @@ namespace DigitalProject.Repositories.Interface
 
         //Client
         List<ProjectOnHomeAndHeader> GetListOnHomePage();
-        PagingModel<ProjectOnHomeAndHeader> GetListOnHeader(int pageNumber, int pageSize);
+        PagingDataReturn<ProjectOnHomeAndHeader> GetListOnHeader();
         PagingModel<ShowOnOurProject> GetListShowOnOurProject(int pageNumber, int pageSize);
         Project GetProjectDetails(int projectId);
     }

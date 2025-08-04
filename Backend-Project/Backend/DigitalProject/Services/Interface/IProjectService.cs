@@ -13,7 +13,7 @@ namespace DigitalProject.Services.Interface
         void EditProject(ProjectDTO model, int projectId);
         void DeleteProject(int projectId);
         List<ProjectOnHomeAndHeader> GetListOnHomePage();
-        PagingModel<ProjectOnHomeAndHeader> GetListOnHeader(int pageNumber, int pageSize);
+        PagingDataReturn<ProjectOnHomeAndHeader> GetListOnHeader();
         PagingModel<ShowOnOurProject> GetListShowOnOurProject(int pageNumber, int pageSize);
         ProjectDetail GetProjectDetail(int projectId);
     }

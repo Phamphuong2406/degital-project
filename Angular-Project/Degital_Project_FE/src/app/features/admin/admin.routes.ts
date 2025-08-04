@@ -13,6 +13,8 @@ import { GalleryEditComponent } from './manage-gallery/gallery-edit/gallery-edit
 import { ProjectAddComponent } from './manage-project/project-add/project-add.component';
 import { ProjectEditComponent } from './manage-project/project-edit/project-edit.component';
 import { AdminComponent } from './admin.component';
+import { EditComponent } from './manage-contact/edit/edit.component';
+import { AddComponent } from './manage-contact/add/add.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -40,7 +42,14 @@ export const routes: Routes = [
       { path: 'user', component: ManageUserComponent },
       { path: 'setting', component: ManageSettingComponent },
       { path: 'dashboard', component: SidebarAdminComponent },
-      { path: 'contact', component: ManageContactComponent },
+      {
+        path: 'contact',
+        children: [
+          { path: '', component: ManageContactComponent },
+          { path: 'add', component: AddComponent },
+          { path: 'edit', component: EditComponent },
+        ],
+      },
     ],
   },
   // {path: 'company',component: CompanycertificationsComponent},

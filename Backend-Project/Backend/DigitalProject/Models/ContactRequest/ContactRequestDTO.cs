@@ -30,7 +30,6 @@ namespace DigitalProject.Models.ContactRequest
         public string CustomerEmail { get; set; }
         public string CustomerMessage { get; set; }
         public string RequestType { get; set; }
-        public DateTime RequestTime { get; set; }
         public string Status { get; set; }
         public string IpAddress { get; set; }
     }

@@ -97,26 +97,20 @@ namespace DigitalProject.Repositories.Implements
                                      .Take(5).ToList();
         }
 
-        public PagingModel<ProjectOnHomeAndHeader> GetListOnHeader(int pageNumber, int pageSize)
+        public PagingDataReturn<ProjectOnHomeAndHeader> GetListOnHeader()
         {
             var query = _context.projects
                         .Where(x => x.DisplayOnHeader == true)
-                        .OrderBy(x => x.DisplayOrderOnHeader);
+                        .OrderBy(x => x.DisplayOrderOnHeader).Take(3).ToList();
 
-           
+  
+            var totalRecords = query.Count();
+            var data = _mapper.Map<List<ProjectOnHomeAndHeader>>(query);
 
-            var pagedData = query.Skip((pageNumber - 1) * pageSize)
-                                 .Take(pageSize)
-                                 .ToList();
-            var totalRecords = pagedData.Count();
-            var data = _mapper.Map<List<ProjectOnHomeAndHeader>>(pagedData);
-
-            return new PagingModel<ProjectOnHomeAndHeader>
+            return new PagingDataReturn<ProjectOnHomeAndHeader>
             {
-                PageNumber = pageNumber,
-                PageSize = pageSize,
                 Data = data,
-                TotalRecords = totalRecords
+                TotalCount = totalRecords
             };
         }
 

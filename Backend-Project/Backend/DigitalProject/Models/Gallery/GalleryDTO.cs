@@ -4,14 +4,11 @@ namespace DigitalProject.Models.Gallery
 {
     public class GalleryDTO
     {
-        public IFormFile ImageUrl { get; set; }
+        public IFormFile Image { get; set; }
         [Required(ErrorMessage = "Bạn chưa điền tên địa điểm")]
         [StringLength(50, ErrorMessage = "Tên địa điểm không vượt quá 50 ký tự")]
         public string GalleryName { get; set; }
         public string Address { get; set; }
-        public bool Displayorder { get; set; }
-        public DateTime CreateAt { get; set; }
-        public int PosterId { get; set; }
     }
     public class GetGalleryDTO
     {
@@ -19,7 +16,6 @@ namespace DigitalProject.Models.Gallery
 
         public string GalleryName { get; set; }
         public string Address { get; set; }
-        public bool Displayorder { get; set; }
         public DateTime CreateAt { get; set; }
         public int PosterId { get; set; }
     }

@@ -9,4 +9,10 @@ namespace DigitalProject.Common.Paging
        public int  PageNumber {  get; set; }
        public int PageSize {  get; set; }
     }
+    public class PagingDataReturn<T>
+    {
+        public List<T> Data { get; set; }
+        public int TotalCount { get; set; }
+    }
+
 }

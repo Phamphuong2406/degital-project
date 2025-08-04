@@ -16,11 +16,11 @@ namespace DigitalProject.Controllers.Client
 
         [HttpGet]
         [Route("ProjectsDisplayedOnHeader")]
-        public IActionResult ProjectsDisplayedOnHeader(int pageNumber= 1, int pageSize= 1)
+        public IActionResult ProjectsDisplayedOnHeader()
         {
             try
             {
-                return Ok(_projectService.GetListOnHeader(pageNumber,pageSize));
+                return Ok(_projectService.GetListOnHeader());
             }
             catch (Exception ex)
             {

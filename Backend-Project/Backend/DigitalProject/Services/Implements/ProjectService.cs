@@ -127,11 +127,11 @@ namespace DigitalProject.Services.Implements
                 throw;
             }
         }
-        public PagingModel<ProjectOnHomeAndHeader> GetListOnHeader(int pageNumber, int pageSize)
+        public PagingDataReturn<ProjectOnHomeAndHeader> GetListOnHeader()
         {
             try
             {
-                return _projectRepo.GetListOnHeader(pageNumber,pageSize);
+                return _projectRepo.GetListOnHeader();
             }
             catch (Exception)
             {

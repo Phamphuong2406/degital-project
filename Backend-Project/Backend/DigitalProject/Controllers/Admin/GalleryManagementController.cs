@@ -47,18 +47,18 @@ namespace DigitalProject.Controllers.Admin
         }
         [HttpPost]
         [Authorize]
-        public IActionResult CreateGellery([FromForm]GalleryDTO model)
+        public IActionResult CreateGallery([FromForm]GalleryDTO model)
         {
             try
             {
                 var claimsIdentity = this.User.Identity as ClaimsIdentity;
                 int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
                _galleryService.AddGallery(model, currentUserId);
-                return Ok("Thêm mới địa điểm thành công ");
+                return Ok(new { message = "Thêm mới địa điểm thành công ", result = true });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message , result = false });
             }
 
         }
