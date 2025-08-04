@@ -1,15 +1,181 @@
 <app-header></app-header>
+
+
+<div class="banner">
+  <image-slider [slides]="slides"></image-slider>
+
+
+  <section class="featured-projects">
+    <h2>Featured Projects</h2>
+
+    <div *ngIf="loadingHeader" class="cards-grid">
+      <!-- simple skeletons -->
+      <div class="project-card skeleton" *ngFor="let i of [1,2,3]">
+        <div class="thumb"></div>
+        <div class="info">
+          <div class="line short"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!loadingHeader && headerProjects.length === 0" class="empty">
+      Không có dự án nổi bật để hiển thị.
+    </div>
+
+    <div class="cards-grid" *ngIf="!loadingHeader && headerProjects.length">
+      <div
+        class="project-card"
+        *ngFor="let proj of headerProjects"
+        (click)="viewProject(proj.projectId)"
+        role="button"
+        tabindex="0"
+      >
+        <div class="thumb-wrapper">
+          <img [src]="proj.avatarUrl" [alt]="proj.projectName + ' thumbnail'" />
+        </div>
+        <div class="info">
+          <h3>{{ proj.projectName }}</h3>
+          <p>{{ proj.shortDescription }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="error && !loadingHeader" class="error">
+      {{ error }}
+    </div>
+  </section>
+</div>
+
+
+<div class="main">
+  <h1>Main Focus / Mission Statement</h1>
+  <div class="list-number">
+    <div class="list-one">
+      <img src="assets/Images/1-1.png" alt="focus 1" />
+      <div class="list-one-text">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lectus et facilisis placerat.</span>
+      </div>
+    </div>
+    <div class="list-two">
+      <img src="assets/Images/2-2.png" alt="focus 2" />
+      <div class="list-two-text">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur, lectus et facilisis placerat.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="project">
+  <h1>Our Projects</h1>
+
+  <div *ngIf="loadingHome" class="cards-grid">
+    <div class="project-card skeleton" *ngFor="let i of [1,2,3,4,5]">
+      <div class="thumb"></div>
+      <div class="info">
+        <div class="line short"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loadingHome && homeProjects.length === 0" class="empty">
+    Chưa có dự án để hiển thị.
+  </div>
+
+  <div class="cards-grid" *ngIf="!loadingHome && homeProjects.length">
+    <div
+      class="project-card"
+      *ngFor="let proj of homeProjects"
+      (click)="viewProject(proj.projectId)"
+      role="button"
+      tabindex="0"
+    >
+      <div class="thumb-wrapper">
+        <img [src]="proj.avatarUrl" [alt]="proj.projectName + ' thumbnail'" />
+      </div>
+      <div class="info">
+        <h3>{{ proj.projectName }}</h3>
+        <p>{{ proj.shortDescription }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="error && !loadingHome" class="error">
+    {{ error }}
+  </div>
+
+  <div class="see-all">
+    <button routerLink="/projects">ALL PROJECTS -></button>
+  </div>
+</section>
+
+
+<div class="banner-about">
+  <div class="banner-image-about">
+    <div class="image-left">
+      <img src="assets/Images/top3-2.png" alt="about left 1" />
+      <img src="assets/Images/top3-1.png" alt="about left 2" />
+    </div>
+    <div class="image-right">
+      <img src="assets/Images/top3-3.png" alt="about right" />
+    </div>
+  </div>
+  <div class="banner-text-about">
+    <h1>About</h1>
+    <span>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+      when an unknown printer took a galley of type and scrambled it to make a type
+      specimen book. It has survived not only five centuries, but also the leap into
+      electronic typesetting, remaining essentially unchanged.
+    </span>
+    <button routerLink="/about">Read More!</button>
+  </div>
+</div>
+
+
+<section class="contact">
+  <h1>Contact Us</h1>
+  <div class="contact-us">
+    <div class="input-text">
+      <form (submit)="sendContact($event)">
+        <div class="field">
+          <input placeholder="Name" id="name" name="name" required />
+        </div>
+        <div class="field">
+          <input placeholder="Phone Number" id="phone" name="phone" required />
+        </div>
+        <div class="field">
+          <input placeholder="E-mail" id="email" name="email" type="email" required />
+        </div>
+        <div class="field">
+          <input placeholder="Interested In" id="interestedin" name="interestedin" />
+        </div>
+        <div class="field">
+          <textarea placeholder="Message" id="message" name="message" rows="4"></textarea>
+        </div>
+        <div class="actions">
+          <button type="submit">SEND MAIL -></button>
+        </div>
+      </form>
+    </div>
+    <div class="visual">
+      <img src="assets/Images/contact.png" alt="contact illustration" />
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>
+
+
+
+
+
+<!-- <app-header></app-header>
 <div class="banner">
   <image-slider [slides] ="slides"></image-slider>
-  <!-- <div class="banner-project">
-    <div class="banner-text-project">
-      <h1>PROJECT <br><b>Lorum</b></h1>
-    </div>
-    <div class="img-banner">
-      <img src="assets/Images/top.png" alt>
-      <button>View Project -></button>
-    </div>
-  </div> -->
   <div class="banner-about">
     <div class="banner-image-about">
       <div class="image-left">
@@ -118,4 +284,4 @@
   </div>
   <button>SEND MAIL -></button>
 </div>
-<app-footer></app-footer>
+<app-footer></app-footer> -->
