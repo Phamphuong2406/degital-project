@@ -9,12 +9,12 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-manage-project',
-  standalone: false,
-  //imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
 
   templateUrl: './manage-project.component.html',
   styleUrl: './manage-project.component.scss',

@@ -84,9 +84,7 @@ export class HomepageComponent implements OnInit {
     return;
   }
 
-  // TODO: gọi API gửi contact hoặc xử lý tuỳ nhu cầu
   console.log('Contact submitted', payload);
-  // Ví dụ hiển thị thành công:
   this.error = undefined;
   alert('Cảm ơn! Chúng tôi đã nhận được tin nhắn của bạn.');
   form.reset();

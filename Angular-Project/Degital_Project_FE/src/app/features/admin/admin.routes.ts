@@ -10,7 +10,7 @@ import { ManageSettingComponent } from './manage-setting/manage-setting.componen
 import { SidebarAdminComponent } from './sidebar-admin/sidebar-admin.component';
 import { GalleryAddComponent } from './manage-gallery/gallery-add/gallery-add.component';
 import { GalleryEditComponent } from './manage-gallery/gallery-edit/gallery-edit.component';
-import { ProjectAddComponent } from './project-add/project-add.component';
+import { ProjectAddComponent } from './manage-project/project-add/project-add.component';
 import { ProjectEditComponent } from './manage-project/project-edit/project-edit.component';
 import { AdminComponent } from './admin.component';
 
@@ -23,8 +23,8 @@ export const routes: Routes = [
     children: [
       {
         path: 'project',
-        component: ManageProjectComponent,
         children: [
+          { path: '', component: ManageProjectComponent },
           { path: 'add', component: ProjectAddComponent },
           { path: 'edit/:id', component: ProjectEditComponent },
         ],

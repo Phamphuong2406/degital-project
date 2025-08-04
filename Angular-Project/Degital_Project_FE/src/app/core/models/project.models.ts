@@ -65,3 +65,16 @@ export interface PagedResult<T> {
   pageSize: number;
 }
 
+// ---------------------------------------------------------
+
+export interface GetListDisplayedOnFooter{
+
+}
+
+export interface GetListDisplayedOnContactInfor{
+
+}
+
+export interface GalleryDisplayedOnPhotoGallery{
+
+}
