@@ -68,11 +68,11 @@ namespace DigitalProject.Controllers.Admin
             try
             {
                 _galleryService.EditGallery(dto, id);
-                return Ok("Cập nhật địa điểm thành công");
+                return Ok(new { message = "Cập nhật địa điểm thành công" ,result= true});
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message , result=false});
             }
          
 

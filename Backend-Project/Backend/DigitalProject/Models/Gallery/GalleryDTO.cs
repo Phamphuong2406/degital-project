@@ -11,7 +11,9 @@ namespace DigitalProject.Models.Gallery
         public string Address { get; set; }
     }
     public class GetGalleryDTO
+
     {
+        public int GalleryId { get; set; }
         public string ImageUrl { get; set; }
 
         public string GalleryName { get; set; }

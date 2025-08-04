@@ -9,8 +9,7 @@ export interface GalleryModel {
 export interface GalleryCreateOrUpdateModel {
   image: File;
   galleryName: string;
-  address: string;
-  createAt: Date;
+  address: string
 }
 export interface ReturnGalleryData {
   message: string;

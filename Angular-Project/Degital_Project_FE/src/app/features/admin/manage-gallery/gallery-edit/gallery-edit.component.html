@@ -1,1 +1,25 @@
-<p>gallery-edit works!</p>
+<form method="post" [formGroup]="galleryEditForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div class="mb-3 form-check">
+        <label class="form-label">galleryName</label>
+        <input type="text" class="form-control" formControlName="galleryName" required />
+        <div *ngIf="submited && f['galleryName'].errors">
+            <small *ngIf="f['galleryName'].errors['required']">Tên địa điểm không để trống</small>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <label class="form-label">address</label>
+        <input type="text" class="form-control" formControlName="address" required />
+        <div *ngIf="submited && f['address'].errors">
+            <small *ngIf="f['address'].errors['required']">Địa chỉ không để trống</small>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+        <button mat-raised-button color="primary" (click)="fileInput.click()">
+            Chọn ảnh
+        </button>
+    </div>
+    <div class="mb-3 form-check">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </div>
+</form>

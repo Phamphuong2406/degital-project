@@ -47,7 +47,7 @@ export const routes: Routes = [
         children: [
           { path: '', component: ManageContactComponent },
           { path: 'add', component: AddComponent },
-          { path: 'edit', component: EditComponent },
+          { path: 'edit/:id', component: EditComponent },
         ],
       },
     ],
@@ -60,4 +60,4 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

@@ -1,1 +1,43 @@
-<p>edit works!</p>
+<p>project-add works!</p>
+<form method="post" [formGroup]="contactEditForm" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3 form-check">
+        <label class="form-label">CustommerName</label>
+        <input type="text" class="form-control" formControlName="custommerName" required />
+        <div *ngIf="submited && f['custommerName'].errors">
+            <small *ngIf="f['custommerName'].errors['required']">Tên khách hàng không để trống</small>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <label class="form-label">address</label>
+        <input type="text" class="form-control" formControlName="customerPhoneNumber" required />
+        <div *ngIf="submited && f['customerPhoneNumber'].errors">
+            <small *ngIf="f['customerPhoneNumber'].errors['required']">Số điện thoại không để trống</small>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <label class="form-label">customerEmail"</label>
+        <input type="text" class="form-control" formControlName="customerEmail" required />
+        <div *ngIf="submited && f['customerEmail'].errors">
+            <small *ngIf="f['customerEmail'].errors['required']">Email không để trống</small>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <label class="form-label">CustomerMessage</label>
+        <input type="text" class="form-control" formControlName="customerMessage" required />
+        <div *ngIf="submited && f['customerMessage'].errors">
+            <small *ngIf="f['customerMessage'].errors['required']">Nội dung không để trống</small>
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <label class="form-label">RequestType</label>
+        <input type="text" class="form-control" formControlName="requestType" required />
+        <div *ngIf="submited && f['requestType'].errors">
+            <small *ngIf="f['requestType'].errors['required']">Kiểu nội dung không để trống</small>
+        </div>
+    </div>
+
+    <div class="mb-3 form-check">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </div>
+</form>

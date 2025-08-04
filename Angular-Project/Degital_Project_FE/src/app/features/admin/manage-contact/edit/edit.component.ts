@@ -17,7 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './edit.component.scss',
 })
 export class EditComponent {
-  projectEditForm: FormGroup;
+  contactEditForm: FormGroup;
   submited: boolean = false;
   srcResult: any = null;
   prId: number = 0;
@@ -28,22 +28,14 @@ export class EditComponent {
     private router: Router,
     private _router: ActivatedRoute
   ) {
-    this.projectEditForm = this.fb.group({
-      projectName: ['', Validators.required],
-      projectType: ['', Validators.required],
-      avatar: [null, Validators.required],
-      shortDescription: ['', Validators.required],
-      detailedDescription: ['', Validators.required],
-      architect: ['', Validators.required],
-      structuralEngineer: ['', Validators.required],
-      constructionStartTime: ['', Validators.required],
-      constructionEndTime: ['', Validators.required],
-      displayOnhome: false,
-      displayOrderOnHome: 0,
-      displayOnHeader: false,
-      displayOrderOnHeader: 0,
-      expirationTimeOnHeader: [''],
-      idPoster: 1,
+    this.contactEditForm = this.fb.group({
+
+      custommerName: ['', Validators.required],
+      customerPhoneNumber: ['', Validators.required],
+      customerEmail: ['', Validators.required],
+      customerMessage: ['', Validators.required],
+      requestType: ['', Validators.required],
+
     });
   }
 
@@ -56,16 +48,16 @@ export class EditComponent {
         this.prId = id;
 
         this.contatctSv.getContactById(id).subscribe((res) => {
-          const project = res;
-          this.prId = project.requestId;
+          const contact = res;
+          this.prId = contact.requestId;
 
-          this.projectEditForm = this.fb.group({
-            projectId: [project.requestId, Validators.required],
-            projectName: [project.custommerName, Validators.required],
-            projectType: [project.customerPhoneNumber, Validators.required],
-            avatar: [project.customerEmail, Validators.required],
-            shortDescription: [project.customerMessage, Validators.required],
-            detailedDescription: [project.requestType, Validators.required],
+          this.contactEditForm = this.fb.group({
+
+            custommerName: ['', Validators.required],
+            customerPhoneNumber: ['', Validators.required],
+            customerEmail: ['', Validators.required],
+            customerMessage: ['', Validators.required],
+            requestType: ['', Validators.required],
           });
         });
       }
@@ -73,26 +65,26 @@ export class EditComponent {
   }
 
   get f() {
-    return this.projectEditForm.controls;
+    return this.contactEditForm.controls;
   }
 
   onSubmit(): any {
     this.submited = true;
 
-    if (this.projectEditForm.invalid) {
-      console.log(this.projectEditForm.value);
+    if (this.contactEditForm.invalid) {
+      console.log(this.contactEditForm.value);
       return false;
     }
 
     if (!this.prId) {
-      console.error('Project ID is missing!');
+      console.error('Request ID is missing!');
       return;
     }
 
     const formData = new FormData();
 
-    Object.keys(this.projectEditForm.controls).forEach((key) => {
-      const control = this.projectEditForm.get(key);
+    Object.keys(this.contactEditForm.controls).forEach((key) => {
+      const control = this.contactEditForm.get(key);
       if (!control) return;
 
       let value = control.value;
@@ -124,8 +116,8 @@ export class EditComponent {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.projectEditForm.patchValue({ avatar: file });
-      this.projectEditForm.get('avatar')?.updateValueAndValidity();
+      this.contactEditForm.patchValue({ avatar: file });
+      this.contactEditForm.get('avatar')?.updateValueAndValidity();
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
