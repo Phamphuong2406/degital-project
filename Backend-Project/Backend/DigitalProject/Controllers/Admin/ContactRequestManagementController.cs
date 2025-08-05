@@ -65,11 +65,11 @@ namespace DigitalProject.Controllers.Admin
             try
             {
                 _requestService.UpdateContactRequest(dto, id);
-                return Ok("Cập nhật yêu cầu thành công");
+                return Ok(new { message = "Cập nhật yêu cầu thành công", result = true });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, result=false });
             }
 
         }

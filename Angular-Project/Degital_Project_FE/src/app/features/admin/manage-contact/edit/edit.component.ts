@@ -104,7 +104,7 @@ export class EditComponent implements OnInit {
       next: (res) => {
         if (res.result) {
           alert(res.message || 'Cập nhật thành công');
-          this.router.navigate(['project']);
+          this.router.navigate(['admin/contact']);
         } else {
           this.errorMessage = res.message || 'Cập nhật không thành công.';
         }
