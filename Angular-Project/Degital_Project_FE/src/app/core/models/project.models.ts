@@ -22,6 +22,7 @@ export interface ProjectCreateOrUpdateModel {
   projectName: string;
   projectType: string;
   avatar: File;
+  avatarOld: string;
   shortDescription: string;
   detailedDescription: string;
   architect: string;
@@ -39,7 +40,6 @@ export interface ReturnProjectData {
   message: string;
   result: boolean;
 }
-
 
 export interface ProjectDisplayedOnHeaderItem {
   projectId: number;
@@ -67,14 +67,8 @@ export interface PagedResult<T> {
 
 // ---------------------------------------------------------
 
-export interface GetListDisplayedOnFooter{
+export interface GetListDisplayedOnFooter {}
 
-}
+export interface GetListDisplayedOnContactInfor {}
 
-export interface GetListDisplayedOnContactInfor{
-
-}
-
-export interface GalleryDisplayedOnPhotoGallery{
-
-}
+export interface GalleryDisplayedOnPhotoGallery {}

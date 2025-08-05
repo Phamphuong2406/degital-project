@@ -1,46 +1,52 @@
-<form method="get" class="mb-4">
-    <div class="row g-3 align-items-end">
-        <div class="col-md-3">
-            <label for="min">Ngày nhỏ nhất:</label>
-            <input type="date" name="min" id="min" class="form-control" />
-        </div>
-        <div class="col-md-3">
-            <label for="max">Ngày lớn nhất:</label>
-            <input type="date" name="max" id="max" class="form-control" />
-        </div>
-        <div class="col-md-3">
-            <label for="searchString">Tìm Kiếm:</label>
-            <input type="search" name="searchString" id="searchString" class="form-control" />
-        </div>
-        <div class="col-md-3">
-            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-        </div>
+<form
+  [formGroup]="subjectForm"
+  method="get"
+  class="mb-4"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-3">
+      <label for="searchString">Tìm Kiếm :</label>
+      <input type="text" formControlName="key" class="form-control" />
     </div>
+
+    <input type="hidden" formControlName="pageNumber" />
+    <input type="hidden" formControlName="pageSize" />
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+  </div>
 </form>
+<a routerLink="add" class="btn btn-success">Thêm mới</a>
 <table class="table" id="myTable">
-    <thead>
-        <tr>
-            <th scope="col">setting</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-            <tr class="@rowClass">
-              <td>setting</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Key</th>
+      <th scope="col">Setting Type</th>
+      <th scope="col">Discription</th>
+      <th scope="col">Display OnHome</th>
+      <th scope="col">Display Order OnHome</th>
+      <th scope="col">Select</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="@rowClass" *ngFor="let item of listSettingModel">
+      <td>{{ item.id }}</td>
+      <td>{{ item.key }}</td>
+      <td>{{ item.settingType }}</td>
+      <td>{{ item.discription }}</td>
+      <td>{{ item.displayOnHome }}</td>
+      <td>{{ item.displayOrderOnHome }}</td>
+      <td>
+        <a [routerLink]="['edit', item.id]" class="btn btn-primary">Edit</a>
+        <a
+          href="javascrip:void(0)"
+          class="btn btn-danger"
+          (click)="onDelete(item.id)"
+          >Delete</a
+        >
+      </td>
+    </tr>
+  </tbody>
 </table>

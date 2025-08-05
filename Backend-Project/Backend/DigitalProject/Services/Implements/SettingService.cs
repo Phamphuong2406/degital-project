@@ -57,7 +57,7 @@ namespace DigitalProject.Services.Implements
                 throw;
             }
         }
-        public void CreateSetting(SettingDTO model)
+        public void CreateSetting(SettingCreateOrUpdate model)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace DigitalProject.Services.Implements
                 throw;
             }
         }
-        public void EditSetting(SettingDTO dto, int settingId)
+        public void EditSetting(SettingCreateOrUpdate dto, int settingId)
         {
             try
             {

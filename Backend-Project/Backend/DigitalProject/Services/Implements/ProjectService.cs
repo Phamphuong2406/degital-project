@@ -52,7 +52,7 @@ namespace DigitalProject.Services.Implements
                 throw;
             }
         }
-        public void AddProject(ProjectDTO model)
+        public void AddProject(ProjectDTO model, int currentUserId)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace DigitalProject.Services.Implements
                 var project = _mapper.Map<Project>(model);
                 project.PostedTime = DateTime.Now;
                 project.AvatarUrl = UploadHandler.Upload(model.Avatar);
-                project.IdPoster = 1;
+                project.IdPoster = currentUserId;
                 _projectRepo.CreateProject(project);
             }
             catch (Exception)
@@ -70,14 +70,23 @@ namespace DigitalProject.Services.Implements
             }
 
         }
-        public void EditProject(ProjectDTO model, int projectId)
+        public void EditProject(ProjectDTO model, int projectId, int currentUserId)
         {
             try
             {
+                var currentProject = _projectRepo.FindById(projectId);
+                UploadHandler.DeleteFile(currentProject.AvatarUrl);
                 var project = _projectRepo.FindById(projectId);
                 project.ProjectName = model.ProjectName;
                 project.ProjectType = model.ProjectType;
-                project.AvatarUrl = UploadHandler.Upload(model.Avatar);
+                if(model.Avatar== null)
+                {
+                    project.AvatarUrl = model.AvatarOld;
+                }
+                else
+                {
+                    project.AvatarUrl = UploadHandler.Upload(model.Avatar);
+                }
                 project.ShortDescription = model.ShortDescription;
                 project.DetailedDescription = model.DetailedDescription;
                 project.Architect = model.Architect;
@@ -90,6 +99,7 @@ namespace DigitalProject.Services.Implements
                 project.DisplayOrderOnHeader = model.DisplayOrderOnHeader;
                 project.DisplayOrderOnHome = model.DisplayOrderOnHome;
                 project.ExpirationTimeOnHeader = model.ExpirationTimeOnHeader;
+                project.ProjectId = currentUserId;
 
                 _projectRepo.EditProject(project);
             }
@@ -105,6 +115,7 @@ namespace DigitalProject.Services.Implements
             try
             {
                 var project = _projectRepo.FindById(projectId);
+                UploadHandler.DeleteFile(project.AvatarUrl);
                 _projectRepo.DeleteProject(project);
             }
             catch (Exception)

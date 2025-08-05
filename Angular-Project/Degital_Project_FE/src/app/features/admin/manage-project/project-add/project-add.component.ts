@@ -36,9 +36,9 @@ export class ProjectAddComponent {
       structuralEngineer: ['', Validators.required],
       constructionStartTime: ['', Validators.required],
       constructionEndTime: ['', Validators.required],
-      displayOnhome: [false, Validators.required],
+      displayOnhome: [false],
       displayOrderOnHome: 0,
-      displayOnHeader: [false, Validators.required],
+      displayOnHeader: [false],
       displayOrderOnHeader: 0,
       expirationTimeOnHeader: ['', Validators.required],
       idPoster: 1,
@@ -46,7 +46,7 @@ export class ProjectAddComponent {
   }
 
   ngOnInit(): void {}
-
+  avatarurl = 'assets/Images/empty.png';
   get f() {
     return this.projectAddForm.controls;
   }
@@ -98,8 +98,9 @@ export class ProjectAddComponent {
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.srcResult = reader.result;
+      reader.onload = (event: any) => {
+        // this.srcResult = reader.result;
+        this.avatarurl = event.target.result;
       };
     }
   }

@@ -26,6 +26,7 @@ namespace DigitalProject.Common.AutoMapper
             CreateMap<Project, ShowOnOurProject>();
             CreateMap<Project, ProjectOnHomeAndHeader>();
             CreateMap<Gallery, ShowPhotoGallery>();
+            CreateMap<SettingCreateOrUpdate, Setting>();
           
         }
 

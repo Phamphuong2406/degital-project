@@ -103,6 +103,7 @@ namespace DigitalProject.Services.Implements
             try
             {
                 var gallery = _galleryRepo.FindById(galleryId);
+                UploadHandler.DeleteFile(gallery.ImageUrl);
                 _galleryRepo.DeleteGallery(gallery);
             }
             catch (Exception)

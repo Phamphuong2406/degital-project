@@ -45,21 +45,21 @@ namespace DigitalProject.Controllers.Admin
 
         }
         [HttpPost]
-        public IActionResult CreateSetting(SettingDTO model)
+        public IActionResult CreateSetting(SettingCreateOrUpdate model)
         {
             try
             {
                 _settingService.CreateSetting(model);
-                return Ok("Thêm mới cài đặt thành công ");
+                return Ok(new { message = "Thêm mới cài đặt thành công ", result = true });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, result=false });
             }
 
         }
         [HttpPut("{id}")]
-        public IActionResult UpdateSetting(SettingDTO dto, int id)
+        public IActionResult UpdateSetting(SettingCreateOrUpdate dto, int id)
         {
             try
             {

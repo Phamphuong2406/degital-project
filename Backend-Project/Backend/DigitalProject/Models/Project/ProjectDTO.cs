@@ -26,7 +26,8 @@ namespace DigitalProject.Models.Project
     {
         public string ProjectName { get; set; }
         public string ProjectType { get; set; }
-        public IFormFile Avatar { get; set; }
+        public string? AvatarOld {  get; set; }
+        public IFormFile? Avatar { get; set; }
         public string? ShortDescription { get; set; }
         public string? DetailedDescription { get; set; }
         public string? Architect { get; set; }

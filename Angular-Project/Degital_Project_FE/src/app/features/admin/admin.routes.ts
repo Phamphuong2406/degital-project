@@ -15,6 +15,8 @@ import { ProjectEditComponent } from './manage-project/project-edit/project-edit
 import { AdminComponent } from './admin.component';
 import { EditComponent } from './manage-contact/edit/edit.component';
 import { AddComponent } from './manage-contact/add/add.component';
+import { SettingAddComponent } from './manage-setting/setting-add/setting-add.component';
+import { SettingEditComponent } from './manage-setting/setting-edit/setting-edit.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -40,7 +42,14 @@ export const routes: Routes = [
         ],
       },
       { path: 'user', component: ManageUserComponent },
-      { path: 'setting', component: ManageSettingComponent },
+      {
+        path: 'setting',
+        children: [
+          { path: '', component: ManageSettingComponent },
+          { path: 'add', component: SettingAddComponent },
+          { path: 'edit/:id', component: SettingEditComponent },
+        ],
+      },
       { path: 'dashboard', component: SidebarAdminComponent },
       {
         path: 'contact',
@@ -60,4 +69,4 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

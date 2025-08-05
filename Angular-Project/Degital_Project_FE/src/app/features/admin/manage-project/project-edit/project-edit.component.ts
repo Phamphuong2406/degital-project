@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,11 +16,14 @@ import { CommonModule } from '@angular/common';
   templateUrl: './project-edit.component.html',
   styleUrl: './project-edit.component.scss',
 })
-export class ProjectEditComponent {
+export class ProjectEditComponent implements OnInit {
   projectEditForm: FormGroup;
-  submited: boolean = false;
+  submited = false;
   srcResult: any = null;
-  prId: number = 0;
+  prId = 0;
+  avatarurl = 'assets/Images/empty.png';
+  avatarOldName = '';
+  avatarFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +34,8 @@ export class ProjectEditComponent {
     this.projectEditForm = this.fb.group({
       projectName: ['', Validators.required],
       projectType: ['', Validators.required],
-      avatar: [null, Validators.required],
+      avatar: [null],
+      avatarOld: [''],
       shortDescription: ['', Validators.required],
       detailedDescription: ['', Validators.required],
       architect: ['', Validators.required],
@@ -50,54 +54,40 @@ export class ProjectEditComponent {
   ngOnInit(): void {
     this._router.paramMap.subscribe((query) => {
       const idParam = query.get('id');
+      if (!idParam) return;
 
-      if (idParam !== null) {
-        const id = +idParam; // ép kiểu sang number
-        this.prId = id;
+      this.prId = +idParam;
 
-        this.projectSv.getProjectById(id).subscribe((res) => {
-          const project = res;
-          this.prId = project.projectId;
+      this.projectSv.getProjectById(this.prId).subscribe((project) => {
+        this.avatarOldName = project.avatarUrl || '';
+        this.avatarurl = project.avatarUrl
+          ? 'https://localhost:7132/Uploads/' + project.avatarUrl
+          : 'assets/Images/empty.png';
 
-          this.projectEditForm = this.fb.group({
-            projectId: [project.projectId, Validators.required],
-            projectName: [project.projectName, Validators.required],
-            projectType: [project.projectType, Validators.required],
-            avatar: [project.avatarUrl, Validators.required],
-            shortDescription: [project.shortDescription, Validators.required],
-            detailedDescription: [
-              project.detailedDescription,
-              Validators.required,
-            ],
-            architect: [project.architect, Validators.required],
-            structuralEngineer: [
-              project.structuralEngineer,
-              Validators.required,
-            ],
-            constructionStartTime: [
-              new Date(project.constructionStartTime)
-                .toISOString()
-                .slice(0, 10),
-              Validators.required,
-            ],
-            constructionEndTime: [
-              new Date(project.constructionEndTime).toISOString().slice(0, 10),
-              Validators.required,
-            ],
-            displayOnhome: [project.displayOrderOnHome, Validators.required],
-            displayOrderOnHome: project.displayOrderOnHome,
-            displayOnHeader: [project.displayOnHeader, Validators.required],
-            displayOrderOnHeader: project.displayOrderOnHeader,
-            expirationTimeOnHeader: [
-              new Date(project.expirationTimeOnHeader)
-                .toISOString()
-                .slice(0, 10),
-              Validators.required,
-            ],
-            idPoster: project.idPoster,
-          });
+        this.projectEditForm.patchValue({
+          projectName: project.projectName,
+          projectType: project.projectType,
+          avatarOld: project.avatarUrl,
+          shortDescription: project.shortDescription,
+          detailedDescription: project.detailedDescription,
+          architect: project.architect,
+          structuralEngineer: project.structuralEngineer,
+          constructionStartTime: new Date(project.constructionStartTime)
+            .toISOString()
+            .slice(0, 10),
+          constructionEndTime: new Date(project.constructionEndTime)
+            .toISOString()
+            .slice(0, 10),
+          displayOnhome: project.displayOnHome,
+          displayOrderOnHome: project.displayOrderOnHome,
+          displayOnHeader: project.displayOnHeader,
+          displayOrderOnHeader: project.displayOrderOnHeader,
+          expirationTimeOnHeader: new Date(project.expirationTimeOnHeader)
+            .toISOString()
+            .slice(0, 10),
+          idPoster: project.idPoster,
         });
-      }
+      });
     });
   }
 
@@ -105,22 +95,36 @@ export class ProjectEditComponent {
     return this.projectEditForm.controls;
   }
 
-  onSubmit(): any {
+  onFileSelected(event: any): void {
+    const file = event.target.files?.[0];
+    if (file) {
+      this.avatarFile = file;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e: any) => {
+        this.avatarurl = e.target.result;
+        this.srcResult = e.target.result;
+      };
+    } else {
+      this.avatarFile = null;
+    }
+  }
+
+  onSubmit(): void {
     this.submited = true;
 
     if (this.projectEditForm.invalid) {
       console.log(this.projectEditForm.value);
-      return false;
-    }
-
-    if (!this.prId) {
-      console.error('Project ID is missing!');
       return;
     }
 
     const formData = new FormData();
 
+    // Thêm các field khác vào formData (trừ avatar)
     Object.keys(this.projectEditForm.controls).forEach((key) => {
+      if (key === 'avatar') return;
+
       const control = this.projectEditForm.get(key);
       if (!control) return;
 
@@ -140,27 +144,24 @@ export class ProjectEditComponent {
       formData.append(key, value);
     });
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ':', pair[1]);
+    // avatar xử lý riêng
+    if (this.avatarFile) {
+      console.log('Avatar File:', this.avatarFile);
+
+      formData.append('avatar', this.avatarFile); // Gửi file mới
+    } else {
+      formData.append('avatar', ''); // Gửi avatar là rỗng
     }
+
+    // avatarOld luôn gửi
+    formData.append(
+      'avatarOld',
+      this.projectEditForm.get('avatarOld')?.value || ''
+    );
 
     this.projectSv.updateProject(formData, this.prId).subscribe((res) => {
       alert(res.message);
-      this.router.navigate(['project']);
+      this.router.navigate(['admin/project']);
     });
-  }
-
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.projectEditForm.patchValue({ avatar: file });
-      this.projectEditForm.get('avatar')?.updateValueAndValidity();
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.srcResult = reader.result;
-      };
-    }
   }
 }

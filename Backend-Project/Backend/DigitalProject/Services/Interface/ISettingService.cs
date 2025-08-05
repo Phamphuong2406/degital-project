@@ -10,8 +10,8 @@ namespace DigitalProject.Services.Interface
         List<SettingDTO> GetListSetting();
         SettingDTO FindBySettingId(int settingId);
         PagingModel<SettingDTO> GetListSettingByKeyword(string? key, int pageNumber, int pageSize);
-        void CreateSetting(SettingDTO model);
-        void EditSetting(SettingDTO dto, int settingId);
+        void CreateSetting(SettingCreateOrUpdate model);
+        void EditSetting(SettingCreateOrUpdate dto, int settingId);
         void DeleteSetting(int settingId);
         List<SettingOnHome> GetListDisplayedOnFooter();
         List<SettingOnHome> GetListDisplayedOnContactInfor();

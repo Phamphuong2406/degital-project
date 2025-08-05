@@ -8,6 +8,7 @@ namespace DigitalProject.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProjectManagementController : ControllerBase
     {
         private readonly IProjectService _projectService;
@@ -17,7 +18,7 @@ namespace DigitalProject.Controllers.Admin
             _projectService = projectService;
         }
         [HttpGet]
-        [Authorize]
+     
         public IActionResult GetAllProject()
         {
             try
@@ -49,10 +50,9 @@ namespace DigitalProject.Controllers.Admin
         {
             try
             {
-                /* var claimsIdentity = this.User.Identity as ClaimsIdentity;
-                 int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
-                 _projectService.AddProject(model, currentUserId);*/
-                _projectService.AddProject(model);
+                var claimsIdentity = this.User.Identity as ClaimsIdentity;
+                int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
+                _projectService.AddProject(model, currentUserId);
                 return Ok(new { message= "Thêm mới dự án thành công",result= true});
             }
             catch (Exception ex)
@@ -65,12 +65,14 @@ namespace DigitalProject.Controllers.Admin
         public IActionResult UpdateProject([FromForm] ProjectDTO dto, int projectId) {
             try
             {
-                _projectService.EditProject(dto, projectId);
-                return Ok("Cập nhật dự án thành công");
+                var claimsIdentity = this.User.Identity as ClaimsIdentity;
+                int currentUserId = Convert.ToInt32(claimsIdentity.FindFirst(ClaimTypes.PrimarySid)?.Value);
+                _projectService.EditProject(dto, projectId, currentUserId);
+                return Ok(new { message = "Cập nhật dự án thành công", result = true });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message , result=true});
             }
         }
      
