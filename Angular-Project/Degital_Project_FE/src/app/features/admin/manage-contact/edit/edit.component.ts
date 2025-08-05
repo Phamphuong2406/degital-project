@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,10 @@ import {
 } from '@angular/forms';
 import { ContactService } from '../../../../core/services/contact.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ContactModel,
+  ContactUpdateModel,
+} from '../../../../core/models/contact.models';
 
 @Component({
   selector: 'app-edit',
@@ -16,51 +20,59 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss',
 })
-export class EditComponent {
+export class EditComponent implements OnInit {
   contactEditForm: FormGroup;
-  submited: boolean = false;
-  srcResult: any = null;
+  submitted = false;
   prId: number = 0;
+  loading = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
-    private contatctSv: ContactService,
+    private contactSv: ContactService,
     private router: Router,
-    private _router: ActivatedRoute
+    private route: ActivatedRoute
   ) {
     this.contactEditForm = this.fb.group({
-
       custommerName: ['', Validators.required],
       customerPhoneNumber: ['', Validators.required],
-      customerEmail: ['', Validators.required],
+      customerEmail: ['', [Validators.required, Validators.email]],
       customerMessage: ['', Validators.required],
       requestType: ['', Validators.required],
-
+      status: ['', Validators.required],
+      ipAddress: [''],
     });
   }
 
   ngOnInit(): void {
-    this._router.paramMap.subscribe((query) => {
-      const idParam = query.get('id');
+    this.route.paramMap.subscribe((params) => {
+      const idParam = params.get('id');
+      if (!idParam) return;
+      const id = +idParam;
+      if (isNaN(id)) return;
+      this.prId = id;
+      this.loading = true;
 
-      if (idParam !== null) {
-        const id = +idParam; // ép kiểu sang number
-        this.prId = id;
-
-        this.contatctSv.getContactById(id).subscribe((res) => {
-          const contact = res;
+      this.contactSv.getContactById(id).subscribe({
+        next: (contact: ContactModel) => {
+          this.loading = false;
           this.prId = contact.requestId;
-
-          this.contactEditForm = this.fb.group({
-
-            custommerName: ['', Validators.required],
-            customerPhoneNumber: ['', Validators.required],
-            customerEmail: ['', Validators.required],
-            customerMessage: ['', Validators.required],
-            requestType: ['', Validators.required],
+          this.contactEditForm.patchValue({
+            custommerName: contact.custommerName,
+            customerPhoneNumber: contact.customerPhoneNumber,
+            customerEmail: contact.customerEmail,
+            customerMessage: contact.customerMessage,
+            requestType: contact.requestType,
+            status: contact.status,
+            ipAddress: contact.ipAddress,
           });
-        });
-      }
+        },
+        error: (err) => {
+          console.error('Lấy contact thất bại', err);
+          this.loading = false;
+          this.errorMessage = 'Không tải được dữ liệu liên hệ.';
+        },
+      });
     });
   }
 
@@ -68,62 +80,39 @@ export class EditComponent {
     return this.contactEditForm.controls;
   }
 
-  onSubmit(): any {
-    this.submited = true;
-
+  onSubmit(): void {
+    this.submitted = true;
     if (this.contactEditForm.invalid) {
-      console.log(this.contactEditForm.value);
-      return false;
+      return;
     }
-
     if (!this.prId) {
       console.error('Request ID is missing!');
       return;
     }
 
-    const formData = new FormData();
+    const payload: ContactUpdateModel = {
+      custommerName: this.contactEditForm.value.custommerName,
+      customerPhoneNumber: this.contactEditForm.value.customerPhoneNumber,
+      customerEmail: this.contactEditForm.value.customerEmail,
+      customerMessage: this.contactEditForm.value.customerMessage,
+      requestType: this.contactEditForm.value.requestType,
+      status: this.contactEditForm.value.status,
+      ipAddress: this.contactEditForm.value.ipAddress,
+    };
 
-    Object.keys(this.contactEditForm.controls).forEach((key) => {
-      const control = this.contactEditForm.get(key);
-      if (!control) return;
-
-      let value = control.value;
-
-      if (typeof value === 'boolean') {
-        value = value ? 'true' : 'false';
-      }
-
-      if (key.includes('Time') && value) {
-        const date = new Date(value);
-        if (!isNaN(date.getTime())) {
-          value = date.toISOString();
+    this.contactSv.updateContactRequest(payload, this.prId).subscribe({
+      next: (res) => {
+        if (res.result) {
+          alert(res.message || 'Cập nhật thành công');
+          this.router.navigate(['project']);
+        } else {
+          this.errorMessage = res.message || 'Cập nhật không thành công.';
         }
-      }
-
-      formData.append(key, value);
+      },
+      error: (err) => {
+        console.error('Cập nhật thất bại', err);
+        this.errorMessage = 'Lỗi hệ thống khi cập nhật.';
+      },
     });
-
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ':', pair[1]);
-    }
-
-    this.contatctSv.updateContact(formData, this.prId).subscribe((res) => {
-      alert(res.message);
-      this.router.navigate(['project']);
-    });
-  }
-
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.contactEditForm.patchValue({ avatar: file });
-      this.contactEditForm.get('avatar')?.updateValueAndValidity();
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.srcResult = reader.result;
-      };
-    }
   }
 }

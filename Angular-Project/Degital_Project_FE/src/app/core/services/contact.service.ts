@@ -1,13 +1,17 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import {
   ContactCreateModel,
   ContactModel,
   ContactUpdateModel,
-  ReturnContactData,
 } from '../models/contact.models';
-import { PagedResult } from '../models/project.models';
+
+export interface PagedResult<T> {
+  data: T[];
+  totalCount: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -38,41 +42,68 @@ export class ContactService {
       params = params.set('requestDate', requestDate);
     }
 
-    return this.http.get<PagedResult<ContactModel>>(
-      `${this.baseUrl}/ContactRequestManagement/SearchByKey`,
-      { params }
-    );
+    return this.http
+      .get<PagedResult<ContactModel>>(
+        `${this.baseUrl}/ContactRequestManagement/SearchByKey`,
+        { params }
+      )
+      .pipe(
+        catchError((err) => {
+          console.error('Lỗi khi lấy danh sách contact:', err);
+          return of({ data: [], totalCount: 0 });
+        })
+      );
+  }
+
+  createContactRequest(
+    request: ContactCreateModel
+  ): Observable<{ message: string; result: boolean }> {
+    return this.http
+      .post<{ message: string; result: boolean }>(
+        `${this.baseUrl}/ContactRequestManagement`,
+        request
+      )
+      .pipe(
+        catchError((err) => {
+          console.error('Lỗi khi tạo contact request:', err);
+          return of({ message: 'Lỗi gửi yêu cầu', result: false });
+        })
+      );
+  }
+
+  updateContactRequest(
+    request: ContactUpdateModel,
+    id: number
+  ): Observable<{ message: string; result: boolean }> {
+    return this.http
+      .put<{ message: string; result: boolean }>(
+        `${this.baseUrl}/ContactRequestManagement/${id}`,
+        request
+      )
+      .pipe(
+        catchError((err) => {
+          console.error('Lỗi khi cập nhật contact request:', err);
+          return of({ message: 'Cập nhật thất bại', result: false });
+        })
+      );
+  }
+
+  deleteContact(id: number): Observable<string> {
+    return this.http
+      .delete<string>(`${this.baseUrl}/ContactRequestManagement/${id}`, {
+        responseType: 'text' as 'json',
+      })
+      .pipe(
+        catchError((err) => {
+          console.error('Lỗi khi xóa contact:', err);
+          return of('Xóa thất bại');
+        })
+      );
   }
 
   getContactById(id: number): Observable<ContactModel> {
     return this.http.get<ContactModel>(
-      `${this.baseUrl}/ProjectManagement/${id}`
-    );
-  }
-
-  createNewContact(
-    request: ContactCreateModel | FormData
-  ): Observable<ReturnContactData> {
-    return this.http.post<ReturnContactData>(
-      `${this.baseUrl}/ProjectManagement`,
-      request
-    );
-  }
-
-  updateContact(
-    request: ContactUpdateModel | FormData,
-    projectId: number
-  ): Observable<ReturnContactData> {
-    return this.http.put<ReturnContactData>(
-      `${this.baseUrl}/ProjectManagement/${projectId}`,
-      request
-    );
-  }
-
-  deleteContact(projectId: number): Observable<string> {
-    return this.http.delete<string>(
-      `${this.baseUrl}/ProjectManagement/${projectId}`,
-      { responseType: 'text' as 'json' }
+      `${this.baseUrl}/ContactRequestManagement/${id}`
     );
   }
 }

@@ -1,43 +1,123 @@
-<p>project-add works!</p>
-<form method="post" [formGroup]="contactEditForm" (ngSubmit)="onSubmit()">
+<p>Edit Contact</p>
 
-    <div class="mb-3 form-check">
-        <label class="form-label">CustommerName</label>
-        <input type="text" class="form-control" formControlName="custommerName" required />
-        <div *ngIf="submited && f['custommerName'].errors">
-            <small *ngIf="f['custommerName'].errors['required']">Tên khách hàng không để trống</small>
-        </div>
-    </div>
-    <div class="mb-3 form-check">
-        <label class="form-label">address</label>
-        <input type="text" class="form-control" formControlName="customerPhoneNumber" required />
-        <div *ngIf="submited && f['customerPhoneNumber'].errors">
-            <small *ngIf="f['customerPhoneNumber'].errors['required']">Số điện thoại không để trống</small>
-        </div>
-    </div>
-    <div class="mb-3 form-check">
-        <label class="form-label">customerEmail"</label>
-        <input type="text" class="form-control" formControlName="customerEmail" required />
-        <div *ngIf="submited && f['customerEmail'].errors">
-            <small *ngIf="f['customerEmail'].errors['required']">Email không để trống</small>
-        </div>
-    </div>
-    <div class="mb-3 form-check">
-        <label class="form-label">CustomerMessage</label>
-        <input type="text" class="form-control" formControlName="customerMessage" required />
-        <div *ngIf="submited && f['customerMessage'].errors">
-            <small *ngIf="f['customerMessage'].errors['required']">Nội dung không để trống</small>
-        </div>
-    </div>
-    <div class="mb-3 form-check">
-        <label class="form-label">RequestType</label>
-        <input type="text" class="form-control" formControlName="requestType" required />
-        <div *ngIf="submited && f['requestType'].errors">
-            <small *ngIf="f['requestType'].errors['required']">Kiểu nội dung không để trống</small>
-        </div>
-    </div>
+<form [formGroup]="contactEditForm" (ngSubmit)="onSubmit()">
 
-    <div class="mb-3 form-check">
-        <button type="submit" class="btn btn-primary">Lưu</button>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="custommerName">Customer Name</label>
+    <input
+      id="custommerName"
+      type="text"
+      class="form-control"
+      formControlName="custommerName"
+      [class.is-invalid]="submitted && f['custommerName'].invalid"
+    />
+    <div *ngIf="submitted && f['custommerName'].errors" class="invalid-feedback">
+      <div *ngIf="f['custommerName'].errors['required']">
+        Tên khách hàng không được để trống.
+      </div>
     </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="customerPhoneNumber">Phone Number</label>
+    <input
+      id="customerPhoneNumber"
+      type="text"
+      class="form-control"
+      formControlName="customerPhoneNumber"
+      [class.is-invalid]="submitted && f['customerPhoneNumber'].invalid"
+    />
+    <div *ngIf="submitted && f['customerPhoneNumber'].errors" class="invalid-feedback">
+      <div *ngIf="f['customerPhoneNumber'].errors['required']">
+        Số điện thoại không được để trống.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="customerEmail">Email</label>
+    <input
+      id="customerEmail"
+      type="email"
+      class="form-control"
+      formControlName="customerEmail"
+      [class.is-invalid]="submitted && f['customerEmail'].invalid"
+    />
+    <div *ngIf="submitted && f['customerEmail'].errors" class="invalid-feedback">
+      <div *ngIf="f['customerEmail'].errors['required']">
+        Email không được để trống.
+      </div>
+      <div *ngIf="f['customerEmail'].errors['email']">
+        Email không đúng định dạng.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="customerMessage">Message</label>
+    <textarea
+      id="customerMessage"
+      class="form-control"
+      formControlName="customerMessage"
+      rows="3"
+      [class.is-invalid]="submitted && f['customerMessage'].invalid"
+    ></textarea>
+    <div *ngIf="submitted && f['customerMessage'].errors" class="invalid-feedback">
+      <div *ngIf="f['customerMessage'].errors['required']">
+        Nội dung không được để trống.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="requestType">Request Type</label>
+    <input
+      id="requestType"
+      type="text"
+      class="form-control"
+      formControlName="requestType"
+      [class.is-invalid]="submitted && f['requestType'].invalid"
+    />
+    <div *ngIf="submitted && f['requestType'].errors" class="invalid-feedback">
+      <div *ngIf="f['requestType'].errors['required']">
+        Kiểu yêu cầu không được để trống.
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mb-3">
+    <label class="form-label" for="status">Status</label>
+    <input
+      id="status"
+      type="text"
+      class="form-control"
+      formControlName="status"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="ipAddress">IP Address</label>
+    <input
+      id="ipAddress"
+      type="text"
+      class="form-control"
+      formControlName="ipAddress"
+      readonly
+    />
+  </div>
+
+  <div class="mb-3">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="submitted || loading"
+    >
+      {{ submitted ? 'Đang lưu...' : 'Lưu' }}
+    </button>
+  </div>
 </form>

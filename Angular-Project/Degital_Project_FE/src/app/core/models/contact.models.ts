@@ -22,12 +22,15 @@ export interface ContactCreateModel {
   status: string;
   ipAddress: string;
 }
+
 export interface ContactUpdateModel {
-  CustommerName: string;
-  CustomerPhoneNumber: string;
-  CustomerEmail: string;
-  CustomerMessage: string;
-  RequestType: string;
+  custommerName: string;
+  customerPhoneNumber: string;
+  customerEmail: string;
+  customerMessage: string;
+  requestType: string;
+  status?: string;
+  ipAddress?: string;
 }
 
 export interface ReturnContactData {
