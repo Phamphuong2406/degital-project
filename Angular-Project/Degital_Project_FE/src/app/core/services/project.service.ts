@@ -8,6 +8,7 @@ import {
   ProjectModel,
   ReturnProjectData,
   ProjectSummary,
+  ProjectsDisplayedOnOurProjectItem,
 } from '../models/project.models';
 
 @Injectable({
@@ -18,6 +19,7 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
+  // Ví dụ search trả về list phân trang
   getListProject(
     key?: string,
     structuralEngineer?: string,
@@ -104,16 +106,18 @@ export class ProjectService {
   getProjectsDisplayedOnOurProject(
     pageNumber = 1,
     pageSize = 3
-  ): Observable<PagedResult<ProjectSummary>> {
+  ): Observable<PagedResult<ProjectsDisplayedOnOurProjectItem>> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
 
-    return this.http.get<PagedResult<ProjectSummary>>(
+    return this.http.get<PagedResult<ProjectsDisplayedOnOurProjectItem>>(
       `${this.baseUrl}/Project/ProjectsDisplayedOnOurProject`,
       { params }
     );
   }
+
+
 
   getProjectDetail(projectId: number): Observable<ProjectModel> {
     return this.http.get<ProjectModel>(

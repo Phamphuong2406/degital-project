@@ -63,13 +63,13 @@
       type="text"
       class="form-control"
       formControlName="detailedDescription"
-      required
+      requiredd
     /> -->
-    <ckeditor
+    <!-- <ckeditor
       [editor]="Editor"
       [config]="editorConfig"
       formControlName="detailedDescription"
-    ></ckeditor>
+    ></ckeditor> -->
     <div *ngIf="submited && f['detailedDescription'].errors">
       <small *ngIf="f['detailedDescription'].errors['required']"
         >Mô tả chi tiết không để trống</small

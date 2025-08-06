@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../../../core/services/project.service';
 import { SettingService } from '../../../../core/services/setting.service';
+import { Setting } from '../../../../core/models/setting.model';
 
 @Component({
   selector: 'app-footer',
@@ -9,16 +9,16 @@ import { SettingService } from '../../../../core/services/setting.service';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent implements OnInit {
-  address: string | null = null;
-  phone: string | null = null;
-  email: string | null = null;
+  footerSettings: Setting[] = [];
 
   constructor(private settingService: SettingService) { }
 
   ngOnInit(): void {
-    // Giả sử key trong backend là "address", "phone", "email"
-    this.settingService.getSettingValue('adress').subscribe(v => this.address = v); // lưu ý typo "adress" nếu đúng API
-    this.settingService.getSettingValue('phone').subscribe(v => this.phone = v);
-    this.settingService.getSettingValue('email').subscribe(v => this.email = v);
+    this.settingService.getListDisplayedOnFooter().subscribe({
+      next: (data) => {
+        this.footerSettings = data;
+      },
+      error: (err) => console.error('Lỗi khi lấy dữ liệu footer:', err)
+    });
   }
 }

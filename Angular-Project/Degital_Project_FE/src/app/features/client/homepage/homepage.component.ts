@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SlideInterface } from '../../../imageSlider/types/slide.interface';
 import { ProjectService } from '../../../core/services/project.service';
 import { ProjectDisplayedOnHeaderItem, ProjectSummary } from '../../../core/models/project.models';
 import { ContactService } from '../../../core/services/contact.service';
@@ -13,12 +12,11 @@ import { ContactCreateModel } from '../../../core/models/contact.models';
 })
 export class HomepageComponent implements OnInit {
   submitted = false;
-  headerProjects: ProjectDisplayedOnHeaderItem[] = [];
+  headerProjects: ProjectDisplayedOnHeaderItem[] = []; // ✅ Chỉ giữ lại 1 lần
   homeProjects: ProjectSummary[] = [];
   loadingHeader = false;
   loadingHome = false;
   errorMessage?: string;
-
   submitting = false;
   feedbackMessage = '';
   contactError = false;
@@ -31,31 +29,44 @@ export class HomepageComponent implements OnInit {
     message: ''
   };
 
-  slides: SlideInterface[] = [
-    { url: 'assets/Images/top.png', title: 'image1', number: 1 },
-    { url: 'assets/Images/top3-2.png', title: 'image2', number: 2 },
-    { url: 'assets/Images/top3-3.png', title: 'image3', number: 3 },
-  ];
-
   constructor(
     private projectService: ProjectService,
     private contactService: ContactService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadHeaderProjects();
     this.loadOurProjects();
   }
 
-  loadOurProjects() {
-    this.loadingHome = true;
-    this.projectService.getProjectsDisplayedOnOurProject(1, 3).subscribe({
+  loadHeaderProjects() {
+    this.loadingHeader = true;
+    this.projectService.getProjectsDisplayedOnHeader().subscribe({
       next: res => {
-        this.homeProjects = res.data.map(p => ({
+        this.headerProjects = res.data.map(p => ({
           ...p,
           avatarUrl: p.avatarUrl.startsWith('http')
             ? p.avatarUrl
-            : `https://localhost:7132/${p.avatarUrl}`
+            : `https://localhost:7132/Uploads/${p.avatarUrl}`
+        }));
+        this.loadingHeader = false;
+      },
+      error: err => {
+        console.error(err);
+        this.loadingHeader = false;
+      }
+    });
+  }
+
+  loadOurProjects() {
+    this.loadingHome = true;
+    this.projectService.getProjectsDisplayedOnHomePage().subscribe({
+      next: data => {
+        this.homeProjects = data.map(p => ({
+          ...p,
+          avatarUrl: p.avatarUrl.startsWith('http')
+            ? p.avatarUrl
+            : `https://localhost:7132/Uploads/${p.avatarUrl}`
         }));
         this.loadingHome = false;
       },
@@ -66,25 +77,8 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  loadHeaderProjects() {
-    this.loadingHeader = true;
-    this.projectService.getProjectsDisplayedOnHeader(1, 3).subscribe({
-      next: res => {
-        this.headerProjects = res.data.sort(
-          (a, b) => a.displayOrderOnHeader - b.displayOrderOnHeader
-        );
-        this.loadingHeader = false;
-      },
-      error: err => {
-        console.error(err);
-        this.errorMessage = 'Không tải được header projects';
-        this.loadingHeader = false;
-      }
-    });
-  }
-
   viewProject(id: number) {
-    // TODO: Điều hướng sang trang chi tiết dự án
+    // TODO: Implement if needed
   }
 
   sendContact(event: Event, f: any) {

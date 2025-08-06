@@ -10,7 +10,7 @@ import { SettingService } from '../../../../core/services/setting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   SettingCreateOrUpdateModel,
-  SettingModel,
+  Setting,
 } from '../../../../core/models/setting.model';
 
 @Component({
@@ -53,7 +53,7 @@ export class SettingEditComponent {
       this.loading = true;
 
       this.settingSv.getSettingById(id).subscribe({
-        next: (setting: SettingModel) => {
+        next: (setting: Setting) => {
           this.loading = false;
           this.prId = setting.id;
           this.settingEditForm.patchValue({

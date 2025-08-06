@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingService } from '../../../core/services/setting.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SettingModel } from '../../../core/models/setting.model';
+import { Setting } from '../../../core/models/setting.model';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './manage-setting.component.scss',
 })
 export class ManageSettingComponent implements OnInit {
-  listSettingModel: SettingModel[] = [];
+  listSettingModel: Setting[] = [];
   noData: boolean = false;
 
   currentPage = 1;

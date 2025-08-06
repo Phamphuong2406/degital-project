@@ -49,6 +49,14 @@ export interface ProjectDisplayedOnHeaderItem {
   displayOrderOnHeader: number;
 }
 
+export interface ProjectsDisplayedOnOurProjectItem {
+  projectId: number;
+  projectName: string;
+  avatarUrl: string;
+  shortDescription: string;
+  displayOrderOnHeader: number;
+}
+
 export interface ProjectSummary {
   projectId: number;
   projectName: string;
