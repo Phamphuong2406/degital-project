@@ -84,7 +84,15 @@ namespace DigitalProject.Services.Implements
 
                 var gallery = _galleryRepo.FindById(galleryId);
                 UploadHandler.DeleteFile(gallery.ImageUrl);
-                gallery.ImageUrl = UploadHandler.Upload(model.Image);
+                if(model.Image == null)
+                {
+                    gallery.ImageUrl = model.ImageOld;
+                }
+                else
+                {
+                    gallery.ImageUrl = UploadHandler.Upload(model.Image);
+                }
+                    
                 gallery.GalleryName = model.GalleryName;
                 gallery.Address = model.Address;
                 gallery.CreateAt = DateTime.Now;

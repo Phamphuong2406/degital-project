@@ -33,13 +33,16 @@
       >
     </div>
   </div>
-  <div class="mb-3 form-check">
-    <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
-    <button mat-raised-button color="primary" (click)="fileInput.click()">
-      Chọn ảnh
-    </button>
-  </div>
 
+  <div class="mb-3 form-check">
+    <label class="form-label">Hình ảnh địa điểm</label><br />
+    <img width="150px" height="150px" [src]="imageurl" />
+    <br />
+    <label class="custom-file-label">
+      Chọn ảnh
+      <input type="file" (change)="onFileSelected($event)" hidden />
+    </label>
+  </div>
   <input type="hidden" formControlName="displayOrderOnHome" />
   <input type="hidden" formControlName="displayOrderOnHeader" />
   <input type="hidden" formControlName="idPoster" />

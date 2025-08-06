@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { GalleryService } from '../../../../core/services/gallery.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,13 +14,16 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './gallery-edit.component.html',
-  styleUrl: './gallery-edit.component.scss'
+  styleUrl: './gallery-edit.component.scss',
 })
-export class GalleryEditComponent {
+export class GalleryEditComponent implements OnInit {
   galleryEditForm: FormGroup;
   submited: boolean = false;
   srcResult: any = null;
   prId: number = 0;
+  imageurl = 'assets/Images/empty.png';
+  imageOldName = '';
+  imageFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +34,8 @@ export class GalleryEditComponent {
     this.galleryEditForm = this.fb.group({
       galleryName: ['', Validators.required],
       address: ['', Validators.required],
-      image: [null, Validators.required],
+      image: [null],
+      imageOld: [''],
     });
   }
 
@@ -39,12 +48,15 @@ export class GalleryEditComponent {
 
         this.gallerySv.getGalleryId(id).subscribe((res) => {
           this.prId = res.galleryId;
-
+          this.imageOldName = res.imageUrl || '';
+          this.imageurl = res.imageUrl
+            ? 'https://localhost:7132/Uploads/' + res.imageUrl
+            : 'assets/Images/empty.png';
           // Cập nhật dữ liệu vào form
           this.galleryEditForm.patchValue({
             galleryName: res.galleryName,
-            address: res.address
-            // Không patch ảnh vì ảnh là file
+            address: res.address,
+            imageOld: res.imageUrl,
           });
 
           // Nếu có ảnh preview
@@ -74,14 +86,27 @@ export class GalleryEditComponent {
     }
 
     const formData = new FormData();
-    formData.append('galleryName', this.galleryEditForm.get('galleryName')?.value);
+    formData.append(
+      'galleryName',
+      this.galleryEditForm.get('galleryName')?.value
+    );
     formData.append('address', this.galleryEditForm.get('address')?.value);
-    formData.append('image', this.galleryEditForm.get('image')?.value);
 
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ':', pair[1]);
+    // avatar xử lý riêng
+    if (this.imageFile) {
+      console.log('Image File:', this.imageFile);
+
+      formData.append('image', this.imageFile); // Gửi file mới
+    } else {
+      formData.append('image', ''); // Gửi avatar là rỗng
     }
 
+    // avatarOld luôn gửi
+    formData.append(
+      'imageOld',
+      this.galleryEditForm.get('imageOld')?.value || ''
+    );
+    console.log(formData);
     this.gallerySv.updateGallery(formData, this.prId).subscribe((res) => {
       alert(res.message);
       this.router.navigate(['admin/gallery']);
@@ -91,13 +116,13 @@ export class GalleryEditComponent {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.galleryEditForm.patchValue({ image: file }); // sửa từ avatar → image
-      this.galleryEditForm.get('image')?.updateValueAndValidity();
+      this.imageFile = file;
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.srcResult = reader.result;
+      reader.onload = (e: any) => {
+        this.imageurl = e.target.result;
+        this.srcResult = e.target.result;
       };
     }
   }

@@ -4,7 +4,8 @@ namespace DigitalProject.Models.Gallery
 {
     public class GalleryDTO
     {
-        public IFormFile Image { get; set; }
+        public IFormFile? Image { get; set; }
+        public string? ImageOld {  get; set; }
         [Required(ErrorMessage = "Bạn chưa điền tên địa điểm")]
         [StringLength(50, ErrorMessage = "Tên địa điểm không vượt quá 50 ký tự")]
         public string GalleryName { get; set; }

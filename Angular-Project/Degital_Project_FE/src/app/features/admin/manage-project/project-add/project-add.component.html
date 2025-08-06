@@ -62,20 +62,25 @@
       >
     </div>
   </div>
-  <div class="mb-3 form-check">
+  <div class="mb-3 form-check" style="height: 200px">
     <label class="form-label">Mô tả chi tiết</label>
-    <input
+    <!-- <input
       type="text"
       class="form-control"
       formControlName="detailedDescription"
       required
-    />
+    /> -->
+    <ckeditor
+      [editor]="Editor"
+      formControlName="detailedDescription"
+    ></ckeditor>
     <div *ngIf="submited && f['detailedDescription'].errors">
       <small *ngIf="f['detailedDescription'].errors['required']"
         >Mô tả chi tiết không để trống</small
       >
     </div>
   </div>
+
   <div class="mb-3 form-check">
     <label class="form-label">Kỹ sư</label>
     <input

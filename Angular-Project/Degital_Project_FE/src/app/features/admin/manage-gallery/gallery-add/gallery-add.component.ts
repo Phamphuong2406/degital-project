@@ -34,7 +34,7 @@ export class GalleryAddComponent {
   }
 
   ngOnInit(): void {}
-
+  imageurl = 'assets/Images/empty.png';
   get f() {
     return this.projectAddForm.controls;
   }
@@ -68,8 +68,8 @@ export class GalleryAddComponent {
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.srcResult = reader.result;
+      reader.onload = (event: any) => {
+        this.imageurl = event.target.result;
       };
     }
   }

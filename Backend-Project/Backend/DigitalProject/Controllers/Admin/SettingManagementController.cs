@@ -64,11 +64,11 @@ namespace DigitalProject.Controllers.Admin
             try
             {
                 _settingService.EditSetting(dto, id);
-                return Ok("Cập nhật cài đặt thành công");
+                return Ok(new { message = "Cập nhật cài đặt thành công", result = true });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, result = false });
             }
         }
 

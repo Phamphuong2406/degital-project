@@ -8,15 +8,18 @@ import {
 } from '@angular/forms';
 import { ProjectService } from '../../../../core/services/project.service';
 import { Router } from '@angular/router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @Component({
   selector: 'app-project-add',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CKEditorModule],
   templateUrl: './project-add.component.html',
   styleUrl: './project-add.component.scss',
 })
 export class ProjectAddComponent {
+  public Editor = ClassicEditor;
   projectAddForm: FormGroup;
   submited: boolean = false;
   srcResult: any = null;
