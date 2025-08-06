@@ -49,7 +49,7 @@ export class ManageGalleryComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           this.listGalleryModel = res.data;
-          this.totalRecords = res.totalCount;
+          this.totalRecords = res.totalRecords;
           this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
           this.noData = res.data.length === 0;
         },

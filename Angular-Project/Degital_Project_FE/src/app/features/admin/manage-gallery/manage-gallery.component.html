@@ -34,7 +34,6 @@
 
 <a routerLink="add" class="btn btn-success mb-3">Thêm mới</a>
 
-<!-- ✅ Nếu có dữ liệu -->
 <div *ngIf="listGalleryModel.length > 0; else noDataTemplate">
   <table class="table" id="myTable">
     <thead>
@@ -76,7 +75,7 @@
   </table>
 
   <!-- ✅ Phân trang -->
-  <div class="pagination mt-3">
+  <div class="pagination">
     <button
       class="btn btn-outline-primary me-2"
       (click)="goToPage(currentPage - 1)"
@@ -85,7 +84,7 @@
       Prev
     </button>
 
-    <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+    <span>Page {{ currentPage }} / {{ totalPages }}</span>
 
     <button
       class="btn btn-outline-primary ms-2"
@@ -97,7 +96,6 @@
   </div>
 </div>
 
-<!-- ✅ Hiển thị khi không có dữ liệu -->
 <ng-template #noDataTemplate>
   <div class="alert alert-warning mt-3">Không có dữ liệu phù hợp.</div>
 </ng-template>

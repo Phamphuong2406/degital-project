@@ -14,58 +14,60 @@ import { CommonModule } from '@angular/common';
 })
 export class ManageSettingComponent implements OnInit {
   listSettingModel: SettingModel[] = [];
+  noData: boolean = false;
+
   currentPage = 1;
-  pageSize = 10;
+  pageSize = 3;
 
   key = '';
   totalRecords = 0;
   totalPages = 0;
+
   subjectForm: FormGroup;
 
   constructor(private settingService: SettingService, private fb: FormBuilder) {
-    this.getListSetting();
     this.subjectForm = this.fb.group({
       key: '',
-      pageNumber: 1,
-      pageSize: 10,
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadSetting();
+  }
 
-  getListSetting() {
+  loadSetting(): void {
+    const form = this.subjectForm.value;
     this.settingService
-      .getListSetting(this.key, this.currentPage, this.pageSize)
+      .getListSetting(form.key, this.currentPage, this.pageSize)
       .subscribe({
         next: (res: any) => {
-          console.log(res);
           this.listSettingModel = res.data;
-          this.totalRecords = res.totalCount;
+          this.totalRecords = res.totalRecords;
           this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+          this.noData = res.data.length === 0;
         },
-        error: (err) => {},
+        error: (err) => {
+          console.error(err);
+          this.noData = true;
+        },
       });
   }
 
   onDelete(id: number) {
-    this.settingService.deleteSetting(id).subscribe((res) => {
-      this.getListSetting();
+    this.settingService.deleteSetting(id).subscribe(() => {
+      this.loadSetting(); // sau khi xóa, load lại danh sách hiện tại
     });
-    alert('click on button ' + id);
   }
+
   onSubmit() {
-    const form = this.subjectForm.value;
-    this.settingService
-      .getListSetting(form.key, form.pageNumber, form.pageSize)
-      .subscribe({
-        next: (res: any) => {
-          this.listSettingModel = res.data;
-          this.totalRecords = res.totalCount;
-          this.totalPages = Math.ceil(this.totalRecords / form.pageSize);
-        },
-        error: (err) => {
-          console.error(err);
-        },
-      });
+    this.currentPage = 1; // Reset về trang 1 khi tìm kiếm mới
+    this.loadSetting();
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadSetting();
+    }
   }
 }

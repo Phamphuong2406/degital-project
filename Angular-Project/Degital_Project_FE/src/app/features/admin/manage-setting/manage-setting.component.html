@@ -18,35 +18,60 @@
   </div>
 </form>
 <a routerLink="add" class="btn btn-success">Thêm mới</a>
-<table class="table" id="myTable">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Key</th>
-      <th scope="col">Setting Type</th>
-      <th scope="col">Discription</th>
-      <th scope="col">Display OnHome</th>
-      <th scope="col">Display Order OnHome</th>
-      <th scope="col">Select</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="@rowClass" *ngFor="let item of listSettingModel">
-      <td>{{ item.id }}</td>
-      <td>{{ item.key }}</td>
-      <td>{{ item.settingType }}</td>
-      <td>{{ item.discription }}</td>
-      <td>{{ item.displayOnHome }}</td>
-      <td>{{ item.displayOrderOnHome }}</td>
-      <td>
-        <a [routerLink]="['edit', item.id]" class="btn btn-primary">Edit</a>
-        <a
-          href="javascrip:void(0)"
-          class="btn btn-danger"
-          (click)="onDelete(item.id)"
-          >Delete</a
-        >
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="listSettingModel.length > 0; else noDataTemplate">
+  <table class="table" id="myTable">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Key</th>
+        <th scope="col">Setting Type</th>
+        <th scope="col">Discription</th>
+        <th scope="col">Display OnHome</th>
+        <th scope="col">Display Order OnHome</th>
+        <th scope="col">Select</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="@rowClass" *ngFor="let item of listSettingModel">
+        <td>{{ item.id }}</td>
+        <td>{{ item.key }}</td>
+        <td>{{ item.settingType }}</td>
+        <td>{{ item.discription }}</td>
+        <td>{{ item.displayOnHome }}</td>
+        <td>{{ item.displayOrderOnHome }}</td>
+        <td>
+          <a [routerLink]="['edit', item.id]" class="btn btn-primary">Edit</a>
+          <a
+            href="javascrip:void(0)"
+            class="btn btn-danger"
+            (click)="onDelete(item.id)"
+            >Delete</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination mt-3">
+    <button
+      class="btn btn-outline-primary me-2"
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Prev
+    </button>
+
+    <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+
+    <button
+      class="btn btn-outline-primary ms-2"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
+<ng-template #noDataTemplate>
+  <div class="alert alert-warning mt-3">Không có dữ liệu phù hợp.</div>
+</ng-template>
