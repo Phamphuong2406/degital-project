@@ -37,13 +37,18 @@ export class ManageSettingComponent implements OnInit {
 
   loadSetting(): void {
     const form = this.subjectForm.value;
+    console.log('from', form);
+    let currentPage = this.currentPage;
+
     this.settingService
       .getListSetting(form.key, this.currentPage, this.pageSize)
       .subscribe({
         next: (res: any) => {
+          console.log('ress', res);
           this.listSettingModel = res.data;
           this.totalRecords = res.totalRecords;
-          this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+          // this.pageSize = res.pageSize;
+          this.totalPages = Math.ceil(this.totalRecords / 3);
           this.noData = res.data.length === 0;
         },
         error: (err) => {

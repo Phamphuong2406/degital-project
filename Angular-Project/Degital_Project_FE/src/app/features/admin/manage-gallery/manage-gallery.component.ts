@@ -8,19 +8,17 @@ import { GalleryService } from '../../../core/services/gallery.service';
 @Component({
   selector: 'app-manage-gallery',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './manage-gallery.component.html',
   styleUrl: './manage-gallery.component.scss',
 })
 export class ManageGalleryComponent implements OnInit {
   listGalleryModel: GalleryModel[] = [];
   noData: boolean = false;
-
   currentPage = 1;
   pageSize = 6;
   totalRecords = 0;
   totalPages = 0;
-
   subjectForm: FormGroup;
 
   constructor(private galleryService: GalleryService, private fb: FormBuilder) {

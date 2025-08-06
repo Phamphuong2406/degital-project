@@ -18,7 +18,6 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
-  // Ví dụ search trả về list phân trang
   getListProject(
     key?: string,
     structuralEngineer?: string,

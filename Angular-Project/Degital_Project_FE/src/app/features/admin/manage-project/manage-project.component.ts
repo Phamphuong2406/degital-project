@@ -1,78 +1,43 @@
-import { CommonModule, JsonPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../core/services/project.service';
 import { ProjectModel } from '../../../core/models/project.models';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-manage-project',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-
   templateUrl: './manage-project.component.html',
   styleUrl: './manage-project.component.scss',
 })
 export class ManageProjectComponent implements OnInit {
   listProjectModel: ProjectModel[] = [];
+  noData: boolean = false;
+
   currentPage = 1;
   pageSize = 10;
-  key = '';
-  structuralEngineer = '';
-  postingStartDate: string = '';
-  postingEndDate: string = '';
+
   totalRecords = 0;
   totalPages = 0;
+
   subjectForm: FormGroup;
 
   constructor(private projectService: ProjectService, private fb: FormBuilder) {
-    this.getListProject();
     this.subjectForm = this.fb.group({
-      postingStartDate: '',
-      postingEndDate: '',
-      structuralEngineer: '',
-      key: '',
-      pageNumber: 1,
-      pageSize: 10,
+      key: [''],
+      structuralEngineer: [''],
+      postingStartDate: [''],
+      postingEndDate: [''],
     });
   }
 
-  ngOnInit(): void {}
-
-  getListProject() {
-    this.projectService
-      .getListProject(
-        this.key,
-        this.structuralEngineer,
-        this.postingStartDate,
-        this.postingEndDate,
-        this.currentPage,
-        this.pageSize
-      )
-      .subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.listProjectModel = res.data;
-          this.totalRecords = res.totalCount;
-          this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
-        },
-        error: (err) => {},
-      });
+  ngOnInit(): void {
+    this.loadProject();
   }
 
-  onDelete(id: number) {
-    this.projectService.deleteProject(id).subscribe((res) => {
-      this.getListProject();
-    });
-    alert('click on button ' + id);
-  }
-  onSubmit() {
+  loadProject(): void {
     const form = this.subjectForm.value;
     this.projectService
       .getListProject(
@@ -80,18 +45,40 @@ export class ManageProjectComponent implements OnInit {
         form.structuralEngineer,
         form.postingStartDate,
         form.postingEndDate,
-        form.pageNumber,
-        form.pageSize
+        this.currentPage,
+        this.pageSize
       )
       .subscribe({
         next: (res: any) => {
           this.listProjectModel = res.data;
-          this.totalRecords = res.totalCount;
-          this.totalPages = Math.ceil(this.totalRecords / form.pageSize);
+          this.totalRecords = res.totalRecords;
+          this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
+          this.noData = res.data.length === 0;
         },
         error: (err) => {
           console.error(err);
+          this.noData = true;
         },
       });
+  }
+
+  onDelete(id: number): void {
+    if (confirm('Bạn có chắc chắn muốn xóa?')) {
+      this.projectService.deleteProject(id).subscribe(() => {
+        this.loadProject();
+      });
+    }
+  }
+
+  onSubmit(): void {
+    this.currentPage = 1; // Reset về trang 1 khi tìm kiếm mới
+    this.loadProject();
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadProject();
+    }
   }
 }
