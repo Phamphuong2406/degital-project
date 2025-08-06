@@ -62,7 +62,7 @@
       >
     </div>
   </div>
-  <div class="mb-3 form-check" style="height: 200px">
+  <div class="mb-3 form-check">
     <label class="form-label">Mô tả chi tiết</label>
     <!-- <input
       type="text"
@@ -72,6 +72,7 @@
     /> -->
     <ckeditor
       [editor]="Editor"
+      [config]="editorConfig"
       formControlName="detailedDescription"
     ></ckeditor>
     <div *ngIf="submited && f['detailedDescription'].errors">

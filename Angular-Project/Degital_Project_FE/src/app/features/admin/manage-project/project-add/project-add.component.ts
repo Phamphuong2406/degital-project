@@ -8,8 +8,9 @@ import {
 } from '@angular/forms';
 import { ProjectService } from '../../../../core/services/project.service';
 import { Router } from '@angular/router';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { editorConfig } from '../../ckeditor.config';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-project-add',
@@ -20,6 +21,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 })
 export class ProjectAddComponent {
   public Editor = ClassicEditor;
+  public editorConfig = editorConfig;
   projectAddForm: FormGroup;
   submited: boolean = false;
   srcResult: any = null;

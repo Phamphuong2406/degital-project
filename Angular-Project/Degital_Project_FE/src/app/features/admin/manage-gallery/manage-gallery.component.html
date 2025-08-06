@@ -1,53 +1,103 @@
-<form [formGroup]="subjectForm" method="get" class="mb-4" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="subjectForm"
+  method="get"
+  class="mb-4"
+  (ngSubmit)="onSubmit()"
+>
   <div class="row g-3 align-items-end">
     <div class="col-md-2">
       <label for="min">Ngày nhỏ nhất:</label>
-      <input type="date" formControlName="postingStartDate" class="form-control" />
+      <input
+        type="date"
+        formControlName="postingStartDate"
+        class="form-control"
+      />
     </div>
     <div class="col-md-2">
       <label for="max">Ngày lớn nhất:</label>
-      <input type="date" formControlName="postingEndDate" class="form-control" />
+      <input
+        type="date"
+        formControlName="postingEndDate"
+        class="form-control"
+      />
     </div>
     <div class="col-md-3">
-      <label for="searchString">Tìm Kiếm theo địa chỉ:</label>
+      <label for="searchString">Tìm kiếm theo địa chỉ:</label>
       <input type="text" formControlName="address" class="form-control" />
     </div>
 
-    <input type="hidden" formControlName="pageNumber" />
-    <input type="hidden" formControlName="pageSize" />
     <div class="col-md-2">
       <button type="submit" class="btn btn-primary">Tìm kiếm</button>
     </div>
   </div>
 </form>
-<a routerLink="add" class="btn btn-success">Thêm mới</a>
-<table class="table" id="myTable">
-  <thead>
-    <tr>
-      <th scope="col">galleryId</th>
-      <th scope="col">galleryName</th>
-      <th scope="col">imageUrl</th>
-      <th scope="col">createAt</th>
-      <th scope="col">address</th>
-      <th scope="col">posterId</th>
-      <th scope="col">select</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="@rowClass" *ngFor="let i of listGalleryModel">
-      <td>{{ i.galleryId }}</td>
-      <td>{{ i.galleryName }}</td>
-      <td>
-        <img src="https://localhost:7132/Uploads/{{i.imageUrl }}" height="100" width="100" />
-      </td>
-      <td>{{ i.createAt | date : "dd/MM/yyyy" }}</td>
-      <td>{{ i.address }}</td>
-      <td>{{ i.posterId }}</td>
-      <td>
-        <a [routerLink]="['edit', i.galleryId]" class="btn btn-primary">Edit</a>
 
-        <a href="javascrip:void(0)" class="btn btn-danger" (click)="onDelete(i.galleryId)">Delete</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<a routerLink="add" class="btn btn-success mb-3">Thêm mới</a>
+
+<!-- ✅ Nếu có dữ liệu -->
+<div *ngIf="listGalleryModel.length > 0; else noDataTemplate">
+  <table class="table" id="myTable">
+    <thead>
+      <tr>
+        <th scope="col">galleryId</th>
+        <th scope="col">galleryName</th>
+        <th scope="col">imageUrl</th>
+        <th scope="col">createAt</th>
+        <th scope="col">address</th>
+        <th scope="col">posterId</th>
+        <th scope="col">select</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of listGalleryModel">
+        <td>{{ i.galleryId }}</td>
+        <td>{{ i.galleryName }}</td>
+        <td>
+          <img
+            [src]="'https://localhost:7132/Uploads/' + i.imageUrl"
+            height="100"
+            width="100"
+            alt="Image"
+          />
+        </td>
+        <td>{{ i.createAt | date : "dd/MM/yyyy" }}</td>
+        <td>{{ i.address }}</td>
+        <td>{{ i.posterId }}</td>
+        <td>
+          <a [routerLink]="['edit', i.galleryId]" class="btn btn-primary"
+            >Edit</a
+          >
+          <button class="btn btn-danger" (click)="onDelete(i.galleryId)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ✅ Phân trang -->
+  <div class="pagination mt-3">
+    <button
+      class="btn btn-outline-primary me-2"
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Prev
+    </button>
+
+    <span>Trang {{ currentPage }} / {{ totalPages }}</span>
+
+    <button
+      class="btn btn-outline-primary ms-2"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
+<!-- ✅ Hiển thị khi không có dữ liệu -->
+<ng-template #noDataTemplate>
+  <div class="alert alert-warning mt-3">Không có dữ liệu phù hợp.</div>
+</ng-template>
