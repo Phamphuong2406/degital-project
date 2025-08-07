@@ -6,15 +6,14 @@ import { ProjectSummary } from '../../../core/models/project.models';
   selector: 'app-ourproject',
   standalone: false,
   templateUrl: './ourproject.component.html',
-  styleUrls: ['./ourproject.component.scss']  // Sửa ở đây
+  styleUrls: ['./ourproject.component.scss']
 })
 export class OurprojectComponent implements OnInit {
   loading = false;
   homeProjects: ProjectSummary[] = [];
+  selectedProject: ProjectSummary | null = null;
 
-  constructor(
-    private projectService: ProjectService,
-  ) { }
+  constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
     this.loadProjects();
@@ -24,9 +23,7 @@ export class OurprojectComponent implements OnInit {
     this.loading = true;
     this.projectService.getProjectsDisplayedOnOurProject().subscribe({
       next: response => {
-        // Tùy vào dữ liệu từ API: nếu là `response.data` hoặc chỉ `response`
         const data = Array.isArray(response) ? response : response.data;
-
         this.homeProjects = data
           .sort((a, b) => a.displayOrderOnHeader - b.displayOrderOnHeader)
           .map(p => ({
@@ -45,7 +42,22 @@ export class OurprojectComponent implements OnInit {
     });
   }
 
-  viewProject(id: number) {
 
+viewProject(id: number) {
+    this.projectService.getProjectsDisplayedOnProjectDetail(id).subscribe({
+      next: response => {
+        this.selectedProject = {
+          ...response,
+          avatarUrl: response.avatarUrl.startsWith('http')
+            ? response.avatarUrl
+            : `https://localhost:7132/Uploads/${response.avatarUrl}`
+        };
+        console.log(this.selectedProject);
+      },
+      error: err => {
+        console.error(err);
+      }
+    });
   }
+
 }
