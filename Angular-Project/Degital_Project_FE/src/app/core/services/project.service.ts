@@ -119,7 +119,7 @@ export class ProjectService {
 
 
 
-  getProjectDetail(projectId: number): Observable<ProjectModel> {
+  getProjectsDisplayedOnProjectDetail(projectId: number): Observable<ProjectModel> {
     return this.http.get<ProjectModel>(
       `${this.baseUrl}/Project/ProjectsDisplayedOnProjectDetail/${projectId}`
     );
