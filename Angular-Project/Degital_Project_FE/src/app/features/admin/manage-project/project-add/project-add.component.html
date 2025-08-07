@@ -1,0 +1,178 @@
+<form
+  method="post"
+  [formGroup]="projectAddForm"
+  (ngSubmit)="onSubmit()"
+  enctype="multipart/form-data"
+>
+  <div class="mb-3 form-check">
+    <label class="form-label">Tên dự án</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="projectName"
+      required
+    />
+    <div *ngIf="submited && f['projectName'].errors">
+      <small *ngIf="f['projectName'].errors['required']"
+        >Tên dự án không để trống</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Kiểu dự án</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="projectType"
+      required
+    />
+    <div *ngIf="submited && f['projectType'].errors">
+      <small *ngIf="f['projectType'].errors['required']"
+        >kiểu dự án không để trống</small
+      >
+    </div>
+  </div>
+
+  <div class="mb-3 form-check">
+    <label class="form-label">Hình ảnh dự án</label><br />
+    <img width="150px" height="150px" [src]="avatarurl" />
+    <br />
+    <label class="custom-file-label">
+      Chọn ảnh
+      <input type="file" (change)="onFileSelected($event)" hidden />
+    </label>
+  </div>
+
+  <div class="mb-3 form-check">
+    <label class="form-label">Mô tả ngắn</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="shortDescription"
+      required
+    />
+    <div *ngIf="submited && f['shortDescription'].errors">
+      <small *ngIf="f['shortDescription'].errors['required']"
+        >Mô tả ngắn không để trống</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Mô tả chi tiết</label>
+    <!-- <input
+      type="text"
+      class="form-control"
+      formControlName="detailedDescription"
+      requiredd
+    /> -->
+    <!-- app.component.html -->
+
+    <ckeditor
+      *ngIf="Editor && config"
+      [editor]="Editor"
+      [config]="config"
+      formControlName="detailedDescription"
+      tagName="textarea"
+    >
+    </ckeditor>
+
+    <div *ngIf="submited && f['detailedDescription'].errors">
+      <small *ngIf="f['detailedDescription'].errors['required']"
+        >Mô tả chi tiết không để trống</small
+      >
+    </div>
+  </div>
+
+  <div class="mb-3 form-check">
+    <label class="form-label">Kỹ sư</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="architect"
+      required
+    />
+    <div *ngIf="submited && f['architect'].errors">
+      <small *ngIf="f['architect'].errors['required']"
+        >kiểu dự án không để trống</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Kiến trúc sư</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="structuralEngineer"
+      required
+    />
+    <div *ngIf="submited && f['structuralEngineer'].errors">
+      <small *ngIf="f['structuralEngineer'].errors['required']"
+        >Kiến trúc sư không để trống</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Thời gian bắt đầu thi công</label>
+    <input
+      type="date"
+      class="form-control"
+      formControlName="constructionStartTime"
+      required
+    />
+    <div *ngIf="submited && f['constructionStartTime'].errors">
+      <small *ngIf="f['constructionStartTime'].errors['required']"
+        >Thời gian bắt đầu thi công</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Thời gian kết thúc thi công</label>
+    <input
+      type="date"
+      class="form-control"
+      formControlName="constructionEndTime"
+      required
+    />
+    <div *ngIf="submited && f['constructionEndTime'].errors">
+      <small *ngIf="f['constructionEndTime'].errors['required']"
+        >Thời gian kết thúc không để trống</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Hiển thị trên trang chủ</label>
+    <input
+      type="checkbox"
+      class="form-check-input"
+      formControlName="displayOnhome"
+    />
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Hiển thị trên trang đầu</label>
+    <input
+      type="checkbox"
+      class="form-check-input"
+      formControlName="displayOnHeader"
+    />
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Ngày hết hạn hiển thị</label>
+    <input
+      type="date"
+      class="form-control"
+      formControlName="expirationTimeOnHeader"
+      required
+    />
+    <div *ngIf="submited && f['expirationTimeOnHeader'].errors">
+      <small *ngIf="f['expirationTimeOnHeader'].errors['required']"
+        >kiểu dự án không để trống</small
+      >
+    </div>
+  </div>
+  <input type="hidden" formControlName="displayOrderOnHome" />
+  <input type="hidden" formControlName="displayOrderOnHeader" />
+  <input type="hidden" formControlName="idPoster" />
+  <div class="mb-3 form-check">
+    <button type="submit" class="btn btn-primary">Lưu</button>
+  </div>
+</form>

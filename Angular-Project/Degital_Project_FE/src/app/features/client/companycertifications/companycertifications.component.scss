@@ -1,0 +1,16 @@
+h1{
+  height: 600px;
+}
+@mixin colorVsStyle {
+    font-weight: 100;
+    color: gray;
+}
+
+.title-company
+{
+  margin-left: 100px;
+@include colorVsStyle();
+b{
+  color: black;
+}
+}

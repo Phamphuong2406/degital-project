@@ -1,0 +1,113 @@
+<app-header></app-header>
+<div class="title-text"><h1>Our <br><b>Project</b></h1></div>
+<div class="polaroid">
+  <div class="cardimg-top" *ngIf="homeProjects[0]"
+    (click)="viewProject(homeProjects[0].projectId)">
+    <img [src]="homeProjects[0].avatarUrl"
+      [alt]="homeProjects[0].projectName" />
+    <div class="info">
+      <!-- <h2>{{ homeProjects[0].projectName }}</h2>
+      <p>{{ homeProjects[0].shortDescription }}</p> -->
+    </div>
+  </div>
+  <div class="container w3-white">
+    <h1>Sample Project 1</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book.</p>
+    <!-- <h1>{{ homeProjects[0].projectName }}</h1>
+      <p>{{ homeProjects[0].shortDescription }}</p> -->
+    <button>View More -></button>
+  </div>
+</div>
+
+<div class="polaroid">
+  <div class="cardimg-top" *ngIf="homeProjects[1]"
+    (click)="viewProject(homeProjects[1].projectId)">
+    <img [src]="homeProjects[1].avatarUrl"
+      [alt]="homeProjects[1].projectName" />
+    <div class="info">
+    </div>
+  </div>
+  <div class="container w3-white">
+    <h1>Sample Project 2</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book.</p>
+    <button>View More -></button>
+  </div>
+</div>
+
+<div class="polaroid">
+  <div class="cardimg-top" *ngIf="homeProjects[2]"
+    (click)="viewProject(homeProjects[2].projectId)">
+    <img [src]="homeProjects[2].avatarUrl"
+      [alt]="homeProjects[2].projectName" />
+    <div class="info">
+    </div>
+  </div>
+  <div class="container w3-white">
+    <h1>Sample Project 3</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book.</p>
+    <button>View More -></button>
+  </div>
+</div>
+
+<div class="title-text"><h1>Sample<br><b>Project</b></h1></div>
+
+<div class="polaroid">
+  <img class="cardimg" src="assets/Images/project-4.png" alt="Cinque Terre">
+</div>
+<div class="polaroid-mid">
+  <div class="cardimg">
+    <img class src="assets/Images/project-5.png" alt="Cinque Terre">
+  </div>
+  <div class="container w3-white text-2">
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book. It has survived not only five
+      centuries, but also the leap into electronic typesetting, remaining
+      essentially unchanged. It was popularised in the 1960s with the release of
+      Letraset sheets containing Lorem Ipsum passages, and more recently with
+      desktop publishing software like Aldus PageMaker including versions of
+      Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and
+      typesetting industry. Lorem Ipsum has been the industry's standard dummy
+      text ever since the 1500s, when an unknown printer took a galley of type
+      and scrambled it to make a type specimen book. It has survived not only
+      five centuries, but also the leap into electronic typesetting, remaining
+      essentially unchanged. It was popularised in the 1960s with the release of
+      Letraset sheets containing Lorem Ipsum passages, and more recently with
+      desktop publishing software like Aldus PageMaker including versions of
+      Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and
+      typesetting industry. Lorem Ipsum has been the industry's standard dummy
+      text ever since the 1500s, when an unknown printer took a galley of type
+      and scrambled it to make a type specimen book. It has survived not only
+      five centuries, but also the leap into electronic typesetting, remaining
+      essentially unchanged. It was popularised in the 1960s with the release of
+      Letraset sheets containing Lorem Ipsum passages, and more recently
+      with.</p>
+  </div>
+</div>
+<div class="polaroid">
+  <img class="cardimg" src="assets/Images/project-6.png" alt="Cinque Terre">
+</div>
+<div class="page">
+  <div class="number-page">
+    <!-- {{ formatNumber(getCurrentSlideNumber()) }} / {{
+      formatNumber(slides.length) }} -->
+  </div>
+  <!-- <div class="button-sline">
+    <button><i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </button>
+    <button><i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </button>
+  </div> -->
+</div>
+<a href="#"><i class="fa fa-pinterest"></i></a>
+<app-footer></app-footer>

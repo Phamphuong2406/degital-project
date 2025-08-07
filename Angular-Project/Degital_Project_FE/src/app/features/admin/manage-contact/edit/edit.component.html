@@ -1,0 +1,70 @@
+<p>project-add works!</p>
+<form
+  method="post"
+  [formGroup]="contactEditForm"
+  (ngSubmit)="onSubmit()"
+  enctype="multipart/form-data"
+>
+  <div class="mb-3 form-check">
+    <label class="form-label">Tên Khách hàng</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="custommerName"
+      required
+    />
+    <div *ngIf="submitted && f['custommerName'].errors">
+      <small *ngIf="f['custommerName'].errors['required']"
+        >Tên dự án không để trống</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Địa chỉ email</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="customerEmail"
+      required
+    />
+    <div *ngIf="submitted && f['customerEmail'].errors">
+      <small *ngIf="f['customerEmail'].errors['required']"
+        >Địa chỉ email không để trống</small
+      >
+    </div>
+  </div>
+
+  <div class="mb-3 form-check">
+    <label class="form-label">Nội dung mô tả</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="customerMessage"
+      required
+    />
+    <div *ngIf="submitted && f['customerMessage'].errors">
+      <small *ngIf="f['customerMessage'].errors['required']"
+        >Nội dung không để trống</small
+      >
+    </div>
+  </div>
+  <div class="mb-3 form-check">
+    <label class="form-label">Loại yêu cầu</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="requestType"
+      required
+    />
+    <div *ngIf="submitted && f['requestType'].errors">
+      <small *ngIf="f['requestType'].errors['required']"
+        >Loại yều cầu không để trống</small
+      >
+    </div>
+  </div>
+
+  <input type="hidden" formControlName="ipAddress" />
+  <div class="mb-3 form-check">
+    <button type="submit" class="btn btn-primary">Lưu</button>
+  </div>
+</form>
