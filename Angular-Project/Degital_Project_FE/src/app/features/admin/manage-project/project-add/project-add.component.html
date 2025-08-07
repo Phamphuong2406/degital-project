@@ -65,11 +65,17 @@
       formControlName="detailedDescription"
       requiredd
     /> -->
-    <!-- <ckeditor
+    <!-- app.component.html -->
+
+    <ckeditor
+      *ngIf="Editor && config"
       [editor]="Editor"
-      [config]="editorConfig"
+      [config]="config"
       formControlName="detailedDescription"
-    ></ckeditor> -->
+      tagName="textarea"
+    >
+    </ckeditor>
+
     <div *ngIf="submited && f['detailedDescription'].errors">
       <small *ngIf="f['detailedDescription'].errors['required']"
         >Mô tả chi tiết không để trống</small

@@ -116,7 +116,9 @@ namespace DigitalProject.Repositories.Implements
 
         public PagingModel<ShowOnOurProject> GetListShowOnOurProject(int pageNumber, int pageSize)
         {
-            var query = _context.projects.OrderByDescending(x => x.PostedTime);
+            var query = _context.projects
+                .Where(x => x.DisplayOnHeader == false && x.DisplayOnhome == false) 
+                .OrderByDescending(x => x.PostedTime);
             var totalRecords = query.Count();
 
             var pagedData = query.Skip((pageNumber - 1) * pageSize)

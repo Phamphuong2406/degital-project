@@ -8,9 +8,12 @@ import {
 } from '@angular/forms';
 import { ProjectService } from '../../../../core/services/project.service';
 import { Router } from '@angular/router';
-import { editorConfig } from '../../ckeditor.config';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {
+  CKEditorCloudResult,
+  CKEditorModule,
+  loadCKEditorCloud,
+} from '@ckeditor/ckeditor5-angular';
+import { ClassicEditor, EditorConfig } from 'ckeditor5';
 
 @Component({
   selector: 'app-project-add',
@@ -20,8 +23,10 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrl: './project-add.component.scss',
 })
 export class ProjectAddComponent {
-  public Editor = ClassicEditor;
-  public editorConfig = editorConfig;
+  public Editor: typeof ClassicEditor | null = null;
+
+  public config: EditorConfig | null = null;
+
   projectAddForm: FormGroup;
   submited: boolean = false;
   srcResult: any = null;
@@ -50,7 +55,80 @@ export class ProjectAddComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    loadCKEditorCloud({
+      version: '46.0.0',
+      premium: true,
+    }).then(this._setupEditor.bind(this));
+  }
+  private _setupEditor(
+    cloud: CKEditorCloudResult<{ version: '46.0.0'; premium: true }>
+  ) {
+    const {
+      ClassicEditor,
+      Essentials,
+      Paragraph,
+      Bold,
+      Italic,
+      Underline,
+      Strikethrough,
+      Image,
+      ImageToolbar,
+      ImageUpload,
+      Base64UploadAdapter,
+      Alignment,
+    } = cloud.CKEditor;
+
+    this.Editor = ClassicEditor;
+
+    this.config = {
+      licenseKey:
+        'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3ODI2MDQ3OTksImp0aSI6IjU2ZjllNGJlLTg4YWEtNDQ3OS04ZGJlLTg0YjI4YmZmNmIyMCIsImxpY2Vuc2VkSG9zdHMiOlsiMTI3LjAuMC4xIiwibG9jYWxob3N0IiwiMTkyLjE2OC4qLioiLCIxMC4qLiouKiIsIjE3Mi4qLiouKiIsIioudGVzdCIsIioubG9jYWxob3N0IiwiKi5sb2NhbCJdLCJ1c2FnZUVuZHBvaW50IjoiaHR0cHM6Ly9wcm94eS1ldmVudC5ja2VkaXRvci5jb20iLCJkaXN0cmlidXRpb25DaGFubmVsIjpbImNsb3VkIiwiZHJ1cGFsIl0sImxpY2Vuc2VUeXBlIjoiZGV2ZWxvcG1lbnQiLCJmZWF0dXJlcyI6WyJEUlVQIiwiRTJQIiwiRTJXIl0sInZjIjoiMjliN2IyM2MifQ.dTSFMotYmLwSAUQNYrlFZN0hYSjltMa2aQCOgr487dt6hbVlP5zaESA6XDcF_hIu7CmLTNxaUVQ9c0EUKBWVDA',
+
+      plugins: [
+        Essentials,
+        Paragraph,
+        Bold,
+        Italic,
+        Underline,
+        Strikethrough,
+        Alignment,
+        Image,
+        ImageToolbar,
+        ImageUpload,
+        Base64UploadAdapter,
+      ],
+
+      toolbar: {
+        items: [
+          'heading',
+          '|',
+          'bold',
+          'italic',
+          'underline',
+          'strikethrough',
+          '|',
+          'alignment:left',
+          'alignment:right',
+          '|',
+          'imageUpload',
+          '|',
+          'undo',
+          'redo',
+        ],
+      },
+
+      image: {
+        toolbar: [
+          'imageTextAlternative',
+          'imageStyle:inline',
+          'imageStyle:block',
+          'imageStyle:side',
+        ],
+      },
+    };
+  }
+
   avatarurl = 'assets/Images/empty.png';
   get f() {
     return this.projectAddForm.controls;

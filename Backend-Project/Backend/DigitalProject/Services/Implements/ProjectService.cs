@@ -99,7 +99,7 @@ namespace DigitalProject.Services.Implements
                 project.DisplayOrderOnHeader = model.DisplayOrderOnHeader;
                 project.DisplayOrderOnHome = model.DisplayOrderOnHome;
                 project.ExpirationTimeOnHeader = model.ExpirationTimeOnHeader;
-                project.ProjectId = currentUserId;
+                project.IdPoster = currentUserId;
 
                 _projectRepo.EditProject(project);
             }
