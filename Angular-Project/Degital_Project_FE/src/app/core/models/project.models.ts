@@ -46,6 +46,8 @@ export interface ProjectDisplayedOnHeaderItem {
   projectName: string;
   avatarUrl: string;
   shortDescription: string;
+
+  detailedDescription: string;
   displayOrderOnHeader: number;
 }
 
@@ -54,6 +56,7 @@ export interface ProjectsDisplayedOnOurProjectItem {
   projectName: string;
   avatarUrl: string;
   shortDescription: string;
+  detailedDescription: string;
   displayOrderOnHeader: number;
 }
 
@@ -62,6 +65,7 @@ export interface ProjectSummary {
   projectName: string;
   avatarUrl: string;
   shortDescription: string;
+  detailedDescription: string;
   displayOrderOnHome: number;
 }
 
