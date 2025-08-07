@@ -1,0 +1,428 @@
+<app-header></app-header>
+
+<div class="banner">
+  <image-slider [slides]="headerProjects"></image-slider>
+  <!-- <image-slider [slides]="headerProjects"></image-slider> -->
+
+  <!-- <section class="featured-projects"> -->
+  <!-- <h2>Featured Projects</h2>
+
+    <div *ngIf="loadingHeader" class="cards-grid">
+      <div class="project-card skeleton" *ngFor="let i of [1,2,3]">
+        <div class="thumb"></div>
+        <div class="info">
+          <div class="line short"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div> -->
+
+  <!-- <div *ngIf="!loadingHeader && headerProjects.length === 0" class="empty">
+      Không có dự án nổi bật để hiển thị.
+    </div>
+
+    <div class="cards-grid" *ngIf="!loadingHeader && headerProjects.length">
+      <div
+        class="project-card"
+        *ngFor="let proj of headerProjects"
+        (click)="viewProject(proj.projectId)"
+        role="button"
+        tabindex="0">
+        <div class="thumb-wrapper">
+          <img [src]="proj.avatarUrl" [alt]="proj.projectName + ' thumbnail'" />
+        </div>
+        <div class="info">
+          <h3>{{ proj.projectName }}</h3>
+          <p>{{ proj.shortDescription }}</p>
+        </div>
+      </div>
+    </div> -->
+  <!--
+    <div *ngIf="error && !loadingHeader" class="error">
+      {{ error }}
+    </div> -->
+  <!-- </section> -->
+</div>
+<div class="banner-about">
+  <div class="banner-image-about">
+    <div class="image-left">
+      <img src="assets/Images/top3-2.png" alt="about left 1" />
+      <img src="assets/Images/top3-1.png" alt="about left 2" />
+    </div>
+    <div class="image-right">
+      <img src="assets/Images/top3-3.png" alt="about right" />
+    </div>
+  </div>
+  <div class="banner-text-about">
+    <h1>About</h1>
+    <span>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the
+      1500s,
+      when an unknown printer took a galley of type and scrambled it to make a
+      type
+      specimen book. It has survived not only five centuries, but also the leap
+      into
+      electronic typesetting, remaining essentially unchanged.
+    </span>
+    <button routerLink="/about">Read More!</button>
+  </div>
+</div>
+<div class="main">
+  <h1>Main Focus / Mission Statement</h1>
+  <div class="list-number">
+    <div class="list-one">
+      <img src="assets/Images/1-1.png" alt="focus 1" />
+      <div class="list-one-text">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+          efficitur, lectus et facilisis placerat.</span>
+      </div>
+    </div>
+    <div class="list-two">
+      <img src="assets/Images/2-2.png" alt="focus 2" />
+      <div class="list-two-text">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+          efficitur, lectus et facilisis placerat.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <section class="project">
+  <h1>Our Projects</h1> -->
+
+<!-- <div *ngIf="loadingHome" class="cards-grid">
+    <div class="project-card skeleton" *ngFor="let i of [1,2,3]">
+      <div class="thumb"></div>
+      <div class="info">
+        <div class="line short"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loadingHome && homeProjects.length === 0" class="empty">
+    Chưa có dự án để hiển thị.
+  </div> -->
+
+<!-- <div class="cards-grid" *ngIf="!loadingHome && homeProjects.length">
+    <div class="project-card" *ngFor="let proj of homeProjects" (click)="viewProject(proj.projectId)" role="button" tabindex="0">
+      <div class="thumb-wrapper">
+        <img [src]="proj.avatarUrl" [alt]="proj.projectName" />
+      </div>
+    </div>
+  </div>
+
+  <div class="see-all">
+    <button routerLink="/projects">ALL PROJECTS -></button>
+  </div>
+</section> -->
+<section class="our-projects-composite"
+  *ngIf="!loadingHome && homeProjects.length">
+  <h1>Our Projects</h1>
+
+  <div class="top-row">
+    <div class="big-left" *ngIf="homeProjects[0]"
+      (click)="viewProject(homeProjects[0].projectId)">
+      <div class="project-card">
+        <div class="thumb-wrapper">
+          <img [src]="homeProjects[0].avatarUrl"
+            [alt]="homeProjects[0].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[0].projectName }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="big-right" *ngIf="homeProjects[1]"
+      (click)="viewProject(homeProjects[1].projectId)">
+      <div class="project-card">
+        <div class="thumb-wrapper">
+          <img [src]="homeProjects[1].avatarUrl"
+            [alt]="homeProjects[1].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[1].projectName }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div
+      class="small-card-con"
+      *ngIf="homeProjects[2]"
+      (click)="viewProject(homeProjects[2].projectId)"
+      role="button"
+      tabindex="0">
+      <div class="project-card">
+        <div class="thumb-wrapper">
+          <img [src]="homeProjects[2].avatarUrl"
+            [alt]="homeProjects[2].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[2].projectName }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="small-card"
+      *ngIf="homeProjects[3]"
+      (click)="viewProject(homeProjects[3].projectId)"
+      role="button"
+      tabindex="0">
+      <div class="project-card">
+        <div class="thumb-wrapper">
+          <img [src]="homeProjects[3].avatarUrl"
+            [alt]="homeProjects[3].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[3].projectName }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="small-card-con"
+      *ngIf="homeProjects[4]"
+      (click)="viewProject(homeProjects[4].projectId)"
+      role="button"
+      tabindex="0">
+      <div class="project-card">
+        <div class="thumb-wrapper">
+          <img [src]="homeProjects[4].avatarUrl"
+            [alt]="homeProjects[4].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[4].projectName }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="submit" [disabled]="submitting || f.invalid">
+      <p>ALL PROJECT -></p>
+    </button>
+  </div>
+</section>
+
+<section class="contact">
+  <h1>Contact Us</h1>
+  <div class="contact-us">
+    <div class="input-text">
+      <form (ngSubmit)="sendContact($event, f)" #f="ngForm" novalidate>
+        <div class="field">
+          <textarea
+            placeholder="Name"
+            id="name"
+            name="name"
+            required
+            [(ngModel)]="model.name"
+            #name="ngModel"
+            aria-label="Name"
+            [class.invalid]="(name.invalid && name.touched) || (submitted && name.invalid)"></textarea>
+          <div
+            *ngIf="(name.invalid && name.touched) || (submitted && name.invalid)"
+            class="error">
+            <div class="errors" *ngIf="name.errors?.['required']">Tên không được
+              để
+              trống.</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <textarea
+            placeholder="Phone Number"
+            id="phone"
+            name="phone"
+            required
+            type="tel"
+            [(ngModel)]="model.phone"
+            #phone="ngModel"
+            aria-label="Phone Number"
+            [class.invalid]="(phone.invalid && phone.touched) || (submitted && phone.invalid)"></textarea>
+          <div
+            *ngIf="(phone.invalid && phone.touched) || (submitted && phone.invalid)"
+            class="error">
+            <div class="errors" *ngIf="phone.errors?.['required']">Số điện thoại
+              không được để
+              trống.</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <textarea
+            placeholder="E-mail"
+            id="email"
+            name="email"
+            type="email"
+            required
+            [(ngModel)]="model.email"
+            #email="ngModel"
+            aria-label="Email"
+            [class.invalid]="(email.invalid && email.touched) || (submitted && email.invalid)"></textarea>
+          <div
+            *ngIf="(email.invalid && email.touched) || (submitted && email.invalid)"
+            class="error">
+            <div class="errors" *ngIf="email.errors?.['required']">Email không
+              được để
+              trống.</div>
+            <div class="errors" *ngIf="email.errors?.['email']">Email không hợp
+              lệ.</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <textarea
+            placeholder="Interested In"
+            id="interestedin"
+            name="interestedin"
+            [(ngModel)]="model.interestedIn"
+            aria-label="Interested In"></textarea>
+        </div>
+
+        <div class="field">
+          <textarea
+            placeholder="Message"
+            id="message"
+            name="message"
+            rows="4"
+            [(ngModel)]="model.message"
+            aria-label="Message"></textarea>
+        </div>
+ <div class="actions">
+    <button type="submit" [disabled]="submitting || f.invalid">
+      {{ submitting ? 'Đang gửi...' : 'SEND MAIL ->' }}
+    </button>
+  </div>
+      </form>
+      <div *ngIf="feedbackMessage" [class.error]="contactError"
+        [class.success]="!contactError">
+        {{ feedbackMessage }}
+      </div>
+    </div>
+    <div class="visual">
+      <img src="assets/Images/contact.png" alt="contact illustration" />
+    </div>
+
+  </div>
+
+</section>
+
+<app-footer></app-footer>
+
+<!-- <app-header></app-header>
+<div class="banner">
+  <image-slider [slides] ="slides"></image-slider>
+  <div class="banner-about">
+    <div class="banner-image-about">
+      <div class="image-left">
+        <img src="assets/Images/top3-2.png" alt>
+        <img src="assets/Images/top3-1.png" alt>
+      </div>
+      <div class="image-right">
+        <img src="assets/Images/top3-3.png" alt>
+      </div>
+    </div>
+    <div class="banner-text-about">
+      <h1>About</h1>
+      <span>Lorem Ipsum is simply dummy text of the printing
+        and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown
+        printer took a galley of type and scrambled it to make a type
+        specimen book. It has survived not only five centuries, but also
+        the leap into electronic typesetting, remaining essentially
+        unchanged.</span>
+      <button>Read More!</button>
+    </div>
+
+  </div>
+</div>
+<div class="main">
+  <h1>Main Focus/Mission Statement</h1>
+  <div class="list-number">
+    <div class="list-one">
+      <img src="assets/Images/1-1.png" alt>
+      <div class="list-one-text">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Sed efficitur, lectus et facilisis placerat.</span>
+      </div>
+    </div>
+    <div class="list-two">
+      <img src="assets/Images/2-2.png" alt>
+      <div class="list-two-text">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Sed efficitur, lectus et facilisis placerat.</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="project">
+  <h1>Our Projects</h1>
+  <div class="container">
+    <div class="container-top">
+      <div class="container-con">
+        <img src="assets/Images/op-1.png" alt>
+        <div class="div-select">
+          <p>Sample<br>Project</p>
+          <span>View More -></span>
+        </div>
+      </div>
+      <div class="container-con">
+        <img src="assets/Images/op-2.png" alt>
+        <div class="div-select">
+          <p>Sample<br>Project</p>
+          <span>View More -></span>
+        </div>
+      </div>
+    </div>
+    <div class="container-bottom">
+      <div class="container-con">
+        <img src="assets/Images/op-3.png" alt>
+        <div class="div-select">
+          <p>Sample<br>Project</p>
+          <span>View More -></span>
+        </div>
+      </div>
+      <div class="container-con">
+        <img src="assets/Images/op-4.png" alt>
+        <div class="div-select">
+          <p>Sample<br>Project</p>
+          <span>View More -></span>
+        </div>
+      </div>
+      <div class="container-con">
+        <img src="assets/Images/op-5.png" alt>
+        <div class="div-select">
+          <p>Sample<br>Project</p>
+          <span>View More -></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button>ALL PROJECTS -></button>
+</div>
+<div class="contact">
+  <h1>Contact Us</h1>
+  <div class="contact-us">
+    <div class="input-text">
+      <form action="/">
+        <textarea placeholder="Name" type="text" id="name" name="name"></textarea>
+        <textarea placeholder="Phone Number" type="text" id="phonename"
+          name="name"></textarea>
+        <textarea placeholder="E-mail" type="text" id="email" name="name"></textarea>
+        <textarea placeholder="Interested In" type="text" id="interestedin"
+          name="phonename"></textarea>
+        <textarea placeholder="Message" type="text" id="message"
+          name="phonename"></textarea>
+      </form>
+    </div>
+    <div></div>
+    <img src="assets/Images/contact.png" alt>
+  </div>
+  <button>SEND MAIL -></button>
+</div>
+<app-footer></app-footer> -->

@@ -1,0 +1,117 @@
+<app-header></app-header>
+<div class="title-text"><h1>Our <br><b>Project</b></h1></div>
+<div class="polaroid">
+  <div class="cardimg-top" *ngIf="homeProjects[0]"
+    (click)="viewProject(homeProjects[0].projectId)">
+    <img [src]="homeProjects[0].avatarUrl"
+      [alt]="homeProjects[0].projectName" />
+    <div class="info">
+      <!-- <h2>{{ homeProjects[0].projectName }}</h2>
+      <p>{{ homeProjects[0].shortDescription }}</p> -->
+    </div>
+  </div>
+  <div class="container w3-white">
+    <h1>Sample Project 1</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book.</p>
+    <!-- <h1>{{ homeProjects[0].projectName }}</h1>
+      <p>{{ homeProjects[0].shortDescription }}</p> -->
+    <button>View More -></button>
+  </div>
+</div>
+
+<div class="polaroid">
+  <div class="cardimg-top" *ngIf="homeProjects[1]"
+    (click)="viewProject(homeProjects[1].projectId)">
+    <img [src]="homeProjects[1].avatarUrl"
+      [alt]="homeProjects[1].projectName" />
+    <div class="info">
+    </div>
+  </div>
+  <div class="container w3-white">
+    <h1>Sample Project 2</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book.</p>
+    <button>View More -></button>
+  </div>
+</div>
+
+<div class="polaroid">
+  <div class="cardimg-top" *ngIf="homeProjects[2]"
+    (click)="viewProject(homeProjects[2].projectId)">
+    <img [src]="homeProjects[2].avatarUrl"
+      [alt]="homeProjects[2].projectName" />
+    <div class="info">
+    </div>
+  </div>
+  <div class="container w3-white">
+    <h1>Sample Project 3</h1>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text ever
+      since the 1500s, when an unknown printer took a galley of type and
+      scrambled it to make a type specimen book.</p>
+    <button>View More -></button>
+  </div>
+</div>
+
+<div class="title-text"><h1>Sample<br><b>Project</b></h1></div>
+
+<div class="polaroid-big">
+  <!-- <form>
+    <div class="cardimg-top" *ngIf="homeProjects[3]"
+      (click)="viewProject(homeProjects[3].projectId)">
+      <textarea name="editor1" rows="10"
+        cols="80">{{homeProjects[3].detailedDescription}}</textarea>
+      <div class="info">
+      </div>
+    </div>
+    <script>
+    CKEDITOR.replace( 'editor1' );
+    </script>
+  </form> -->
+<!-- <ckeditor
+  [editor]="Editor"
+  [(ngModel)]="homeProjects[3].detailedDescription"
+></ckeditor> -->
+<!-- <ckeditor
+  *ngIf="homeProjects[3]"
+  [editor]="Editor"
+  [(ngModel)]="homeProjects[3].detailedDescription">
+</ckeditor> -->
+<div class="cardimg-top" *ngIf="homeProjects[3]"
+    (click)="viewProject(homeProjects[3].projectId)">
+    <img [src]="homeProjects[3].avatarUrl"
+      [alt]="homeProjects[3].projectName" />
+    <div class="info">
+    </div>
+  </div>
+
+
+</div>
+  <!-- <form>
+    <textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor 4.
+            </textarea>
+    <script>
+                // Replace the <textarea id="editor1"> with a CKEditor 4
+                // instance, using default configuration.
+                CKEDITOR.replace( 'editor1' );
+            </script>
+  </form> -->
+
+<div class="number-page">
+  <!-- {{ formatNumber(getCurrentSlideNumber()) }} / {{
+      formatNumber(slides.length) }} -->
+</div>
+<!-- <div class="button-sline">
+    <button><i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </button>
+    <button><i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </button>
+  </div> -->
+<a href="#"><i class="fa fa-pinterest"></i></a>
+<app-footer></app-footer>
