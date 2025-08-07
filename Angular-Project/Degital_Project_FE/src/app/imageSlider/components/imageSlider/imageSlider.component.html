@@ -3,12 +3,12 @@
     <h1>PROJECT <br><b>Lorum</b></h1>
 
     <div class="button-sline">
-      <button (click)="goToPrevious()"><i class="fa fa-arrow-left"></i></button>
-      <button (click)="goToNext()"><i class="fa fa-arrow-right"></i></button>
+      <button class="btn" (click)="goToPrevious()"><i class="fa fa-arrow-left"></i></button>
+      <button class="btn" (click)="goToNext()"><i class="fa fa-arrow-right"></i></button>
     </div>
 
     <div class="number-page">
-     <span>{{ formatNumber(getCurrentSlideNumber()) }}</span>  /
+     <span>{{ formatNumber(getCurrentSlideNumber()) }}</span> <span>╱</span>
 
      <span>
       {{ formatNumber(slides.length) }}
