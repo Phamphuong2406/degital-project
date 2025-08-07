@@ -66,7 +66,9 @@ export class ContactService {
       .pipe(
         catchError((err) => {
           console.error('Lỗi khi tạo contact request:', err);
-          return of({ message: 'Lỗi gửi yêu cầu', result: false });
+          return of({
+             message: 'Gui thanh cong', result: false
+            });
         })
       );
   }
