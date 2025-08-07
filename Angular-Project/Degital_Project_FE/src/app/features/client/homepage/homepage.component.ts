@@ -1,86 +1,107 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { ProjectService } from '../../../core/services/project.service';
-import { ProjectDisplayedOnHeaderItem, ProjectSummary } from '../../../core/models/project.models';
 import { ContactService } from '../../../core/services/contact.service';
+
+import {
+  ProjectDisplayedOnHeaderItem,
+  ProjectSummary,
+} from '../../../core/models/project.models';
 import { ContactCreateModel } from '../../../core/models/contact.models';
+
+interface ContactFormModel {
+  name: string;
+  phone: string;
+  email: string;
+  interestedIn: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-homepage',
   standalone: false,
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss']
+  styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
+  // Form variables
   submitted = false;
-  headerProjects: ProjectDisplayedOnHeaderItem[] = []; // ✅ Chỉ giữ lại 1 lần
-  homeProjects: ProjectSummary[] = [];
-  loadingHeader = false;
-  loadingHome = false;
-  errorMessage?: string;
   submitting = false;
   feedbackMessage = '';
   contactError = false;
 
-  model = {
+  model: ContactFormModel = {
     name: '',
     phone: '',
     email: '',
     interestedIn: '',
-    message: ''
+    message: '',
   };
+
+  // Projects
+  headerProjects: ProjectDisplayedOnHeaderItem[] = [];
+  homeProjects: ProjectSummary[] = [];
+  loadingHeader = false;
+  loadingHome = false;
 
   constructor(
     private projectService: ProjectService,
-    private contactService: ContactService
-  ) { }
+    private contactService: ContactService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadHeaderProjects();
     this.loadOurProjects();
   }
 
+  // Load projects for image slider
   loadHeaderProjects() {
     this.loadingHeader = true;
     this.projectService.getProjectsDisplayedOnHeader().subscribe({
-      next: res => {
-        this.headerProjects = res.data.map(p => ({
+      next: (res) => {
+        this.headerProjects = res.data.map((p) => ({
           ...p,
           avatarUrl: p.avatarUrl.startsWith('http')
             ? p.avatarUrl
-            : `https://localhost:7132/Uploads/${p.avatarUrl}`
+            : `https://localhost:7132/Uploads/${p.avatarUrl}`,
         }));
         this.loadingHeader = false;
       },
-      error: err => {
+      error: (err) => {
         console.error(err);
         this.loadingHeader = false;
-      }
+      },
     });
   }
 
+  // Load projects for homepage section
   loadOurProjects() {
     this.loadingHome = true;
     this.projectService.getProjectsDisplayedOnHomePage().subscribe({
-      next: data => {
-        this.homeProjects = data.map(p => ({
+      next: (data) => {
+        this.homeProjects = data.map((p) => ({
           ...p,
           avatarUrl: p.avatarUrl.startsWith('http')
             ? p.avatarUrl
-            : `https://localhost:7132/Uploads/${p.avatarUrl}`
+            : `https://localhost:7132/Uploads/${p.avatarUrl}`,
         }));
         this.loadingHome = false;
       },
-      error: err => {
+      error: (err) => {
         console.error(err);
         this.loadingHome = false;
-      }
+      },
     });
   }
 
+  // Go to project detail
   viewProject(id: number) {
-    // TODO: Implement if needed
+    this.router.navigate(['/project-detail', id]);
   }
 
+  // Send contact form
   sendContact(event: Event, f: any) {
     event.preventDefault();
     this.submitted = true;
@@ -102,30 +123,39 @@ export class HomepageComponent implements OnInit {
       customerMessage: this.model.message.trim(),
       requestType: this.model.interestedIn.trim() || 'General',
       status: 'New',
-      ipAddress: ''
+      ipAddress: '' // Optional
     };
 
     this.contactService.createContactRequest(payload).subscribe({
-      next: res => {
+      next: (res) => {
         this.submitting = false;
         if (res.result) {
           this.feedbackMessage = 'Gửi liên hệ thành công. Cảm ơn bạn!';
           this.contactError = false;
-          this.model = { name: '', phone: '', email: '', interestedIn: '', message: '' };
+          this.model = {
+            name: '',
+            phone: '',
+            email: '',
+            interestedIn: '',
+            message: '',
+          };
+          this.submitted = false;
+          f.resetForm();
         } else {
           this.contactError = true;
-          this.feedbackMessage = res.message || 'Có lỗi xảy ra, thử lại sau.';
+          this.feedbackMessage =
+            res.message || 'Có lỗi xảy ra, vui lòng thử lại sau.';
         }
       },
-      error: err => {
+      error: (err) => {
         this.submitting = false;
         this.contactError = true;
         this.feedbackMessage =
           err?.error?.message ||
           err?.message ||
-          'Không thể kết nối đến server hoặc có lỗi phía server.';
-        console.error('Lỗi HTTP:', err);
-      }
+          'Không thể kết nối đến máy chủ.';
+        console.error('Lỗi gửi liên hệ:', err);
+      },
     });
   }
 }
