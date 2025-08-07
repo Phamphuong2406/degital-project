@@ -120,6 +120,7 @@
 <section class="our-projects-composite"
   *ngIf="!loadingHome && homeProjects.length">
   <h1>Our Projects</h1>
+
   <div class="top-row">
     <div class="big-left" *ngIf="homeProjects[0]"
       (click)="viewProject(homeProjects[0].projectId)">
@@ -127,11 +128,9 @@
         <div class="thumb-wrapper">
           <img [src]="homeProjects[0].avatarUrl"
             [alt]="homeProjects[0].projectName" />
-        </div>
-        <div class="info">
-          <!-- <h2>{{ homeProjects[0].projectName }}</h2> -->
-          <p>{{ homeProjects[0].shortDescription }}</p>
-          <!-- <span class="view-more">View More →</span> -->
+          <div class="overlay">
+            <h2>{{ homeProjects[0].projectName }}</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -142,6 +141,9 @@
         <div class="thumb-wrapper">
           <img [src]="homeProjects[1].avatarUrl"
             [alt]="homeProjects[1].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[1].projectName }}</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -149,24 +151,62 @@
 
   <div class="bottom-row">
     <div
-      class="small-card"
-      *ngFor="let proj of homeProjects.slice(2, 5)"
-      (click)="viewProject(proj.projectId)"
+      class="small-card-con"
+      *ngIf="homeProjects[2]"
+      (click)="viewProject(homeProjects[2].projectId)"
       role="button"
       tabindex="0">
       <div class="project-card">
         <div class="thumb-wrapper">
-          <img [src]="proj.avatarUrl" [alt]="proj.projectName" />
+          <img [src]="homeProjects[2].avatarUrl"
+            [alt]="homeProjects[2].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[2].projectName }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="small-card"
+      *ngIf="homeProjects[3]"
+      (click)="viewProject(homeProjects[3].projectId)"
+      role="button"
+      tabindex="0">
+      <div class="project-card">
+        <div class="thumb-wrapper">
+          <img [src]="homeProjects[3].avatarUrl"
+            [alt]="homeProjects[3].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[3].projectName }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="small-card-con"
+      *ngIf="homeProjects[4]"
+      (click)="viewProject(homeProjects[4].projectId)"
+      role="button"
+      tabindex="0">
+      <div class="project-card">
+        <div class="thumb-wrapper">
+          <img [src]="homeProjects[4].avatarUrl"
+            [alt]="homeProjects[4].projectName" />
+          <div class="overlay">
+            <h2>{{ homeProjects[4].projectName }}</h2>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="actions">
     <button type="submit" [disabled]="submitting || f.invalid">
       <p>ALL PROJECT -></p>
     </button>
   </div>
-
 </section>
 
 <section class="contact">
@@ -187,7 +227,8 @@
           <div
             *ngIf="(name.invalid && name.touched) || (submitted && name.invalid)"
             class="error">
-            <div class="errors" *ngIf="name.errors?.['required']">Tên không được để
+            <div class="errors" *ngIf="name.errors?.['required']">Tên không được
+              để
               trống.</div>
           </div>
         </div>
@@ -206,7 +247,8 @@
           <div
             *ngIf="(phone.invalid && phone.touched) || (submitted && phone.invalid)"
             class="error">
-            <div class="errors" *ngIf="phone.errors?.['required']">Số điện thoại không được để
+            <div class="errors" *ngIf="phone.errors?.['required']">Số điện thoại
+              không được để
               trống.</div>
           </div>
         </div>
@@ -225,9 +267,11 @@
           <div
             *ngIf="(email.invalid && email.touched) || (submitted && email.invalid)"
             class="error">
-            <div class="errors" *ngIf="email.errors?.['required']">Email không được để
+            <div class="errors" *ngIf="email.errors?.['required']">Email không
+              được để
               trống.</div>
-            <div class="errors" *ngIf="email.errors?.['email']">Email không hợp lệ.</div>
+            <div class="errors" *ngIf="email.errors?.['email']">Email không hợp
+              lệ.</div>
           </div>
         </div>
 
@@ -249,8 +293,11 @@
             [(ngModel)]="model.message"
             aria-label="Message"></textarea>
         </div>
-
-
+ <div class="actions">
+    <button type="submit" [disabled]="submitting || f.invalid">
+      {{ submitting ? 'Đang gửi...' : 'SEND MAIL ->' }}
+    </button>
+  </div>
       </form>
       <div *ngIf="feedbackMessage" [class.error]="contactError"
         [class.success]="!contactError">
@@ -262,11 +309,7 @@
     </div>
 
   </div>
-<div class="actions">
-          <button type="submit" [disabled]="submitting || f.invalid">
-            {{ submitting ? 'Đang gửi...' : 'SEND MAIL ->' }}
-          </button>
-        </div>
+
 </section>
 
 <app-footer></app-footer>
