@@ -67,7 +67,7 @@ export class ContactService {
         catchError((err) => {
           console.error('Lỗi khi tạo contact request:', err);
           return of({
-             message: 'Gui thanh cong', result: false
+             message: 'Đã gửi thành công!', result: false
             });
         })
       );

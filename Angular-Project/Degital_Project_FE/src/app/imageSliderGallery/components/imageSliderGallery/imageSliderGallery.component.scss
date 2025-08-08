@@ -34,6 +34,20 @@ div.gallery:hover {
 .page{
   display: flex;
 }
+.main-slide {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 .number-page{
     width: 163px;

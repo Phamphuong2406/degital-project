@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SettingService } from '../../../../core/services/setting.service';
-import { Setting } from '../../../../core/models/setting.model';
+import { SettingService } from '../../../core/services/setting.service';
+import { Setting } from '../../../core/models/setting.model';
 
 @Component({
   selector: 'app-footer',

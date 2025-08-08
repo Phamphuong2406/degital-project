@@ -18,6 +18,13 @@ export interface ProjectModel {
   idPoster: number;
 }
 
+export interface ProjectDetail {
+  projectName: string;
+  avatarUrl: string;
+  detailedDescription: string;
+}
+
+
 export interface ProjectCreateOrUpdateModel {
   projectName: string;
   projectType: string;
@@ -46,7 +53,6 @@ export interface ProjectDisplayedOnHeaderItem {
   projectName: string;
   avatarUrl: string;
   shortDescription: string;
-
   detailedDescription: string;
   displayOrderOnHeader: number;
 }
@@ -60,13 +66,19 @@ export interface ProjectsDisplayedOnOurProjectItem {
   displayOrderOnHeader: number;
 }
 
+// export interface ProjectSummary {
+//   projectId: number;
+//   projectName: string;
+//   avatarUrl: string;
+//   shortDescription: string;
+//   detailedDescription: string;
+//   displayOrderOnHome: number;
+// }
 export interface ProjectSummary {
   projectId: number;
   projectName: string;
   avatarUrl: string;
   shortDescription: string;
-  detailedDescription: string;
-  displayOrderOnHome: number;
 }
 
 export type ProjectsDisplayedOnOurProject = PagedResult<ProjectSummary>;

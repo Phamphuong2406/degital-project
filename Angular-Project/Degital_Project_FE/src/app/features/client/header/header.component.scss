@@ -65,21 +65,25 @@ header {
   cursor: pointer;
 }
 
-// .hr-t {
-//   position: absolute;
-//   height: 20px;
-//   width: 30px;
-//   left: 30px;
-//   top: 5px;
-//   border: 1px solid black;
-//   border-radius: 0px;
-//   border-left: 0px;
-//   border-right: 0px;
-//   padding-top: 1px;
-//   padding-bottom: 1px;
+.hr-t {
+  position: absolute;
+  transition: left 0.3s ease;
+  height: 20px;
+  width: 30px;
+  left: 30px;
+  top: 5px;
+  border: 1px solid black;
+  border-radius: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 
-// }
-
+}
+.hr-t-change1 { left: 100px; }
+.hr-t-change2 { left: 200px; }
+.hr-t-change3 { left: 300px; }
+.hr-t-change4 { left: 400px; }
 // .hr-t-change1 {
 //   position: absolute;
 
@@ -137,20 +141,17 @@ header {
 //   padding-bottom: 1px;
 // }
 
-.hr-t {
-  height: 2px;
-  background-color: #ff6600;
-  width: 100px;
-  transition: all 0.3s ease;
-  position: absolute;
-  top: 100%;
-  left: 0;
-}
+// .hr-t {
+//   height: 2px;
+//   background-color: #ff6600;
+//   width: 100px;
+//   transition: all 0.3s ease;
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+// }
 
-.hr-t-change1 { left: 100px; }
-.hr-t-change2 { left: 200px; }
-.hr-t-change3 { left: 300px; }
-.hr-t-change4 { left: 400px; }
+
 
 
 .contact-top {

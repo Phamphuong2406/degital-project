@@ -1,0 +1,29 @@
+<app-header></app-header>
+<div class="project-detail-page">
+  <div class="title-text">
+    <h1>Our <br /><b>Project</b></h1>
+  </div>
+  <div class="polaroid-big">
+    <ng-container *ngIf="project as p; else loadingOrError">
+      <div class="project-detail-container">
+        <!-- <h2>{{ p.projectName }}</h2> -->
+
+        <!-- <img
+          *ngIf="p.avatarUrl"
+          [src]="'https://localhost:7132/uploads/' + p.avatarUrl"
+          [alt]="p.projectName"
+          style="max-width: 100%; height: auto; margin-bottom: 20px;" /> -->
+
+        <div class="description" [innerHTML]="p.detailedDescription"></div>
+      </div>
+    </ng-container>
+
+    <ng-template #loadingOrError>
+      <p *ngIf="loading">Đang tải dữ liệu...</p>
+      <p *ngIf="!loading" style="color: red;">
+        Không có dữ liệu dự án để hiển thị.
+      </p>
+    </ng-template>
+  </div>
+</div>
+<app-footer></app-footer>

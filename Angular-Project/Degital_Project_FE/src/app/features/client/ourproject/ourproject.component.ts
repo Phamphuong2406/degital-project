@@ -1,63 +1,40 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectService } from '../../../core/services/project.service';
 import { ProjectSummary } from '../../../core/models/project.models';
 
 @Component({
   selector: 'app-ourproject',
-  standalone: false,
+  standalone:false,
   templateUrl: './ourproject.component.html',
   styleUrls: ['./ourproject.component.scss']
 })
 export class OurprojectComponent implements OnInit {
-  loading = false;
-  homeProjects: ProjectSummary[] = [];
-  selectedProject: ProjectSummary | null = null;
+  projects: ProjectSummary[] = [];
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadProjects();
   }
 
-  loadProjects() {
-    this.loading = true;
-    this.projectService.getProjectsDisplayedOnOurProject().subscribe({
-      next: response => {
-        const data = Array.isArray(response) ? response : response.data;
-        this.homeProjects = data
-          .sort((a, b) => a.displayOrderOnHeader - b.displayOrderOnHeader)
-          .map(p => ({
-            ...p,
-            avatarUrl: p.avatarUrl.startsWith('http')
-              ? p.avatarUrl
-              : `https://localhost:7132/Uploads/${p.avatarUrl}`
-          }));
-
-        this.loading = false;
+  loadProjects(): void {
+    this.projectService.getProjectsDisplayedOnOurProject(1, 3).subscribe({
+      next: (response) => {
+        this.projects = response.data;
+        console.log('✅ Projects loaded:', this.projects);
       },
-      error: err => {
-        console.error(err);
-        this.loading = false;
+      error: (err) => {
+        console.error('❌ Error loading projects:', err);
       }
     });
   }
 
-
-viewProject(id: number) {
-    this.projectService.getProjectsDisplayedOnProjectDetail(id).subscribe({
-      next: response => {
-        this.selectedProject = {
-          ...response,
-          avatarUrl: response.avatarUrl.startsWith('http')
-            ? response.avatarUrl
-            : `https://localhost:7132/Uploads/${response.avatarUrl}`
-        };
-        console.log(this.selectedProject);
-      },
-      error: err => {
-        console.error(err);
-      }
-    });
+  viewProject(id: number): void {
+    this.router.navigate(['/project-detail', id]);
   }
 
+  getImageUrl(avatarUrl: string): string {
+    return `https://localhost:7132/uploads/${avatarUrl}`;
+  }
 }

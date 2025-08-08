@@ -1,26 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { GalleryService } from '../../../core/services/gallery.service';
 import { SlideGalleryInterface } from '../../../imageSliderGallery/types/slide.interface';
+import { GalleryModel } from '../../../core/models/gallery.models';
+
 @Component({
   selector: 'app-gallery',
   standalone: false,
   templateUrl: './gallery.component.html',
-  styleUrl: './gallery.component.scss'
+  styleUrls: ['./gallery.component.scss'],
 })
-export class GalleryComponent {
-  slides: SlideGalleryInterface[] = [
-    { url: 'assets/Images/Rectangle 23.png', title: 'image2', number: 1 },
-    { url: 'assets/Images/Rectangle 24.png', title: 'image3', number: 2 },
-    { url: 'assets/Images/Rectangle 25.png', title: 'image3', number: 3 },
-    { url: 'assets/Images/Rectangle 26.png', title: 'image3', number: 4 },
-    { url: 'assets/Images/Rectangle 27.png', title: 'image3', number: 5 },
-    { url: 'assets/Images/Rectangle 28.png', title: 'image3', number: 6 },
-    { url: 'assets/Images/Rectangle 29.png', title: 'image3', number: 7 },
-    { url: 'assets/Images/Rectangle 30.png', title: 'image3', number: 8 },
-    { url: 'assets/Images/Rectangle 31.png', title: 'image3', number: 9 },
-  ];
+export class GalleryComponent implements OnInit {
+  slides: SlideGalleryInterface[] = [];
 
+  constructor(private galleryService: GalleryService) {}
+
+  ngOnInit(): void {
+    this.galleryService.getListGallery().subscribe({
+      next: (res) => {
+        this.slides = res.data.map((gallery: GalleryModel, index: number) => ({
+          url: gallery.imageUrl.startsWith('http')
+            ? gallery.imageUrl
+            : `https://localhost:7132/Uploads/${gallery.imageUrl}`,
+          number: index + 1,
+        }));
+      },
+      error: (err) => console.error('Error loading gallery', err),
+    });
+  }
 }
-
-

@@ -73,4 +73,9 @@ export class GalleryService {
       { responseType: 'text' as 'json' }
     );
   }
+
+  getAllGallery(): Observable<GalleryModel[]> {
+  return this.http.get<GalleryModel[]>(`${this.baseUrl}/GalleryManagement`);
+}
+
 }

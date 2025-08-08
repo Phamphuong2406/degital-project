@@ -4,7 +4,7 @@ import { CompanycertificationsComponent } from './features/client/companycertifi
 import { OurprojectComponent } from './features/client/ourproject/ourproject.component';
 import { ContactinformationComponent } from './features/client/contactinformation/contactinformation.component';
 import { NgModule } from '@angular/core';
-
+import { ProjectDetailComponent } from './features/client/ourproject/project-detail/project-detail.component';
 import { HomepageComponent } from './features/client/homepage/homepage.component';
 export const routes: Routes = [
 

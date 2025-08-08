@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { AuthService } from '../../../../core/services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 
 @Component({
@@ -12,25 +12,27 @@ import { AuthService } from '../../../../core/services/auth.service';
 export class HeaderComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService) { }
 statusClass = 'hr-t';
+hrLeft: number = 30;
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
 
         if (url === '/' || url.startsWith('/home')) {
-          this.statusClass = 'hr-t';
+          this.hrLeft = 30;
         } else if (url.startsWith('/gallery')) {
-          this.statusClass = 'hr-t-change1';
+          this.hrLeft = 100;
         } else if (url.startsWith('/ourproject')) {
-          this.statusClass = 'hr-t-change2';
+          this.hrLeft = 200;
         } else if (url.startsWith('/company')) {
-          this.statusClass = 'hr-t-change3';
+          this.hrLeft = 300;
         } else if (url.startsWith('/contact')) {
-          this.statusClass = 'hr-t-change4';
+          this.hrLeft = 400;
         }
       }
     });
   }
+
   goToHome() {
     this.router.navigate(['homepage']);
   }
