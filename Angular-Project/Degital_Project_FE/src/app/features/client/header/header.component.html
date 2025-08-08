@@ -1,18 +1,17 @@
 <header>
   <div class="contact-top">
     <div class="profile-contact">
-      <img src="assets/Images/icon.png" alt>
+      <img src="assets/Images/icon.png" alt />
     </div>
     <div class="link">
-     <div class="hr-t" [ngStyle]="{'left.px': hrLeft}"></div>
-<a [routerLink]="'/'" class="btn btn-primary">MAIN</a>
-<a [routerLink]="'/gallery'" class="btn btn-primary">GALLERY</a>
-<a [routerLink]="'/ourproject'" class="btn btn-primary">PROJECTS</a>
-<a [routerLink]="'/company'" class="btn btn-primary">CERTIFICATIONS</a>
-<a [routerLink]="'/contact'" class="btn btn-primary">CONTACTS</a>
+      <a [routerLink]="'/'" class="btn btn-primary">MAIN</a>
+      <a [routerLink]="'/gallery'" class="btn btn-primary">GALLERY</a>
+      <a [routerLink]="'/ourproject'" class="btn btn-primary">PROJECTS</a>
+      <a [routerLink]="'/company'" class="btn btn-primary">CERTIFICATIONS</a>
+      <a [routerLink]="'/contact'" class="btn btn-primary">CONTACT</a>
 
+
+      <div class="hr-t" [ngClass]="activeTab"></div>
     </div>
   </div>
 </header>
-<script>
-</script>

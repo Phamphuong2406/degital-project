@@ -71,6 +71,10 @@ div.gallery:hover {
       height: 53px;
       border: solid 0px;
       margin-left: 20px;
+      transition: 1s all;
+    }
+    button:hover{
+      background-color: #8b8b8b;
     }
   }
 
