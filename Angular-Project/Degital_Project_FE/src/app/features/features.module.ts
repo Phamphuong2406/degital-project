@@ -26,7 +26,7 @@ import { SharedModule } from '../shared/shared.module'; // ✅ Import SharedModu
     CompanycertificationsComponent,
     ImageSliderComponent,
     ImageSliderGalleryComponent
-    // ❌ KHÔNG khai báo FooterComponent ở đây nữa
+
   ],
   imports: [
     CommonModule,

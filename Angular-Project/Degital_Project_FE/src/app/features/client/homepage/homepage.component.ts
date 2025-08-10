@@ -56,7 +56,7 @@ export class HomepageComponent implements OnInit {
     this.loadOurProjects();
   }
 
-  // Load projects for image slider
+
   loadHeaderProjects() {
     this.loadingHeader = true;
     this.projectService.getProjectsDisplayedOnHeader().subscribe({

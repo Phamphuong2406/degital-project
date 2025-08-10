@@ -19,7 +19,7 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
-  // Ví dụ search trả về list phân trang
+
   getListProject(
     key?: string,
     structuralEngineer?: string,
@@ -117,15 +117,7 @@ export class ProjectService {
     );
   }
 
-
-
-  // getProjectsDisplayedOnProjectDetail(projectId: number): Observable<ProjectModel> {
-  //   return this.http.get<ProjectModel>(
-  //     `${this.baseUrl}/Project/ProjectsDisplayedOnProjectDetail/${projectId}`
-  //   );
-  // }
   getProjectsDisplayedOnProjectDetail(id: number): Observable<any> {
-  // return this.http.get(`/api/Project/ProjectsDisplayedOnProjectDetail/${id}`);
   return  this.http.get(`${this.baseUrl}/Project/ProjectsDisplayedOnProjectDetail/${id}`)
 }
 

@@ -6,13 +6,6 @@
   <div class="polaroid-big">
     <ng-container *ngIf="project as p; else loadingOrError">
       <div class="project-detail-container">
-        <!-- <h2>{{ p.projectName }}</h2> -->
-
-        <!-- <img
-          *ngIf="p.avatarUrl"
-          [src]="'https://localhost:7132/uploads/' + p.avatarUrl"
-          [alt]="p.projectName"
-          style="max-width: 100%; height: auto; margin-bottom: 20px;" /> -->
 
         <div class="description" [innerHTML]="p.detailedDescription"></div>
       </div>

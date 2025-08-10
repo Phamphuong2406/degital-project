@@ -5,8 +5,8 @@ import { FooterComponent } from '../features/client/footer/footer.component';
 import { RouterModule } from '@angular/router'; // Cần thiết để dùng routerLink trong Header/Footer
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
-  imports: [CommonModule, RouterModule],
+  declarations: [ FooterComponent],
+  imports: [CommonModule, RouterModule,HeaderComponent],
   exports: [HeaderComponent, FooterComponent] // ✅ phải export
 })
 export class SharedModule {}
