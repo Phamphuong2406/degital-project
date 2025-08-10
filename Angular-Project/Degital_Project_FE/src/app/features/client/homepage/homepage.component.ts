@@ -76,7 +76,6 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  // Load projects for homepage section
   loadOurProjects() {
     this.loadingHome = true;
     this.projectService.getProjectsDisplayedOnHomePage().subscribe({
@@ -96,12 +95,12 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  // Go to project detail
+
   viewProject(id: number) {
     this.router.navigate(['/project-detail', id]);
   }
 
-  // Send contact form
+
   sendContact(event: Event, f: any) {
     event.preventDefault();
     this.submitted = true;
@@ -123,7 +122,7 @@ export class HomepageComponent implements OnInit {
       customerMessage: this.model.message.trim(),
       requestType: this.model.interestedIn.trim() || 'General',
       status: 'New',
-      ipAddress: '' // Optional
+      ipAddress: ''
     };
 
     this.contactService.createContactRequest(payload).subscribe({
