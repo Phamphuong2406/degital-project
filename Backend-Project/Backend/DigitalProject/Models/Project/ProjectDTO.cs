@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace DigitalProject.Models.Project
 {
@@ -48,12 +48,14 @@ namespace DigitalProject.Models.Project
         public string? AvatarUrl { get; set; }
         public string? ProjectType { get; set; }
     }
-    public class ShowOnOurProject()
+    public class ShowOnOurProject
     {
+        public int? ProjectId { get; set; } 
         public string? ProjectName { get; set; }
         public string? AvatarUrl { get; set; }
         public string? ShortDescription { get; set; }
     }
+
     public class ProjectDetail()
     {
         public string? ProjectName { get; set; }
